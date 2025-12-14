@@ -1,0 +1,15 @@
+{
+  "originHash" : "0dfeae4990895f02805303abf18dbc82e622092489ec5445a5be6de99d140144",
+  "pins" : [
+    {
+      "identity" : "fchucker",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/muhammedfaruk/FChucker",
+      "state" : {
+        "revision" : "a281a3d2f46dc3c8a5255d6ef724005fc59532d3",
+        "version" : "1.2.1"
+      }
+    }
+  ],
+  "version" : 3
+}
