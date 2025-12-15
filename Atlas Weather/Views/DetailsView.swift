@@ -27,26 +27,38 @@ struct DetailsView: View {
                 
                 let current = weather.current
                 let hourly = weather.hourly
-                //let daily = weather.daily
-                VStack {
-                    Text(current.name ?? "")
-                        .font(.system(size: 37, weight: .regular))
-                    Text("\(Int(weather.current.main?.temp?.rounded() ?? 0))")
-                        .font(.system(size: 102, weight: .thin))
-                        .overlay(alignment: .topTrailing) {
-                            Text("°")
+                let daily = weather.daily
+                
+                ScrollView(showsIndicators: false) {
+                    VStack {
+                        VStack {
+                            Text(current.name)
+                                .font(.system(size: 37, weight: .regular))
+                            Text("\(Int(weather.current.main.temp.rounded()))")
                                 .font(.system(size: 102, weight: .thin))
-                                .alignmentGuide(.trailing) { d in d[.leading] }
+                                .overlay(alignment: .topTrailing) {
+                                    Text("°")
+                                        .font(.system(size: 102, weight: .thin))
+                                        .alignmentGuide(.trailing) { d in d[.leading] }
+                                }
+                            Text("\(current.weather.first?.description.capitalized ?? "")")
+                                .font(.system(size: 24, weight: .regular))
+                                .foregroundStyle(.secondary)
+                            Text("H:\(Int(current.main.tempMax))° L:\(Int(current.main.tempMin))°")
+                                .font(.system(size: 21, weight: .medium))
                         }
-                    Text("\(current.weather?.first?.description?.capitalized ?? "")")
-                        .font(.system(size: 24, weight: .regular))
-                        .foregroundStyle(.secondary)
-                    Text("H:\(Int(current.main?.tempMax?.rounded() ?? 0)) L:\(Int(current.main?.tempMin?.rounded() ?? 0))")
-                        .font(.system(size: 21, weight: .medium))
+                        .padding(.bottom, 50)
+                        
+                        
+                        HourlyView(weather: hourly)
+                            .cornerRadius(15)
+                            .padding(.horizontal)
+                        
+                        DailyView(weather: daily, current: CurrentWeatherModel.MockData())
+                            .cornerRadius(15)
+                            .padding(.horizontal)
+                    }
                 }
-                HourlyView(weather: hourly)
-                    .cornerRadius(16)
-                    .padding()
                 
             case .error(let error):
                 Text(error.localizedDescription)

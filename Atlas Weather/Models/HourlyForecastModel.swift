@@ -8,57 +8,252 @@
 import Foundation
 
 nonisolated struct HourlyForecastModel: Decodable {
-    let cod: String?
-    let message, cnt: Int?
-    let list: [ListHourly]?
-    let city: CityHourly?
+    let cod: String
+    let message, cnt: Int
+    let list: [ListHourly]
+    let city: CityHourly
     
     static func mockData() -> HourlyForecastModel {
-        let weather = WeatherHourly(id: 2, main: "d", description: "d", icon: "10d")
-        let list = ListHourly(dt: 4, main: MainClassHourly(temp: 2, feelsLike: 3, tempMin: 3, tempMax: 3, pressure: 3, seaLevel: 3, grndLevel: 3, humidity: 3, tempKf: 3), weather: [weather,weather,weather,weather,weather,weather,weather,weather,weather,weather,weather,weather], clouds: CloudsHourly(all: 2), wind: WindHourly(speed: 2, deg: 2, gust: 2), rain: RainHourly(last1H: 2), snow: SnowHourly(last1H: 3), visibility: 3, pop: 1, sys: SysHourly(pod: "f"), dtTxt: "d")
+        let hour1 = ListHourly(
+            dt: 1734354000,
+            main: MainClassHourly(temp: 8.2, feelsLike: 6.1, tempMin: 7.5, tempMax: 8.2, pressure: 1015, seaLevel: 1015, grndLevel: 1012, humidity: 72, tempKf: 0.5),
+            weather: [WeatherHourly(id: 804, main: "Clouds", description: "overcast clouds", icon: "04d")],
+            clouds: CloudsHourly(all: 92),
+            wind: WindHourly(speed: 3.8, deg: 215, gust: 6.2),
+            rain: nil,
+            snow: nil,
+            visibility: 10000,
+            pop: 0.12,
+            sys: SysHourly(pod: "d"),
+            dtTxt: "2024-12-16 12:00:00"
+        )
         
-        return HourlyForecastModel(cod: "tr", message: 1, cnt: 3, list: [list,list,list,list,list,list,list,list,list,list,list,list,list,list,list,list,list], city: CityHourly(id: 1, name: "d", coord: nil, country: "s", population: 1, timezone: 1, sunrise: 1, sunset: 1))
+        let hour2 = ListHourly(
+            dt: 1734357600,
+            main: MainClassHourly(temp: 9.1, feelsLike: 7.2, tempMin: 8.8, tempMax: 9.1, pressure: 1014, seaLevel: 1014, grndLevel: 1011, humidity: 68, tempKf: 0.3),
+            weather: [WeatherHourly(id: 803, main: "Clouds", description: "broken clouds", icon: "04d")],
+            clouds: CloudsHourly(all: 78),
+            wind: WindHourly(speed: 4.1, deg: 220, gust: 7.0),
+            rain: nil,
+            snow: nil,
+            visibility: 10000,
+            pop: 0.08,
+            sys: SysHourly(pod: "d"),
+            dtTxt: "2024-12-16 13:00:00"
+        )
+        
+        let hour3 = ListHourly(
+            dt: 1734361200,
+            main: MainClassHourly(temp: 9.5, feelsLike: 7.8, tempMin: 9.2, tempMax: 9.5, pressure: 1013, seaLevel: 1013, grndLevel: 1010, humidity: 65, tempKf: 0.2),
+            weather: [WeatherHourly(id: 802, main: "Clouds", description: "scattered clouds", icon: "03d")],
+            clouds: CloudsHourly(all: 45),
+            wind: WindHourly(speed: 3.5, deg: 200, gust: 5.8),
+            rain: nil,
+            snow: nil,
+            visibility: 10000,
+            pop: 0.05,
+            sys: SysHourly(pod: "d"),
+            dtTxt: "2024-12-16 14:00:00"
+        )
+        
+        let hour4 = ListHourly(
+            dt: 1734364800,
+            main: MainClassHourly(temp: 8.8, feelsLike: 6.9, tempMin: 8.5, tempMax: 8.8, pressure: 1013, seaLevel: 1013, grndLevel: 1010, humidity: 70, tempKf: 0.1),
+            weather: [WeatherHourly(id: 801, main: "Clouds", description: "few clouds", icon: "02d")],
+            clouds: CloudsHourly(all: 22),
+            wind: WindHourly(speed: 4.0, deg: 195, gust: 6.5),
+            rain: nil,
+            snow: nil,
+            visibility: 10000,
+            pop: 0.02,
+            sys: SysHourly(pod: "d"),
+            dtTxt: "2024-12-16 15:00:00"
+        )
+        
+        let hour5 = ListHourly(
+            dt: 1734368400,
+            main: MainClassHourly(temp: 7.5, feelsLike: 5.2, tempMin: 7.2, tempMax: 7.5, pressure: 1014, seaLevel: 1014, grndLevel: 1011, humidity: 75, tempKf: 0.0),
+            weather: [WeatherHourly(id: 800, main: "Clear", description: "clear sky", icon: "01d")],
+            clouds: CloudsHourly(all: 8),
+            wind: WindHourly(speed: 4.2, deg: 210, gust: 7.1),
+            rain: nil,
+            snow: nil,
+            visibility: 10000,
+            pop: 0.0,
+            sys: SysHourly(pod: "d"),
+            dtTxt: "2024-12-16 16:00:00"
+        )
+        
+        let hour6 = ListHourly(
+            dt: 1734372000,
+            main: MainClassHourly(temp: 6.2, feelsLike: 3.8, tempMin: 6.0, tempMax: 6.2, pressure: 1015, seaLevel: 1015, grndLevel: 1012, humidity: 80, tempKf: 0.0),
+            weather: [WeatherHourly(id: 800, main: "Clear", description: "clear sky", icon: "01n")],
+            clouds: CloudsHourly(all: 5),
+            wind: WindHourly(speed: 3.9, deg: 225, gust: 6.8),
+            rain: nil,
+            snow: nil,
+            visibility: 10000,
+            pop: 0.0,
+            sys: SysHourly(pod: "n"),
+            dtTxt: "2024-12-16 17:00:00"
+        )
+        
+        let hour7 = ListHourly(
+            dt: 1734375600,
+            main: MainClassHourly(temp: 5.4, feelsLike: 2.9, tempMin: 5.2, tempMax: 5.4, pressure: 1016, seaLevel: 1016, grndLevel: 1013, humidity: 83, tempKf: 0.0),
+            weather: [WeatherHourly(id: 801, main: "Clouds", description: "few clouds", icon: "02n")],
+            clouds: CloudsHourly(all: 18),
+            wind: WindHourly(speed: 3.6, deg: 230, gust: 6.0),
+            rain: nil,
+            snow: nil,
+            visibility: 10000,
+            pop: 0.0,
+            sys: SysHourly(pod: "n"),
+            dtTxt: "2024-12-16 18:00:00"
+        )
+        
+        let hour8 = ListHourly(
+            dt: 1734379200,
+            main: MainClassHourly(temp: 4.8, feelsLike: 2.1, tempMin: 4.5, tempMax: 4.8, pressure: 1016, seaLevel: 1016, grndLevel: 1013, humidity: 85, tempKf: 0.0),
+            weather: [WeatherHourly(id: 803, main: "Clouds", description: "broken clouds", icon: "04n")],
+            clouds: CloudsHourly(all: 62),
+            wind: WindHourly(speed: 3.8, deg: 240, gust: 6.3),
+            rain: nil,
+            snow: nil,
+            visibility: 10000,
+            pop: 0.15,
+            sys: SysHourly(pod: "n"),
+            dtTxt: "2024-12-16 19:00:00"
+        )
+        
+        let hour9 = ListHourly(
+            dt: 1734382800,
+            main: MainClassHourly(temp: 5.1, feelsLike: 2.5, tempMin: 4.9, tempMax: 5.1, pressure: 1015, seaLevel: 1015, grndLevel: 1012, humidity: 88, tempKf: 0.0),
+            weather: [WeatherHourly(id: 500, main: "Rain", description: "light rain", icon: "10n")],
+            clouds: CloudsHourly(all: 85),
+            wind: WindHourly(speed: 3.5, deg: 250, gust: 5.9),
+            rain: RainHourly(last1H: 0.5),
+            snow: nil,
+            visibility: 8000,
+            pop: 0.65,
+            sys: SysHourly(pod: "n"),
+            dtTxt: "2024-12-16 20:00:00"
+        )
+        
+        let hour10 = ListHourly(
+            dt: 1734386400,
+            main: MainClassHourly(temp: 4.5, feelsLike: 1.8, tempMin: 4.3, tempMax: 4.5, pressure: 1015, seaLevel: 1015, grndLevel: 1012, humidity: 90, tempKf: 0.0),
+            weather: [WeatherHourly(id: 501, main: "Rain", description: "moderate rain", icon: "10n")],
+            clouds: CloudsHourly(all: 92),
+            wind: WindHourly(speed: 3.7, deg: 255, gust: 6.1),
+            rain: RainHourly(last1H: 1.8),
+            snow: nil,
+            visibility: 6000,
+            pop: 0.85,
+            sys: SysHourly(pod: "n"),
+            dtTxt: "2024-12-16 21:00:00"
+        )
+        
+        let hour11 = ListHourly(
+            dt: 1734390000,
+            main: MainClassHourly(temp: 3.8, feelsLike: 0.9, tempMin: 3.6, tempMax: 3.8, pressure: 1016, seaLevel: 1016, grndLevel: 1013, humidity: 92, tempKf: 0.0),
+            weather: [WeatherHourly(id: 500, main: "Rain", description: "light rain", icon: "10n")],
+            clouds: CloudsHourly(all: 88),
+            wind: WindHourly(speed: 3.9, deg: 260, gust: 6.5),
+            rain: RainHourly(last1H: 0.8),
+            snow: nil,
+            visibility: 7000,
+            pop: 0.72,
+            sys: SysHourly(pod: "n"),
+            dtTxt: "2024-12-16 22:00:00"
+        )
+        
+        let hour12 = ListHourly(
+            dt: 1734393600,
+            main: MainClassHourly(temp: 3.2, feelsLike: 0.2, tempMin: 3.0, tempMax: 3.2, pressure: 1017, seaLevel: 1017, grndLevel: 1014, humidity: 88, tempKf: 0.0),
+            weather: [WeatherHourly(id: 804, main: "Clouds", description: "overcast clouds", icon: "04n")],
+            clouds: CloudsHourly(all: 95),
+            wind: WindHourly(speed: 4.0, deg: 265, gust: 6.8),
+            rain: nil,
+            snow: nil,
+            visibility: 10000,
+            pop: 0.25,
+            sys: SysHourly(pod: "n"),
+            dtTxt: "2024-12-16 23:00:00"
+        )
+        
+        return HourlyForecastModel(
+            cod: "200",
+            message: 0,
+            cnt: 12,
+            list: [hour1, hour2, hour3, hour4, hour5, hour6, hour7, hour8, hour9, hour10, hour11, hour12],
+            city: CityHourly(
+                id: 745044,
+                name: "Istanbul",
+                coord: CoordHourly(lat: 41.0082, lon: 28.9784),
+                country: "TR",
+                population: 15460000,
+                timezone: 10800,
+                sunrise: 1734326580,
+                sunset: 1734359940
+            )
+        )
     }
 }
 
 struct CityHourly: Decodable {
-    let id: Int?
-    let name: String?
-    let coord: CoordHourly?
-    let country: String?
-    let population, timezone, sunrise, sunset: Int?
+    let id: Int
+    let name: String
+    let coord: CoordHourly
+    let country: String
+    let population, timezone, sunrise, sunset: Int
 }
 
 struct CoordHourly: Decodable {
-    let lat, lon: Double?
+    let lat, lon: Double
 }
 
 struct ListHourly: Decodable {
-    let dt: Int?
-    let main: MainClassHourly?
-    let weather: [WeatherHourly]?
-    let clouds: CloudsHourly?
-    let wind: WindHourly?
+    let dt: Int
+    let main: MainClassHourly
+    let weather: [WeatherHourly]
+    let clouds: CloudsHourly
+    let wind: WindHourly
     let rain: RainHourly?
     let snow: SnowHourly?
-    let visibility: Int?
-    let pop: Double?
-    let sys: SysHourly?
-    let dtTxt: String?
+    let visibility: Int
+    let pop: Double
+    let sys: SysHourly
+    let dtTxt: String
 }
 
 struct CloudsHourly: Decodable {
-    let all: Int?
+    let all: Int
 }
 
 struct MainClassHourly: Decodable {
-    let temp, feelsLike, tempMin, tempMax: Double?
-    let pressure, seaLevel, grndLevel, humidity: Int?
-    let tempKf: Double?
+    let temp, feelsLike, tempMin, tempMax: Double
+    let pressure, seaLevel, grndLevel, humidity: Int
+    let tempKf: Double
+}
+
+struct SysHourly: Decodable {
+    let pod: String
+}
+
+struct WeatherHourly: Decodable {
+    let id: Int
+    let main, description, icon: String
+}
+
+struct WindHourly: Decodable {
+    let speed: Double
+    let deg: Int
+    let gust: Double?
 }
 
 struct RainHourly: Decodable {
-    let last1H: Double?
+    let last1H: Double
     
     enum CodingKeys: String, CodingKey {
         case last1H = "1h"
@@ -66,24 +261,9 @@ struct RainHourly: Decodable {
 }
 
 struct SnowHourly: Decodable {
-    let last1H: Double?
+    let last1H: Double
     
     enum CodingKeys: String, CodingKey {
         case last1H = "1h"
     }
-}
-
-struct SysHourly: Decodable {
-    let pod: String?
-}
-
-struct WeatherHourly: Decodable {
-    let id: Int?
-    let main, description, icon: String?
-}
-
-struct WindHourly: Decodable {
-    let speed: Double?
-    let deg: Int?
-    let gust: Double?
 }

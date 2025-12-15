@@ -12,20 +12,23 @@ struct HourlyView: View {
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            
             HStack {
-                ForEach(weather.list ?? [], id: \.dt) { item in
+                ForEach(weather.list, id: \.dt) { hour in
                     VStack {
-                        Text(item.dt?.toFormattedDate() ?? "")
-                            .font(.system(size: 17, weight: .medium))
+                        Text(hour.dt.toFormattedDate("HH"))
+                            .font(.system(size: 17))
+                        + Text(hour.dt.toFormattedDate("a"))
+                            .font(.system(size: 13))
                         
-                        Image(systemName: WeatherIconMapper.toSFSymbol(item.weather?.first?.icon ?? "10d"))
+                        
+                        Image(systemName: WeatherIconMapper.toSFSymbol(hour.weather.first?.icon ?? "10d"))
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 22, height: 22)
+                            .frame(width: 25, height: 45)
                         
-                        Text("\(Int(item.main?.temp?.rounded() ?? 0))°")
-                            .font(.system(size: 22, weight: .medium))
+                        Text("\(Int(hour.main.temp))°")
+                            .font(.system(size: 22))
+                            .frame(width: 50)
                     }
                 }
             }
@@ -35,15 +38,6 @@ struct HourlyView: View {
                     .foregroundStyle(ColorManager.backgroundColor)
             }
         }
-    }
-}
-
-extension Int {
-    func toFormattedDate(_ format: String = "HH:mm") -> String {
-        let date = Date(timeIntervalSince1970: TimeInterval(self))
-        let formatter = DateFormatter()
-        formatter.dateFormat = format
-        return formatter.string(from: date)
     }
 }
 

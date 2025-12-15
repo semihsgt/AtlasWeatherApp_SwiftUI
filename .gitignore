@@ -61,3 +61,6 @@ fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
 Atlas Weather/Managers/Secrets.swift
+Atlas Weather/.DS_Store
+.DS_Store
+.DS_Store
