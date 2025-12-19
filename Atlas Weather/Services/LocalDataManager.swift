@@ -15,16 +15,18 @@ class LocalDataManager {
     static let shared = LocalDataManager()
     
     func loadCountries() async throws -> [CountryModel] {
+        
         guard let url = Bundle.main.url(forResource: "Countries", withExtension: "json") else {
-            throw LocalJsonErrors.fileNotFound
+            throw LocalJsonDataErrors.fileNotFound
         }
+        
         do {
             let data = try Data(contentsOf: url)
             return try JSONDecoder().decode([CountryModel].self, from: data)
         } catch let decodingError as DecodingError {
-            throw LocalJsonErrors.decodingFailed(underlyingError: decodingError)
+            throw LocalJsonDataErrors.decodingFailed(underlyingError: decodingError)
         } catch {
-            throw LocalJsonErrors.localFileReadError(underlyingError: error)
+            throw LocalJsonDataErrors.localFileReadError(underlyingError: error)
         }
     }
 }

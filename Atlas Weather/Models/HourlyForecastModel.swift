@@ -8,10 +8,10 @@
 import Foundation
 
 nonisolated struct HourlyForecastModel: Decodable {
-    let cod: String
-    let message, cnt: Int
-    let list: [ListHourly]
-    let city: CityHourly
+    let cod: String?
+    let message, cnt: Int?
+    let list: [ListHourly]?
+    let city: CityHourly?
     
     static func mockData() -> HourlyForecastModel {
         let hour1 = ListHourly(
@@ -86,107 +86,23 @@ nonisolated struct HourlyForecastModel: Decodable {
         
         let hour6 = ListHourly(
             dt: 1734372000,
-            main: MainClassHourly(temp: 6.2, feelsLike: 3.8, tempMin: 6.0, tempMax: 6.2, pressure: 1015, seaLevel: 1015, grndLevel: 1012, humidity: 80, tempKf: 0.0),
-            weather: [WeatherHourly(id: 800, main: "Clear", description: "clear sky", icon: "01n")],
-            clouds: CloudsHourly(all: 5),
-            wind: WindHourly(speed: 3.9, deg: 225, gust: 6.8),
+            main: MainClassHourly(temp: 6.8, feelsLike: 4.3, tempMin: 6.5, tempMax: 6.8, pressure: 1015, seaLevel: 1015, grndLevel: 1012, humidity: 78, tempKf: 0.0),
+            weather: [WeatherHourly(id: 800, main: "Clear", description: "clear sky", icon: "01d")],
+            clouds: CloudsHourly(all: 12),
+            wind: WindHourly(speed: 3.8, deg: 215, gust: 6.5),
             rain: nil,
             snow: nil,
             visibility: 10000,
             pop: 0.0,
-            sys: SysHourly(pod: "n"),
+            sys: SysHourly(pod: "d"),
             dtTxt: "2024-12-16 17:00:00"
-        )
-        
-        let hour7 = ListHourly(
-            dt: 1734375600,
-            main: MainClassHourly(temp: 5.4, feelsLike: 2.9, tempMin: 5.2, tempMax: 5.4, pressure: 1016, seaLevel: 1016, grndLevel: 1013, humidity: 83, tempKf: 0.0),
-            weather: [WeatherHourly(id: 801, main: "Clouds", description: "few clouds", icon: "02n")],
-            clouds: CloudsHourly(all: 18),
-            wind: WindHourly(speed: 3.6, deg: 230, gust: 6.0),
-            rain: nil,
-            snow: nil,
-            visibility: 10000,
-            pop: 0.0,
-            sys: SysHourly(pod: "n"),
-            dtTxt: "2024-12-16 18:00:00"
-        )
-        
-        let hour8 = ListHourly(
-            dt: 1734379200,
-            main: MainClassHourly(temp: 4.8, feelsLike: 2.1, tempMin: 4.5, tempMax: 4.8, pressure: 1016, seaLevel: 1016, grndLevel: 1013, humidity: 85, tempKf: 0.0),
-            weather: [WeatherHourly(id: 803, main: "Clouds", description: "broken clouds", icon: "04n")],
-            clouds: CloudsHourly(all: 62),
-            wind: WindHourly(speed: 3.8, deg: 240, gust: 6.3),
-            rain: nil,
-            snow: nil,
-            visibility: 10000,
-            pop: 0.15,
-            sys: SysHourly(pod: "n"),
-            dtTxt: "2024-12-16 19:00:00"
-        )
-        
-        let hour9 = ListHourly(
-            dt: 1734382800,
-            main: MainClassHourly(temp: 5.1, feelsLike: 2.5, tempMin: 4.9, tempMax: 5.1, pressure: 1015, seaLevel: 1015, grndLevel: 1012, humidity: 88, tempKf: 0.0),
-            weather: [WeatherHourly(id: 500, main: "Rain", description: "light rain", icon: "10n")],
-            clouds: CloudsHourly(all: 85),
-            wind: WindHourly(speed: 3.5, deg: 250, gust: 5.9),
-            rain: RainHourly(last1H: 0.5),
-            snow: nil,
-            visibility: 8000,
-            pop: 0.65,
-            sys: SysHourly(pod: "n"),
-            dtTxt: "2024-12-16 20:00:00"
-        )
-        
-        let hour10 = ListHourly(
-            dt: 1734386400,
-            main: MainClassHourly(temp: 4.5, feelsLike: 1.8, tempMin: 4.3, tempMax: 4.5, pressure: 1015, seaLevel: 1015, grndLevel: 1012, humidity: 90, tempKf: 0.0),
-            weather: [WeatherHourly(id: 501, main: "Rain", description: "moderate rain", icon: "10n")],
-            clouds: CloudsHourly(all: 92),
-            wind: WindHourly(speed: 3.7, deg: 255, gust: 6.1),
-            rain: RainHourly(last1H: 1.8),
-            snow: nil,
-            visibility: 6000,
-            pop: 0.85,
-            sys: SysHourly(pod: "n"),
-            dtTxt: "2024-12-16 21:00:00"
-        )
-        
-        let hour11 = ListHourly(
-            dt: 1734390000,
-            main: MainClassHourly(temp: 3.8, feelsLike: 0.9, tempMin: 3.6, tempMax: 3.8, pressure: 1016, seaLevel: 1016, grndLevel: 1013, humidity: 92, tempKf: 0.0),
-            weather: [WeatherHourly(id: 500, main: "Rain", description: "light rain", icon: "10n")],
-            clouds: CloudsHourly(all: 88),
-            wind: WindHourly(speed: 3.9, deg: 260, gust: 6.5),
-            rain: RainHourly(last1H: 0.8),
-            snow: nil,
-            visibility: 7000,
-            pop: 0.72,
-            sys: SysHourly(pod: "n"),
-            dtTxt: "2024-12-16 22:00:00"
-        )
-        
-        let hour12 = ListHourly(
-            dt: 1734393600,
-            main: MainClassHourly(temp: 3.2, feelsLike: 0.2, tempMin: 3.0, tempMax: 3.2, pressure: 1017, seaLevel: 1017, grndLevel: 1014, humidity: 88, tempKf: 0.0),
-            weather: [WeatherHourly(id: 804, main: "Clouds", description: "overcast clouds", icon: "04n")],
-            clouds: CloudsHourly(all: 95),
-            wind: WindHourly(speed: 4.0, deg: 265, gust: 6.8),
-            rain: nil,
-            snow: nil,
-            visibility: 10000,
-            pop: 0.25,
-            sys: SysHourly(pod: "n"),
-            dtTxt: "2024-12-16 23:00:00"
         )
         
         return HourlyForecastModel(
             cod: "200",
             message: 0,
             cnt: 12,
-            list: [hour1, hour2, hour3, hour4, hour5, hour6, hour7, hour8, hour9, hour10, hour11, hour12],
+            list: [hour1, hour2, hour3, hour4, hour5, hour6],
             city: CityHourly(
                 id: 745044,
                 name: "Istanbul",
@@ -201,69 +117,73 @@ nonisolated struct HourlyForecastModel: Decodable {
     }
 }
 
-struct CityHourly: Decodable {
-    let id: Int
-    let name: String
-    let coord: CoordHourly
-    let country: String
-    let population, timezone, sunrise, sunset: Int
-}
-
-struct CoordHourly: Decodable {
-    let lat, lon: Double
-}
-
-struct ListHourly: Decodable {
-    let dt: Int
-    let main: MainClassHourly
-    let weather: [WeatherHourly]
-    let clouds: CloudsHourly
-    let wind: WindHourly
-    let rain: RainHourly?
-    let snow: SnowHourly?
-    let visibility: Int
-    let pop: Double
-    let sys: SysHourly
-    let dtTxt: String
-}
-
-struct CloudsHourly: Decodable {
-    let all: Int
-}
-
-struct MainClassHourly: Decodable {
-    let temp, feelsLike, tempMin, tempMax: Double
-    let pressure, seaLevel, grndLevel, humidity: Int
-    let tempKf: Double
-}
-
-struct SysHourly: Decodable {
-    let pod: String
-}
-
-struct WeatherHourly: Decodable {
-    let id: Int
-    let main, description, icon: String
-}
-
-struct WindHourly: Decodable {
-    let speed: Double
-    let deg: Int
-    let gust: Double?
-}
-
-struct RainHourly: Decodable {
-    let last1H: Double
+extension HourlyForecastModel {
     
-    enum CodingKeys: String, CodingKey {
-        case last1H = "1h"
+    struct CityHourly: Decodable {
+        let id: Int?
+        let name: String?
+        let coord: CoordHourly?
+        let country: String?
+        let population, timezone, sunrise, sunset: Int?
     }
-}
 
-struct SnowHourly: Decodable {
-    let last1H: Double
-    
-    enum CodingKeys: String, CodingKey {
-        case last1H = "1h"
+    struct CoordHourly: Decodable {
+        let lat, lon: Double?
     }
+
+    struct ListHourly: Decodable {
+        let dt: Int?
+        let main: MainClassHourly?
+        let weather: [WeatherHourly]?
+        let clouds: CloudsHourly?
+        let wind: WindHourly?
+        let rain: RainHourly?
+        let snow: SnowHourly?
+        let visibility: Int?
+        let pop: Double?
+        let sys: SysHourly?
+        let dtTxt: String?
+    }
+
+    struct CloudsHourly: Decodable {
+        let all: Int?
+    }
+
+    struct MainClassHourly: Decodable {
+        let temp, feelsLike, tempMin, tempMax: Double?
+        let pressure, seaLevel, grndLevel, humidity: Int?
+        let tempKf: Double?
+    }
+
+    struct SysHourly: Decodable {
+        let pod: String?
+    }
+
+    struct WeatherHourly: Decodable {
+        let id: Int?
+        let main, description, icon: String?
+    }
+
+    struct WindHourly: Decodable {
+        let speed: Double?
+        let deg: Int?
+        let gust: Double?
+    }
+
+    struct RainHourly: Decodable {
+        let last1H: Double?
+        
+        enum CodingKeys: String, CodingKey {
+            case last1H = "1h"
+        }
+    }
+
+    struct SnowHourly: Decodable {
+        let last1H: Double?
+        
+        enum CodingKeys: String, CodingKey {
+            case last1H = "1h"
+        }
+    }
+
 }

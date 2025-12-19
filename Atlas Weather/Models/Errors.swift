@@ -7,11 +7,15 @@
 
 import Foundation
 
-enum LocalJsonErrors: Error, LocalizedError {
+struct ErrorResponseModel: Decodable {
+    let cod: Int?
+    let message: String?
+}
+
+enum LocalJsonDataErrors: Error, LocalizedError {
     case fileNotFound
     case decodingFailed(underlyingError: Error)
     case localFileReadError(underlyingError: Error)
-    
     
     var errorDescription: String? {
         switch self {
@@ -30,7 +34,7 @@ enum NetworkErrors: Error, LocalizedError {
     case requestFailed
     case clientError(Int, String)
     case serverError(String)
-    case decodingFailed
+    case decodingFailed(String)
     case unknown
     
     var errorDescription: String? {
@@ -43,15 +47,11 @@ enum NetworkErrors: Error, LocalizedError {
             return "Error: \(code). Message: \(message)"
         case .serverError(let message):
             return "Server error: \(message)"
-        case .decodingFailed:
-            return "Failed to decode response."
+        case .decodingFailed(let message):
+            return "Failed to decode response: \(message)"
         case .unknown:
             return "An unknown error has occurred."
         }
     }
 }
 
-struct ErrorResponse: Decodable {
-    let cod: Int?
-    let message: String?
-}

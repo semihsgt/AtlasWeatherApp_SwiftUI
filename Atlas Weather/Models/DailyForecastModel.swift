@@ -8,11 +8,11 @@
 import Foundation
 
 nonisolated struct DailyForecastModel: Decodable {
-    let city: CityDaily
-    let cod: String
-    let message: Double
-    let cnt: Int
-    let list: [ListDaily]
+    let city: CityDaily?
+    let cod: String?
+    let message: Double?
+    let cnt: Int?
+    let list: [ListDaily]?
     
     static func MockData() -> DailyForecastModel {
         let list1 = ListDaily(dt: 1734256800, sunrise: 1734241200, sunset: 1734273600, temp: TempDaily(day: 8, min: 3, max: 10, night: 4, eve: 6, morn: 3), feelsLike: FeelsLikeDaily(day: 6, night: 2, eve: 4, morn: 1), pressure: 1015, humidity: 75, weather: [WeatherDaily(id: 804, main: "Clouds", description: "overcast clouds", icon: "04d")], speed: 4.2, deg: 220, gust: 7.5, clouds: 90, rain: nil, snow: nil, pop: 0.2)
@@ -33,7 +33,7 @@ nonisolated struct DailyForecastModel: Decodable {
         
         let list9 = ListDaily(dt: 1734948000, sunrise: 1734932400, sunset: 1734964800, temp: TempDaily(day: 9, min: 4, max: 11, night: 6, eve: 8, morn: 4), feelsLike: FeelsLikeDaily(day: 7, night: 4, eve: 6, morn: 2), pressure: 1014, humidity: 70, weather: [WeatherDaily(id: 802, main: "Clouds", description: "scattered clouds", icon: "03d")], speed: 3.2, deg: 160, gust: 5.5, clouds: 40, rain: nil, snow: nil, pop: 0.05)
         
-        let list10 = ListDaily(dt: 1735034400, sunrise: 1735018800, sunset: 1735051200, temp: TempDaily(day: 12, min: 6, max: 14, night: 8, eve: 10, morn: 6), feelsLike: FeelsLikeDaily(day: 10, night: 6, eve: 8, morn: 4), pressure: 1010, humidity: 65, weather: [WeatherDaily(id: 800, main: "Clear", description: "clear sky", icon: "01d")], speed: 2.5, deg: 180, gust: 4.0, clouds: 10, rain: nil, snow: nil, pop: 0.0)
+        let list10 = ListDaily(dt: nil, sunrise: nil, sunset: nil, temp: TempDaily(day: nil, min: nil, max: nil, night: nil, eve: nil, morn: nil), feelsLike: FeelsLikeDaily(day: nil, night: nil, eve: nil, morn: nil), pressure: nil, humidity: nil, weather: [WeatherDaily(id: nil, main: nil, description: nil, icon: nil)], speed: nil, deg: nil, gust: nil, clouds: nil, rain: nil, snow: nil, pop: nil)
         
         return DailyForecastModel(
             city: CityDaily(id: 745044, name: "Istanbul", coord: CoordDaily(lon: 28.9784, lat: 41.0082), country: "TR", population: 15460000, timezone: 10800),
@@ -45,42 +45,45 @@ nonisolated struct DailyForecastModel: Decodable {
     }
 }
 
-struct CityDaily: Decodable {
-    let id: Int
-    let name: String
-    let coord: CoordDaily
-    let country: String
-    let population, timezone: Int
-}
+extension DailyForecastModel {
+    
+    struct CityDaily: Decodable {
+        let id: Int?
+        let name: String?
+        let coord: CoordDaily?
+        let country: String?
+        let population, timezone: Int?
+    }
 
-struct CoordDaily: Decodable {
-    let lon, lat: Double
-}
+    struct CoordDaily: Decodable {
+        let lon, lat: Double?
+    }
 
-struct ListDaily: Decodable {
-    let dt, sunrise, sunset: Int
-    let temp: TempDaily
-    let feelsLike: FeelsLikeDaily
-    let pressure, humidity: Int
-    let weather: [WeatherDaily]
-    let speed: Double
-    let deg: Int
-    let gust: Double?
-    let clouds: Int
-    let rain, snow: Double?
-    let pop: Double
-}
+    struct ListDaily: Decodable {
+        let dt, sunrise, sunset: Int?
+        let temp: TempDaily?
+        let feelsLike: FeelsLikeDaily?
+        let pressure, humidity: Int?
+        let weather: [WeatherDaily]?
+        let speed: Double?
+        let deg: Int?
+        let gust: Double?
+        let clouds: Int?
+        let rain, snow: Double?
+        let pop: Double?
+    }
 
-struct FeelsLikeDaily: Decodable {
-    let day, night, eve, morn: Double
-}
+    struct FeelsLikeDaily: Decodable {
+        let day, night, eve, morn: Double?
+    }
 
-struct TempDaily: Decodable {
-    let day, min, max, night: Double
-    let eve, morn: Double
-}
+    struct TempDaily: Decodable {
+        let day, min, max, night: Double?
+        let eve, morn: Double?
+    }
 
-struct WeatherDaily: Decodable {
-    let id: Int
-    let main, description, icon: String
+    struct WeatherDaily: Decodable {
+        let id: Int?
+        let main, description, icon: String?
+    }
 }

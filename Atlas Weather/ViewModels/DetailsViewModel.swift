@@ -6,31 +6,59 @@
 //
 
 import Foundation
-
-struct WeatherDetails {
-    let current: CurrentWeatherModel
-    let hourly: HourlyForecastModel
-    let daily: DailyForecastModel
-}
+import SwiftUI
+internal import Combine
 
 @MainActor
-@Observable
-class DetailsViewModel {
-    private(set) var status: LoadingState<WeatherDetails> = .idle
+class DetailsViewModel: ObservableObject {
     
-    func getAllDetails() async {
+    var current: CurrentWeatherModel?
+    var hourly: HourlyForecastModel?
+    var daily: DailyForecastModel?
+    @Published private(set) var status: LoadingState = .idle
+    let latitude: Double?
+    let longitude: Double?
+    
+    init(latitude: Double?, longitude: Double?) {
+        self.latitude = latitude
+        self.longitude = longitude
+    }
+    
+    func getAllWeathers() async {
         status = .loading
         do {
-            async let current: CurrentWeatherModel = NetworkDataManager.shared.fetchWeather(lat: 39.93117123855586, lon: 32.857508333355966, endpoint: "weather")
-            async let hourly: HourlyForecastModel = NetworkDataManager.shared.fetchWeather(lat: 39.93117123855586, lon: 32.857508333355966,cnt: 24, endpoint: "forecast/hourly")
-            async let daily: DailyForecastModel = NetworkDataManager.shared.fetchWeather(lat: 39.93117123855586, lon: 32.857508333355966,cnt: 10, endpoint: "forecast/daily")
+            async let currentFetch: CurrentWeatherModel? = NetworkDataManager.shared.fetchWeather(lat: latitude, lon: longitude, endpoint: "weather")
+            async let hourlyFetch: HourlyForecastModel? = NetworkDataManager.shared.fetchWeather(lat: latitude, lon: longitude, cnt: 24, endpoint: "forecast/hourly")
+            async let dailyFetch: DailyForecastModel? = NetworkDataManager.shared.fetchWeather(lat: latitude, lon: longitude, cnt: 10, endpoint: "forecast/daily")
             
-            let (currentData, hourlyData, dailyData) = try await (current, hourly, daily)
-            let details = WeatherDetails( current: currentData, hourly: hourlyData, daily: dailyData)
-            status = .success(details)
+            let (currentData, hourlyData, dailyData) = try await (currentFetch, hourlyFetch, dailyFetch)
+            
+            self.current = currentData
+            self.hourly = hourlyData
+            self.daily = dailyData
+            
+            status = .success
         } catch {
-            print(error)
+            print("Error detail: \(error.localizedDescription)")
             status = .error(error)
+        }
+    }
+    
+    func isFavorite(id: Int) -> Bool {
+        return FavoritesViewModel.shared.isFavorite(id: id)
+    }
+    
+    func toggleFavorite(location: SavedFavorite) {
+        FavoritesViewModel.shared.toggleFavorite(location: location)
+        self.objectWillChange.send()
+    }
+    
+    func getSkyGradient(for period: DayPeriod) -> LinearGradient {
+        switch period {
+        case .night: return SkyGradients.nightGradient
+        case .sunrise: return SkyGradients.sunriseGradient
+        case .day: return SkyGradients.dayGradient
+        case .sunset: return SkyGradients.sunsetGradient
         }
     }
 }

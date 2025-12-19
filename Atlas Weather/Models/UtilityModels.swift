@@ -1,5 +1,5 @@
 //
-//  WeatherIconMapper.swift
+//  UtilityModels.swift
 //  Atlas Weather
 //
 //  Created by Semih Söğüt on 13.12.2025.
@@ -7,8 +7,15 @@
 
 import Foundation
 
+enum LoadingState {
+    case idle
+    case loading
+    case success
+    case error(Error)
+}
+
 enum WeatherIconMapper {
-    static func toSFSymbol(_ iconCode: String) -> String {
+    static func toSFSymbol(_ iconCode: String?) -> String {
         switch iconCode {
         case "01d": return "sun.max.fill"
         case "01n": return "moon.fill"
@@ -22,7 +29,14 @@ enum WeatherIconMapper {
         case "11d", "11n": return "cloud.bolt.fill"
         case "13d", "13n": return "snowflake"
         case "50d", "50n": return "cloud.fog.fill"
-        default: return "questionmark.circle"
+        default: return "minus"
         }
     }
+}
+
+enum DayPeriod {
+    case night
+    case sunrise
+    case day
+    case sunset
 }

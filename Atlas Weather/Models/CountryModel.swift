@@ -27,13 +27,16 @@ struct CountryModel: Decodable, Identifiable {
     let independent: Bool
 }
 
-struct Currency: Decodable {
-    let currencyCode: String
-    let symbol: String
-    let name: String
-}
+extension CountryModel {
+    
+    struct Currency: Decodable {
+        let currencyCode: String
+        let symbol: String
+        let name: String
+    }
 
-struct CapitalLocation: Decodable {
-    let latitude: Double
-    let longitude: Double
+    struct CapitalLocation: Decodable {
+        let latitude: Double
+        let longitude: Double
+    }
 }

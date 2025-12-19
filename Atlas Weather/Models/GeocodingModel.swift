@@ -7,11 +7,9 @@
 
 import Foundation
 
-typealias GeocodingModel = [GeocodingItem]
-
-nonisolated struct GeocodingItem: Codable {
-    let name: String
-    let localNames: [String: String]
-    let lat, lon: Double
-    let country, state: String
+nonisolated struct GeocodingModel: Codable {
+    let name: String?
+    let localNames: [String: String]?
+    let lat, lon: Double?
+    let country, state: String?
 }

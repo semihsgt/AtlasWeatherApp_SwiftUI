@@ -13,11 +13,8 @@ struct MyLocationView: View {
     var body: some View {
         NavigationStack(path: $navigationPath) {
             VStack {
-                NavigationLink("Details View") {
-                    DetailsView(navigationPath: $navigationPath)
-                }
+                DetailsView(navigationPath: $navigationPath, topPadding: 50, latitude: 41.0082, longitude: 28.9784, showFavoriteButton: false)
             }
-            .navigationTitle(Text("My Location"))
         }
     }
 }
@@ -25,3 +22,4 @@ struct MyLocationView: View {
 #Preview {
     MyLocationView()
 }
+

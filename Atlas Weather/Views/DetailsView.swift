@@ -9,12 +9,21 @@ import SwiftUI
 
 struct DetailsView: View {
     
-    init(navigationPath: Binding<NavigationPath> = .constant(NavigationPath())) {
+    init(navigationPath: Binding<NavigationPath> = .constant(NavigationPath()), topPadding: CGFloat, latitude: Double?, longitude: Double?, showFavoriteButton: Bool = true) {
         self._navigationPath = navigationPath
+        self.topPadding = topPadding
+        self.latitude = latitude
+        self.longitude = longitude
+        _viewModel = StateObject(wrappedValue: DetailsViewModel(latitude: latitude, longitude: longitude))
+        self.showFavoriteButton = showFavoriteButton
     }
     
     @Binding var navigationPath: NavigationPath
-    @State private var viewModel = DetailsViewModel()
+    @StateObject private var viewModel: DetailsViewModel
+    let latitude: Double?
+    let longitude: Double?
+    let showFavoriteButton: Bool
+    var topPadding: CGFloat
     
     var body: some View {
         NavigationStack(path: $navigationPath) {
@@ -23,56 +32,68 @@ struct DetailsView: View {
                 EmptyView()
             case .loading:
                 ProgressView()
-            case .success(let weather):
+            case .success:
                 
-                let current = weather.current
-                let hourly = weather.hourly
-                let daily = weather.daily
+                let (current, hourly, daily) = (viewModel.current, viewModel.hourly, viewModel.daily)
                 
-                ScrollView(showsIndicators: false) {
-                    VStack {
-                        VStack {
-                            Text(current.name)
-                                .font(.system(size: 37, weight: .regular))
-                            Text("\(Int(weather.current.main.temp.rounded()))")
-                                .font(.system(size: 102, weight: .thin))
-                                .overlay(alignment: .topTrailing) {
-                                    Text("°")
-                                        .font(.system(size: 102, weight: .thin))
-                                        .alignmentGuide(.trailing) { d in d[.leading] }
-                                }
-                            Text("\(current.weather.first?.description.capitalized ?? "")")
-                                .font(.system(size: 24, weight: .regular))
-                                .foregroundStyle(.secondary)
-                            Text("H:\(Int(current.main.tempMax))° L:\(Int(current.main.tempMin))°")
-                                .font(.system(size: 21, weight: .medium))
-                        }
+                let period = DayPeriod.determine(sunrise: current?.sys?.sunrise, sunset: current?.sys?.sunset, currentTime: current?.dt)
+                
+                ScrollView {
+                    HeroWeather(current: current)
+                        .padding(.top, topPadding)
                         .padding(.bottom, 50)
+                    
+                    VStack {
+                        if let hourly {
+                            HourlyView(weather: hourly)
+                                .cornerRadius(15)
+                                .padding(.horizontal)
+                        }
                         
-                        
-                        HourlyView(weather: hourly)
-                            .cornerRadius(15)
-                            .padding(.horizontal)
-                        
-                        DailyView(weather: daily, current: CurrentWeatherModel.MockData())
-                            .cornerRadius(15)
-                            .padding(.horizontal)
+                        if let daily, let current {
+                            DailyView(weather: daily, current: current)
+                                .cornerRadius(15)
+                                .padding(.horizontal)
+                        }
                     }
+                    .padding(.bottom, 90)
                 }
+                .toolbar {
+                    showFavoriteButton ? ToolbarItem {
+                        Button {
+                            let locationToSave = SavedFavorite(id: current?.id ?? 0)
+                            viewModel.toggleFavorite(location: locationToSave)
+                        } label: {
+                            Image(systemName: viewModel.isFavorite(id: current?.id ?? 0) ? "star.fill" : "star")
+                        }
+                    } : nil
+                }
+                .background {
+                    viewModel.getSkyGradient(for: period)
+                        .overlay {
+                            LinearGradient(
+                                stops: [
+                                    Gradient.Stop(color: .white, location: 0),
+                                    Gradient.Stop(color: .clear, location: 1),
+                                ],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        }
+                }
+                .ignoresSafeArea(edges: .bottom)
                 
             case .error(let error):
                 Text(error.localizedDescription)
             }
         }
         .task {
-            await viewModel.getAllDetails()
+            await viewModel.getAllWeathers()
         }
     }
 }
 
 #Preview {
-    DetailsView()
+    DetailsView(topPadding: 80, latitude: 37.7749, longitude: -122.4194)
 }
-
-
 

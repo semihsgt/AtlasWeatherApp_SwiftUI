@@ -10,6 +10,6 @@ import SwiftUI
 
 class ColorManager {
     static var backgroundColor: Color {
-        return Color(.systemGroupedBackground)
+        return Color(.white)
     }
 }
