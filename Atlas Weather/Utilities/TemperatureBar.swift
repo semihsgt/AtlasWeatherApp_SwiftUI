@@ -68,7 +68,7 @@ struct TemperatureBar: View {
                 
                 ZStack(alignment: .leading) {
                     Capsule()
-                        .fill(Color.gray.opacity(0.1))
+                        .fill(Color.white.opacity(0.1))
                         .frame(height: 6)
                     
                     Capsule()
@@ -81,7 +81,6 @@ struct TemperatureBar: View {
                         let currentPercent = min(max((current - gMin) / safeRange, 0), 1)
                         Circle()
                             .fill(Color.white)
-                            .overlay(Circle().stroke(Color.black.opacity(0.8), lineWidth: 0.5))
                             .frame(width: 8, height: 8)
                             .offset(x: (geo.size.width * currentPercent) - 4)
                             .shadow(radius: 1, y: 1)
@@ -93,7 +92,7 @@ struct TemperatureBar: View {
             
         } else {
             Capsule()
-                .fill(Color.gray.opacity(0.1))
+                .fill(Color.white.opacity(0.1))
                 .frame(height: 6)
                 .frame(maxWidth: .infinity)
         }
@@ -110,4 +109,10 @@ struct TemperatureBar: View {
         TemperatureBar(dayMin: nil, dayMax: nil, globalMin: nil, globalMax: nil, currentTemp: nil)
             .frame(width: 300)
     }
+    .frame(width: 410, height: 910)
+    .background {
+        SkyGradients.dayGradient
+        ColorManager.backgroundColor
+    }
+    
 }

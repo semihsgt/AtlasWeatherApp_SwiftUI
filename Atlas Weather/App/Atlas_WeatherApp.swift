@@ -12,11 +12,11 @@ import FChucker
 struct Atlas_WeatherApp: App {
     
 //    init() {
-//            // Start network monitoring
-//            #if DEBUG
-//            FChucker.start()
-//            #endif
-//        }
+//        // Start network monitoring
+//#if DEBUG
+//        FChucker.start()
+//#endif
+//    }
     
     var body: some Scene {
         WindowGroup {

@@ -40,7 +40,7 @@ struct HeroWeather: View {
                 Text("H:\(Int(tempMax.rounded()))°  L:\(Int(tempMin.rounded()))°")
                     .font(.system(size: 21, weight: .medium))
             }
-            
+            .foregroundStyle(.white)
         } else {
             placeholderView
         }
@@ -48,28 +48,22 @@ struct HeroWeather: View {
     
     private var placeholderView: some View {
         VStack(spacing: 10) {
-            
-            Capsule()
-                .fill(.gray.opacity(0.1))
-                .frame(width: 200, height: 40)
-            
-            RoundedRectangle(cornerRadius: 20)
-                .fill(.gray.opacity(0.1))
-                .frame(width: 150, height: 100)
-            
-            Capsule()
-                .fill(.gray.opacity(0.1))
-                .frame(width: 120, height: 25)
-            
-            Capsule()
-                .fill(.gray.opacity(0.1))
-                .frame(width: 140, height: 25)
+            ColorManager.placeholderCapsule(width: 200, height: 48)
+            ColorManager.placeholderRectangle(width: 160, height: 108)
+            ColorManager.placeholderCapsule(width: 120, height: 33)
+            ColorManager.placeholderCapsule(width: 140, height: 33)
         }
         .padding()
     }
 }
 
 #Preview {
-    HeroWeather(current: CurrentWeatherModel.MockData())
-    HeroWeather(current: nil)
+    VStack {
+        HeroWeather(current: CurrentWeatherModel.MockData())
+        HeroWeather(current: nil)
+    }
+    .background {
+        SkyGradients.dayGradient
+    }
+    
 }

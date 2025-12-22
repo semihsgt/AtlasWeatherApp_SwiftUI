@@ -28,19 +28,23 @@ struct DailyView: View {
                     Text("10-DAY FORECAST")
                         .font(.system(size: 15))
                 }
-                .foregroundStyle(.secondary)
-                .padding(.bottom, 5)
+                .foregroundStyle(.white)
+                .opacity(0.5)
                 
                 Divider()
+                    .background(Color.white)
+                    .opacity(0.5)
                 
-                ForEach(Array(days.enumerated()), id: \.element.dt) { idx, day in
+                ForEach(Array(days.enumerated()), id: \.element.id) { idx, day in
                     HStack {
                         if let dt = day.dt, let timezone = weather.city?.timezone {
                             Text(idx == 0 ? "Today" : String((dt.toFormattedDate("EEEE", offset: timezone)).prefix(3)))
                                 .frame(width: 50, alignment: .leading)
                                 .font(.system(size: 15))
+                                .foregroundStyle(.white)
                         } else {
                             Image(systemName: "minus")
+                                .foregroundStyle(.white.opacity(0.5))
                                 .frame(width: 50, alignment: .leading)
                                 .font(.system(size: 15))
                         }
@@ -48,20 +52,23 @@ struct DailyView: View {
                         if let icon = day.weather?.first?.icon {
                             Image(systemName: WeatherIconMapper.toSFSymbol(icon))
                                 .frame(width: 30)
+                                .symbolRenderingMode(.multicolor)
+                                .foregroundStyle(.white)
                         } else {
                             Image(systemName: "minus")
+                                .foregroundStyle(.white.opacity(0.5))
                                 .frame(width: 30)
                         }
                         
                         if let tempMin = day.temp?.min {
                             Text("\(Int(tempMin.rounded()))°")
                                 .frame(width: 40)
-                                .foregroundColor(.secondary)
+                                .foregroundColor(.white.opacity(0.5))
                                 .font(.system(size: 15, weight: .medium))
                         } else {
                             Text("-")
                                 .frame(width: 40)
-                                .foregroundColor(.secondary)
+                                .foregroundColor(.white.opacity(0.5))
                                 .font(.system(size: 15, weight: .medium))
                         }
                         
@@ -75,10 +82,12 @@ struct DailyView: View {
                         
                         if let tempMin = day.temp?.max {
                             Text("\(Int(tempMin.rounded()))°")
+                                .foregroundStyle(.white)
                                 .frame(width: 40, alignment: .trailing)
                                 .font(.system(size: 15))
                         } else {
                             Text("-")
+                                .foregroundStyle(.white.opacity(0.5))
                                 .frame(width: 40, alignment: .trailing)
                                 .font(.system(size: 15))
                         }
@@ -88,13 +97,14 @@ struct DailyView: View {
                     
                     if idx != days.count - 1 {
                         Divider()
+                            .background(Color.white)
+                            .opacity(0.5)
                     }
                 }
             }
             .padding()
             .background {
-                RoundedRectangle(cornerRadius: 16, style: .circular)
-                    .foregroundStyle(ColorManager.backgroundColor)
+                ColorManager.backgroundColor
             }
             
         } else {
@@ -110,36 +120,43 @@ struct DailyView: View {
                 Text("10-DAY FORECAST")
                     .font(.system(size: 15))
             }
-            .foregroundStyle(.secondary)
+            .foregroundStyle(.white)
             .opacity(0.5)
             
             Divider()
+                .background(Color.white)
+                .opacity(0.5)
             
-            ForEach(0..<1, id: \.self) { _ in
-                HStack {
-                    Capsule().fill(.black.opacity(0.1)).frame(width: 50, height: 15)
-                    Circle().fill(.black.opacity(0.1)).frame(width: 25, height: 25)
-                    Capsule().fill(.black.opacity(0.1)).frame(width: 30, height: 15)
-                    Capsule().fill(.black.opacity(0.1)).frame(height: 6).frame(maxWidth: .infinity)
-                    Capsule().fill(.black.opacity(0.1)).frame(width: 30, height: 15)
+            VStack(alignment: .center) {
+                ForEach(0..<2, id: \.self) { _ in
+                    HStack {
+                        ColorManager.placeholderCapsule(width: 50, height: 15)
+                        ColorManager.placeholderCapsule(width: 25, height: 25)
+                        ColorManager.placeholderCapsule(width: 30, height: 15)
+                        ColorManager.placeholderCapsule(width: 155, height: 6)
+                        ColorManager.placeholderCapsule(width: 30, height: 15)
+                    }
+                    .padding(.vertical, 8)
+                    Divider()
+                        .background(Color.white)
+                        .opacity(0.5)
                 }
-                .padding(.vertical, 8)
-                Divider().opacity(0.5)
             }
         }
         .padding()
         .background {
-            RoundedRectangle(cornerRadius: 16, style: .circular)
-                .foregroundStyle(ColorManager.backgroundColor)
+            ColorManager.backgroundColor
         }
     }
 }
 
 #Preview {
-    DailyView(
-        weather: DailyForecastModel.MockData(),
-        current: CurrentWeatherModel.MockData()
-    )
-    
-    DailyView(weather: nil, current: nil)
+    VStack {
+        DailyView(weather: DailyForecastModel.MockData(),current: CurrentWeatherModel.MockData())
+        DailyView(weather: nil, current: nil)
+    }
+    .frame(height: 950)
+    .background {
+        SkyGradients.dayGradient
+    }
 }

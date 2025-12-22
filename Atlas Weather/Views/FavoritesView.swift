@@ -10,22 +10,34 @@ import SwiftUI
 struct FavoritesView: View {
     @State private var navigationPath = NavigationPath()
     @ObservedObject private var viewModel = FavoritesViewModel.shared
+    @Namespace private var namespace
     
     var body: some View {
         NavigationStack(path: $navigationPath) {
             VStack {
                 if viewModel.favoritesWeatherData.isEmpty {
-                    Text("No Favorite Cities Yet")
+                    Text("No Favorite Location Added")
                         .offset(y: -30)
                 } else {
                     ScrollView {
-                        ForEach(viewModel.favoritesWeatherData, id: \.id) { city in
-                            NavigationLink {
-                                DetailsView(navigationPath: $navigationPath, topPadding: 0, latitude: city.coord?.lat, longitude: city.coord?.lon)
-                            } label: {
-                                CardView(weather: city)
+                        ForEach(viewModel.favoritesWeatherData) { city in
+                            if #available(iOS 18.0, *) {
+                                NavigationLink {
+                                    DetailsView(navigationPath: $navigationPath, lat: city.coord?.lat, lon: city.coord?.lon)
+                                        .navigationTransition(.zoom(sourceID: city.id, in: namespace))
+                                } label: {
+                                    CardView(weather: city)
+                                }
+                                .matchedTransitionSource(id: city.id, in: namespace)
+                            } else {
+                                NavigationLink {
+                                    DetailsView(navigationPath: $navigationPath, lat: city.coord?.lat, lon: city.coord?.lon)
+                                } label: {
+                                    CardView(weather: city)
+                                }
                             }
                         }
+                        .padding(.bottom)
                     }
                 }
             }

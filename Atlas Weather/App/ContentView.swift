@@ -6,15 +6,24 @@
 //
 
 import SwiftUI
+internal import CoreLocation
 
 struct ContentView: View {
     @State private var selection: TabKey = .location
+    @ObservedObject var userLocationManager = UserLocationManager.shared
     
     var body: some View {
-        if #available(iOS 18.0, *) {
+        if userLocationManager.authorizationStatus == .notDetermined {
+            LocationRequestView()
+        } else if userLocationManager.authorizationStatus == .authorizedWhenInUse && userLocationManager.userlocation == nil {
+            ProgressView()
+        } else if #available(iOS 18.0, *) {
             TabView(selection: $selection) {
                 Tab("My Location", systemImage: "location", value: TabKey.location) {
-                    MyLocationView()
+                    MyLocationView(
+                        lat: (userLocationManager.authorizationStatus == .denied) ? nil : userLocationManager.userlocation?.coordinate.latitude,
+                        lon: (userLocationManager.authorizationStatus == .denied) ? nil : userLocationManager.userlocation?.coordinate.longitude
+                    )
                 }
                 Tab("Favorites", systemImage: "star", value: TabKey.favorites) {
                     FavoritesView()
@@ -25,11 +34,13 @@ struct ContentView: View {
             }
         } else {
             TabView(selection: $selection) {
-                MyLocationView()
-                    .tabItem {
-                        Label("My Location", systemImage: "location")
-                    }
-                    .tag(TabKey.location)
+                MyLocationView(
+                    lat: (userLocationManager.authorizationStatus == .denied) ? nil : userLocationManager.userlocation?.coordinate.latitude,
+                    lon: (userLocationManager.authorizationStatus == .denied) ? nil : userLocationManager.userlocation?.coordinate.longitude
+                )                .tabItem {
+                    Label("My Location", systemImage: "location")
+                }
+                .tag(TabKey.location)
                 
                 FavoritesView()
                     .tabItem {

@@ -6,24 +6,25 @@
 //
 
 import SwiftUI
+internal import CoreLocation
 
 struct DetailsView: View {
     
-    init(navigationPath: Binding<NavigationPath> = .constant(NavigationPath()), topPadding: CGFloat, latitude: Double?, longitude: Double?, showFavoriteButton: Bool = true) {
+    init(navigationPath: Binding<NavigationPath> = .constant(NavigationPath()), lat: Double?, lon: Double?, isMyLocPage: Bool = false) {
         self._navigationPath = navigationPath
-        self.topPadding = topPadding
-        self.latitude = latitude
-        self.longitude = longitude
-        _viewModel = StateObject(wrappedValue: DetailsViewModel(latitude: latitude, longitude: longitude))
-        self.showFavoriteButton = showFavoriteButton
+        self.lat = lat
+        self.lon = lon
+        _viewModel = StateObject(wrappedValue: DetailsViewModel(lat: lat, lon: lon))
+        self.isMyLocPage = isMyLocPage
     }
     
     @Binding var navigationPath: NavigationPath
     @StateObject private var viewModel: DetailsViewModel
-    let latitude: Double?
-    let longitude: Double?
-    let showFavoriteButton: Bool
-    var topPadding: CGFloat
+    let lat: Double?
+    let lon: Double?
+    let isMyLocPage: Bool
+    @ObservedObject var userLocationManager = UserLocationManager.shared
+    
     
     var body: some View {
         NavigationStack(path: $navigationPath) {
@@ -39,61 +40,97 @@ struct DetailsView: View {
                 let period = DayPeriod.determine(sunrise: current?.sys?.sunrise, sunset: current?.sys?.sunset, currentTime: current?.dt)
                 
                 ScrollView {
-                    HeroWeather(current: current)
-                        .padding(.top, topPadding)
-                        .padding(.bottom, 50)
+                    if userLocationManager.authorizationStatus == .denied && isMyLocPage == true {
+                        DeniedPermissionView()
+                    } else if isMyLocPage == true {
+                        HeroWeather(current: current)
+                            .padding(.top, 50)
+                            .padding(.bottom, 50)
+                    } else {
+                        HeroWeather(current: current)
+                            .padding(.bottom, 50)
+                    }
+                    
                     
                     VStack {
-                        if let hourly {
-                            HourlyView(weather: hourly)
-                                .cornerRadius(15)
-                                .padding(.horizontal)
+                        
+                        HourlyView(weather: hourly, current: current)
+                            .cornerRadius(15)
+                        
+                        DailyView(weather: daily, current: current)
+                        
+                        HStack{
+                            SunTrackView(sunrise: current?.sys?.sunrise, sunset: current?.sys?.sunset, timezone: current?.timezone, dt: current?.dt)
+                            
+                            FeelsLikeView(feelsLike: current?.main?.feelsLike, temp: current?.main?.temp)
                         }
                         
-                        if let daily, let current {
-                            DailyView(weather: daily, current: current)
-                                .cornerRadius(15)
-                                .padding(.horizontal)
+                        HStack {
+                            HumidityView(humidity: current?.main?.humidity)
+                            VisibilityView(visibility: current?.visibility)
                         }
+                        
+                        HStack {
+                            RainfallView(rainfall: current?.rain?.last1H, rainfallTomorrow: daily?.list?[1].rain)
+                            PressureView(pressure: current?.main?.pressure)
+                        }
+                        
+                        HStack {
+                            SnowfallView(snowfall: current?.snow?.last1H, snowfallTomorrow: daily?.list?[1].snow)
+                            WindView(speed: current?.wind?.speed, deg: current?.wind?.deg, gust: current?.wind?.gust)
+                        }
+                        
+                        MapView(lat: current?.coord?.lat, lon: current?.coord?.lon, locationDot: isMyLocPage ? true : false)
+                        
                     }
-                    .padding(.bottom, 90)
+                    .padding(.horizontal)
+                    .padding(.bottom)
                 }
                 .toolbar {
-                    showFavoriteButton ? ToolbarItem {
+                    if !isMyLocPage {
                         Button {
                             let locationToSave = SavedFavorite(id: current?.id ?? 0)
                             viewModel.toggleFavorite(location: locationToSave)
                         } label: {
                             Image(systemName: viewModel.isFavorite(id: current?.id ?? 0) ? "star.fill" : "star")
                         }
-                    } : nil
+                    }
                 }
                 .background {
                     viewModel.getSkyGradient(for: period)
-                        .overlay {
-                            LinearGradient(
-                                stops: [
-                                    Gradient.Stop(color: .white, location: 0),
-                                    Gradient.Stop(color: .clear, location: 1),
-                                ],
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
-                        }
+                        .frame(width: UIScreen.main.bounds.width)
+                        .ignoresSafeArea(edges: .all)
                 }
-                .ignoresSafeArea(edges: .bottom)
                 
             case .error(let error):
-                Text(error.localizedDescription)
+                ErrorView(description: error.localizedDescription)
             }
         }
         .task {
             await viewModel.getAllWeathers()
         }
+        .onChange(of: userLocationManager.authorizationStatus) { newStatus in
+            if isMyLocPage {
+                if newStatus == .authorizedWhenInUse || newStatus == .authorizedAlways {
+                    Task {
+                        if let loc = userLocationManager.userlocation {
+                            viewModel.updateLocation(lat: loc.coordinate.latitude, lon: loc.coordinate.longitude)
+                        }
+                        await viewModel.getAllWeathers()
+                    }
+                } else if newStatus == .denied || newStatus == .restricted {
+                    Task {
+                        viewModel.updateLocation(lat: nil, lon: nil)
+                        await viewModel.getAllWeathers()
+                    }
+                }
+            }
+        }
     }
 }
 
 #Preview {
-    DetailsView(topPadding: 80, latitude: 37.7749, longitude: -122.4194)
+    DetailsView(lat: 37.7749, lon: -122.194)
+    //    DetailsView(lat: nil, lon: nil)
 }
 

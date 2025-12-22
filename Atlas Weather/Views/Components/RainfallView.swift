@@ -1,14 +1,15 @@
 //
-//  ExploreCardView
+//  RainfallView.swift
 //  Atlas Weather
 //
-//  Created by Semih Söğüt on 22.12.2025.
+//  Created by Semih Söğüt on 21.12.2025.
 //
 
 import SwiftUI
 
-struct ExploreCardView: View {
-    let country: CountryModel
+struct RainfallView: View {
+    let rainfall: Double?
+    let rainfallTomorrow: Double?
     
     var body: some View {
         Group {
@@ -16,39 +17,36 @@ struct ExploreCardView: View {
                 
                 VStack(alignment: .leading, spacing: 5) {
                     HStack {
-                        Image(systemName: "globe.europe.africa.fill")
+                        Image(systemName: "drop.fill")
                             .font(.system(size: 15))
-                        Text("EXPLORE")
+                        Text("RAINFALL")
                             .font(.system(size: 15))
                     }
                     .foregroundStyle(.white)
                     .opacity(0.5)
-                    
                     Divider()
                         .background(Color.white)
                         .opacity(0.5)
-                    
-                    HStack {
-                        
-                        Text("\(country.name) - \(country.id) \(country.flag)")
-                        Text(country.currencies.symbol)
-                        Spacer()
-                        Text(country.region)
-                    }
                 }
                 
                 Spacer()
                 
-                Text("\(country.summary.prefix(250))...")
-                    .font(.system(size: 15))
+                Text("\(String(Int(rainfall ?? 0))) mm")
+                    .font(.system(size: 35))
+                
+                Text("in last 1h")
+                    .font(.system(size: 25))
                 
                 Spacer()
                 
+                Text("\(String(Int(rainfallTomorrow ?? 0))) mm expected tomorrow.")
+                    .font(.system(size: 17))
+                
+                
             }
-            .foregroundStyle(.white)
             .padding()
+            .foregroundStyle(.white)
         }
-        .frame(minHeight: 400)
         .background {
             ColorManager.backgroundColor
         }
@@ -60,8 +58,8 @@ struct ExploreCardView: View {
         SkyGradients.dayGradient
             .ignoresSafeArea()
         VStack {
-            ExploreCardView(country: CountryModel.mockData())
-                .frame(width: 360, height: 0)
+            RainfallView(rainfall: 12, rainfallTomorrow: 32)
+            RainfallView(rainfall: nil, rainfallTomorrow: nil)
         }
     }
 }

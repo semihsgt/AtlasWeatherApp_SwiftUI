@@ -8,6 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		370AB2062EF48F3A0082AED7 /* HeroWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370AB2052EF48F3A0082AED7 /* HeroWeather.swift */; };
+		3722B9D02EF9ACFB0085A1D3 /* SnowfallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3722B9CF2EF9ACFB0085A1D3 /* SnowfallView.swift */; };
+		3722B9D22EF9B5310085A1D3 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3722B9D12EF9B5310085A1D3 /* MapView.swift */; };
+		3722B9D42EF9CD4F0085A1D3 /* WindView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3722B9D32EF9CD4F0085A1D3 /* WindView.swift */; };
+		3722B9D62EF9D8540085A1D3 /* ExploreCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3722B9D52EF9D8540085A1D3 /* ExploreCardView.swift */; };
+		3725EE192EF6DE2A00B903B7 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3725EE182EF6DE2A00B903B7 /* LocationManager.swift */; };
+		3725EE1B2EF6EFFF00B903B7 /* LocationRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3725EE1A2EF6EFFF00B903B7 /* LocationRequestView.swift */; };
+		3725EE1E2EF7187B00B903B7 /* DeniedPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3725EE1D2EF7187B00B903B7 /* DeniedPermissionView.swift */; };
+		372D88EE2EF870BE00172683 /* SunTrackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372D88ED2EF870BE00172683 /* SunTrackView.swift */; };
+		372D88F02EF88AB000172683 /* FeelsLikeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372D88EF2EF88AB000172683 /* FeelsLikeView.swift */; };
+		372D88F22EF892AD00172683 /* HumidityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372D88F12EF892AD00172683 /* HumidityView.swift */; };
+		372D88F42EF893EB00172683 /* RainfallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372D88F32EF893EB00172683 /* RainfallView.swift */; };
+		372D88F62EF897B300172683 /* VisibilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372D88F52EF897B300172683 /* VisibilityView.swift */; };
+		372D88F82EF89A9500172683 /* PressureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372D88F72EF89A9500172683 /* PressureView.swift */; };
 		373C571B2EF04542007B3514 /* DailyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C571A2EF04542007B3514 /* DailyView.swift */; };
 		373C571D2EF04989007B3514 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C571C2EF04989007B3514 /* Extensions.swift */; };
 		373C571F2EF0A8A5007B3514 /* TemperatureBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C571E2EF0A8A5007B3514 /* TemperatureBar.swift */; };
@@ -34,6 +47,8 @@
 		378077B82EECDA9C0070F02C /* GeocodingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378077B72EECDA9C0070F02C /* GeocodingModel.swift */; };
 		37882F092EEF342100434793 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37882F082EEF33FF00434793 /* Secrets.swift */; };
 		37882F0B2EEF359F00434793 /* Secrets_example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37882F0A2EEF359200434793 /* Secrets_example.swift */; };
+		3790A51F2EF8351400A91F62 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3790A51E2EF8351400A91F62 /* ErrorView.swift */; };
+		3790A5222EF849DD00A91F62 /* HourlyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3790A5212EF849DD00A91F62 /* HourlyViewModel.swift */; };
 		379A59002EF226760037F2CE /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379A58FF2EF226760037F2CE /* SearchViewModel.swift */; };
 		37FC81152EEDA9350078BAC5 /* HourlyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FC81142EEDA9350078BAC5 /* HourlyView.swift */; };
 		37FC811C2EEDDC110078BAC5 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FC811B2EEDDC110078BAC5 /* ColorManager.swift */; };
@@ -42,6 +57,20 @@
 
 /* Begin PBXFileReference section */
 		370AB2052EF48F3A0082AED7 /* HeroWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroWeather.swift; sourceTree = "<group>"; };
+		3722B9CF2EF9ACFB0085A1D3 /* SnowfallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnowfallView.swift; sourceTree = "<group>"; };
+		3722B9D12EF9B5310085A1D3 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		3722B9D32EF9CD4F0085A1D3 /* WindView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindView.swift; sourceTree = "<group>"; };
+		3722B9D52EF9D8540085A1D3 /* ExploreCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCardView.swift; sourceTree = "<group>"; };
+		3725EE182EF6DE2A00B903B7 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		3725EE1A2EF6EFFF00B903B7 /* LocationRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRequestView.swift; sourceTree = "<group>"; };
+		3725EE1C2EF703E200B903B7 /* Atlas-Weather-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Atlas-Weather-Info.plist"; sourceTree = SOURCE_ROOT; };
+		3725EE1D2EF7187B00B903B7 /* DeniedPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeniedPermissionView.swift; sourceTree = "<group>"; };
+		372D88ED2EF870BE00172683 /* SunTrackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunTrackView.swift; sourceTree = "<group>"; };
+		372D88EF2EF88AB000172683 /* FeelsLikeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeelsLikeView.swift; sourceTree = "<group>"; };
+		372D88F12EF892AD00172683 /* HumidityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumidityView.swift; sourceTree = "<group>"; };
+		372D88F32EF893EB00172683 /* RainfallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RainfallView.swift; sourceTree = "<group>"; };
+		372D88F52EF897B300172683 /* VisibilityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibilityView.swift; sourceTree = "<group>"; };
+		372D88F72EF89A9500172683 /* PressureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PressureView.swift; sourceTree = "<group>"; };
 		373C571A2EF04542007B3514 /* DailyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyView.swift; sourceTree = "<group>"; };
 		373C571C2EF04989007B3514 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		373C571E2EF0A8A5007B3514 /* TemperatureBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureBar.swift; sourceTree = "<group>"; };
@@ -68,6 +97,8 @@
 		378077B72EECDA9C0070F02C /* GeocodingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocodingModel.swift; sourceTree = "<group>"; };
 		37882F082EEF33FF00434793 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		37882F0A2EEF359200434793 /* Secrets_example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets_example.swift; sourceTree = "<group>"; };
+		3790A51E2EF8351400A91F62 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		3790A5212EF849DD00A91F62 /* HourlyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyViewModel.swift; sourceTree = "<group>"; };
 		379A58FF2EF226760037F2CE /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		37C363962EE8522D0088D0D0 /* Atlas Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Atlas Weather.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		37FC81142EEDA9350078BAC5 /* HourlyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyView.swift; sourceTree = "<group>"; };
@@ -101,6 +132,7 @@
 				37882F0A2EEF359200434793 /* Secrets_example.swift */,
 				37882F082EEF33FF00434793 /* Secrets.swift */,
 				37FC811B2EEDDC110078BAC5 /* ColorManager.swift */,
+				3725EE182EF6DE2A00B903B7 /* LocationManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -152,6 +184,7 @@
 				3748BB3A2EED873A003F71F6 /* DetailsViewModel.swift */,
 				379A58FF2EF226760037F2CE /* SearchViewModel.swift */,
 				3740FD852EF2DF6A0040EE95 /* FavoritesViewModel.swift */,
+				3790A5212EF849DD00A91F62 /* HourlyViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -160,10 +193,21 @@
 			isa = PBXGroup;
 			children = (
 				374650E52EEB6400004474D3 /* CardView.swift */,
+				3722B9D52EF9D8540085A1D3 /* ExploreCardView.swift */,
 				37FC81142EEDA9350078BAC5 /* HourlyView.swift */,
 				373C571A2EF04542007B3514 /* DailyView.swift */,
 				370AB2052EF48F3A0082AED7 /* HeroWeather.swift */,
 				3779BFB12EF4A9DB000075EC /* NoResultForSearchView.swift */,
+				3725EE1D2EF7187B00B903B7 /* DeniedPermissionView.swift */,
+				372D88ED2EF870BE00172683 /* SunTrackView.swift */,
+				372D88EF2EF88AB000172683 /* FeelsLikeView.swift */,
+				372D88F12EF892AD00172683 /* HumidityView.swift */,
+				372D88F52EF897B300172683 /* VisibilityView.swift */,
+				372D88F32EF893EB00172683 /* RainfallView.swift */,
+				3722B9CF2EF9ACFB0085A1D3 /* SnowfallView.swift */,
+				372D88F72EF89A9500172683 /* PressureView.swift */,
+				3722B9D32EF9CD4F0085A1D3 /* WindView.swift */,
+				3722B9D12EF9B5310085A1D3 /* MapView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -176,6 +220,8 @@
 				374650E82EEB6400004474D3 /* FavoritesView.swift */,
 				374650EA2EEB6400004474D3 /* SearchView.swift */,
 				374650E72EEB6400004474D3 /* DetailsView.swift */,
+				3725EE1A2EF6EFFF00B903B7 /* LocationRequestView.swift */,
+				3790A51E2EF8351400A91F62 /* ErrorView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -183,6 +229,7 @@
 		374650EC2EEB6400004474D3 /* Atlas Weather */ = {
 			isa = PBXGroup;
 			children = (
+				3725EE1C2EF703E200B903B7 /* Atlas-Weather-Info.plist */,
 				374650D92EEB6400004474D3 /* App */,
 				374650DA2EEB6400004474D3 /* Managers */,
 				374650DD2EEB6400004474D3 /* Models */,
@@ -289,19 +336,34 @@
 			buildActionMask = 2147483647;
 			files = (
 				373C571B2EF04542007B3514 /* DailyView.swift in Sources */,
+				372D88F22EF892AD00172683 /* HumidityView.swift in Sources */,
 				37FC811C2EEDDC110078BAC5 /* ColorManager.swift in Sources */,
 				374650ED2EEB6400004474D3 /* Atlas_WeatherApp.swift in Sources */,
 				3748BB392EED789B003F71F6 /* UtilityModels.swift in Sources */,
+				3722B9D02EF9ACFB0085A1D3 /* SnowfallView.swift in Sources */,
 				374650EE2EEB6400004474D3 /* ContentView.swift in Sources */,
+				3722B9D62EF9D8540085A1D3 /* ExploreCardView.swift in Sources */,
+				3725EE1E2EF7187B00B903B7 /* DeniedPermissionView.swift in Sources */,
 				374651562EEC90A4004474D3 /* HourlyForecastModel.swift in Sources */,
+				372D88EE2EF870BE00172683 /* SunTrackView.swift in Sources */,
+				3725EE192EF6DE2A00B903B7 /* LocationManager.swift in Sources */,
 				37FC81152EEDA9350078BAC5 /* HourlyView.swift in Sources */,
 				374650EF2EEB6400004474D3 /* CountryModel.swift in Sources */,
+				3790A5222EF849DD00A91F62 /* HourlyViewModel.swift in Sources */,
+				372D88F42EF893EB00172683 /* RainfallView.swift in Sources */,
 				37882F0B2EEF359F00434793 /* Secrets_example.swift in Sources */,
+				372D88F82EF89A9500172683 /* PressureView.swift in Sources */,
 				374650F02EEB6400004474D3 /* Errors.swift in Sources */,
+				3722B9D22EF9B5310085A1D3 /* MapView.swift in Sources */,
 				3779BFB22EF4A9DB000075EC /* NoResultForSearchView.swift in Sources */,
 				374650F12EEB6400004474D3 /* LocalDataManager.swift in Sources */,
+				372D88F02EF88AB000172683 /* FeelsLikeView.swift in Sources */,
+				3725EE1B2EF6EFFF00B903B7 /* LocationRequestView.swift in Sources */,
+				3790A51F2EF8351400A91F62 /* ErrorView.swift in Sources */,
 				374650F22EEB6400004474D3 /* CardView.swift in Sources */,
 				374650F32EEB6400004474D3 /* DetailsView.swift in Sources */,
+				372D88F62EF897B300172683 /* VisibilityView.swift in Sources */,
+				3722B9D42EF9CD4F0085A1D3 /* WindView.swift in Sources */,
 				37882F092EEF342100434793 /* Secrets.swift in Sources */,
 				378077B62EECCBD40070F02C /* DailyForecastModel.swift in Sources */,
 				374650F42EEB6400004474D3 /* FavoritesView.swift in Sources */,
@@ -452,14 +514,17 @@
 				DEVELOPMENT_TEAM = 9Y9BPF9633;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Atlas-Weather-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Atlas Weather";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show you the weather of your location.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -489,14 +554,17 @@
 				DEVELOPMENT_TEAM = 9Y9BPF9633;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Atlas-Weather-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Atlas Weather";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show you the weather of your location.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

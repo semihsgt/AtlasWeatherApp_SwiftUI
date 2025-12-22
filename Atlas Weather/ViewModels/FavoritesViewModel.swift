@@ -15,6 +15,7 @@ class FavoritesViewModel: ObservableObject {
     @Published var favoritesWeatherData: [CurrentWeatherModel] = []
     static let shared = FavoritesViewModel()
     private let saveKey = "favorites"
+    var networkDataManager = NetworkDataManager.shared
     
     private init() {
         loadFavorites()
@@ -33,7 +34,7 @@ class FavoritesViewModel: ObservableObject {
             for city in savedLocations {
                 group.addTask {
                     do {
-                        return try await NetworkDataManager.shared.fetchWeather(id: city.id, endpoint: "weather")
+                        return try await self.networkDataManager.fetchWeather(id: city.id, endpoint: "weather")
                     } catch {
                         print("Error: \(error.localizedDescription), City ID: \(city.id)")
                         return nil
@@ -72,7 +73,7 @@ class FavoritesViewModel: ObservableObject {
     
     private func fetchSingleWeather(id: Int) async -> CurrentWeatherModel? {
         do {
-            return try await NetworkDataManager.shared.fetchWeather(id: id, endpoint: "weather")
+            return try await networkDataManager.fetchWeather(id: id, endpoint: "weather")
         } catch {
             print("Error: Unable to fetch single data ID ID: \(id)")
             return nil

@@ -10,6 +10,7 @@ import SwiftUI
 struct SearchView: View {
     @State private var navigationPath = NavigationPath()
     @StateObject private var viewModel = SearchViewModel()
+    @Namespace private var namespace
     
     var body: some View {
         NavigationStack(path: $navigationPath) {
@@ -17,17 +18,26 @@ struct SearchView: View {
                 switch viewModel.searchStatus {
                 case .idle:
                     
-                        ScrollView {
-                            ForEach(viewModel.cities, id: \.id) { city in
+                    ScrollView {
+                        ForEach(viewModel.cities) { city in
+                            if #available(iOS 18.0, *) {
                                 NavigationLink {
-                                    DetailsView(navigationPath: $navigationPath, topPadding: 0,
-                                                latitude: city.coord?.lat ?? 0, longitude: city.coord?.lon ?? 0)
+                                    DetailsView(navigationPath: $navigationPath, lat: city.coord?.lat, lon: city.coord?.lon)
+                                        .navigationTransition(.zoom(sourceID: city.id, in: namespace))
                                 } label: {
                                     CardView(weather: city)
                                 }
-                                .buttonStyle(PlainButtonStyle())
+                                .matchedTransitionSource(id: city.id, in: namespace)
+                            } else {
+                                NavigationLink {
+                                    DetailsView(navigationPath: $navigationPath, lat: city.coord?.lat, lon: city.coord?.lon)
+                                } label: {
+                                    CardView(weather: city)
+                                }
                             }
                         }
+                        .padding(.bottom)
+                    }
                     
                 case .loading:
                     ProgressView()
@@ -39,28 +49,26 @@ struct SearchView: View {
                             .padding()
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     } else {
-                        List(results, id: \.lat) { item in
-                            NavigationLink {
-                                DetailsView(navigationPath: $navigationPath, topPadding: 0,
-                                            latitude: item.lat ?? 0, longitude: item.lon ?? 0)
-                            } label: {
-                                Text("\(item.name ?? ""), \(item.country ?? "") \(item.state ?? "")")
+                        List(results) { result in
+                            if #available (iOS 18.0, *) {
+                                NavigationLink {
+                                    DetailsView(navigationPath: $navigationPath, lat: result.lat ?? 0, lon: result.lon ?? 0)
+                                        .navigationTransition(.zoom(sourceID: result.id , in: namespace))
+                                } label: {
+                                    Text("\(result.name ?? ""), \(result.country ?? "") \(result.state ?? "")")
+                                }
+                                .matchedTransitionSource(id: result.id, in: namespace)
+                            } else {
+                                NavigationLink {
+                                    DetailsView(navigationPath: $navigationPath, lat: result.lat ?? 0, lon: result.lon ?? 0)
+                                } label: {
+                                    Text("\(result.name ?? ""), \(result.country ?? "") \(result.state ?? "")")
+                                }
                             }
                         }
                     }
                 case .error(let error):
-                    VStack {
-                        Image(systemName: "exclamationmark.triangle")
-                            .font(.largeTitle)
-                            .foregroundColor(.orange)
-                        Text("Something went wrong")
-                            .font(.headline)
-                        Text(error.localizedDescription)
-                            .font(.caption)
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(.secondary)
-                    }
-                    .padding()
+                    ErrorView(description: error.localizedDescription)
                 }
             }
             .navigationTitle(Text("Search"))

@@ -7,11 +7,20 @@
 
 import Foundation
 
-nonisolated struct HourlyForecastModel: Decodable {
+nonisolated struct HourlyForecastModel: Decodable, Identifiable {
+    var id = UUID()
     let cod: String?
     let message, cnt: Int?
     let list: [ListHourly]?
     let city: CityHourly?
+    
+    enum CodingKeys: CodingKey {
+        case cod
+        case message
+        case cnt
+        case list
+        case city
+    }
     
     static func mockData() -> HourlyForecastModel {
         let hour1 = ListHourly(
@@ -85,17 +94,17 @@ nonisolated struct HourlyForecastModel: Decodable {
         )
         
         let hour6 = ListHourly(
-            dt: 1734372000,
-            main: MainClassHourly(temp: 6.8, feelsLike: 4.3, tempMin: 6.5, tempMax: 6.8, pressure: 1015, seaLevel: 1015, grndLevel: 1012, humidity: 78, tempKf: 0.0),
-            weather: [WeatherHourly(id: 800, main: "Clear", description: "clear sky", icon: "01d")],
-            clouds: CloudsHourly(all: 12),
-            wind: WindHourly(speed: 3.8, deg: 215, gust: 6.5),
+            dt: nil,
+            main: MainClassHourly(temp: nil, feelsLike: nil, tempMin: nil, tempMax: nil, pressure: nil, seaLevel: nil, grndLevel: nil, humidity: nil, tempKf: nil),
+            weather: [WeatherHourly(id: nil, main: nil, description: nil, icon: nil)],
+            clouds: CloudsHourly(all: nil),
+            wind: WindHourly(speed: nil, deg: nil, gust: nil),
             rain: nil,
             snow: nil,
-            visibility: 10000,
-            pop: 0.0,
-            sys: SysHourly(pod: "d"),
-            dtTxt: "2024-12-16 17:00:00"
+            visibility: nil,
+            pop: nil,
+            sys: SysHourly(pod: nil),
+            dtTxt: nil
         )
         
         return HourlyForecastModel(

@@ -8,8 +8,22 @@
 import Foundation
 import SwiftUI
 
-class ColorManager {
-    static var backgroundColor: Color {
-        return Color(.white)
+struct ColorManager {
+    
+    static var backgroundColor: some View {
+        return Color.black.opacity(0.1)
+            .clipShape(RoundedRectangle(cornerRadius: 16))
+    }
+    
+    static func placeholderCapsule(width: CGFloat? = 100, height: CGFloat? = 100) -> some View {
+        Capsule()
+            .fill(Color.black.opacity(0.1))
+            .frame(width: width, height: height)
+    }
+    
+    static func placeholderRectangle(width: CGFloat? = 100, height: CGFloat? = 100) -> some View {
+        RoundedRectangle(cornerRadius: 16)
+            .fill(Color.black.opacity(0.1))
+            .frame(width: width, height: height)
     }
 }

@@ -16,20 +16,31 @@ class DetailsViewModel: ObservableObject {
     var hourly: HourlyForecastModel?
     var daily: DailyForecastModel?
     @Published private(set) var status: LoadingState = .idle
-    let latitude: Double?
-    let longitude: Double?
+    var lat: Double?
+    var lon: Double?
+    var networkDataManager = NetworkDataManager.shared
+    var favoritesViewModel = FavoritesViewModel.shared
     
-    init(latitude: Double?, longitude: Double?) {
-        self.latitude = latitude
-        self.longitude = longitude
+    init(lat: Double?, lon: Double?) {
+        self.lat = lat
+        self.lon = lon
+    }
+    
+    func updateLocation(lat: Double?, lon: Double?) {
+        self.lat = lat
+        self.lon = lon
     }
     
     func getAllWeathers() async {
+        self.current = nil
+        self.hourly = nil
+        self.daily = nil
+        
         status = .loading
         do {
-            async let currentFetch: CurrentWeatherModel? = NetworkDataManager.shared.fetchWeather(lat: latitude, lon: longitude, endpoint: "weather")
-            async let hourlyFetch: HourlyForecastModel? = NetworkDataManager.shared.fetchWeather(lat: latitude, lon: longitude, cnt: 24, endpoint: "forecast/hourly")
-            async let dailyFetch: DailyForecastModel? = NetworkDataManager.shared.fetchWeather(lat: latitude, lon: longitude, cnt: 10, endpoint: "forecast/daily")
+            async let currentFetch: CurrentWeatherModel? = networkDataManager.fetchWeather(lat: lat, lon: lon, endpoint: "weather")
+            async let hourlyFetch: HourlyForecastModel? = networkDataManager.fetchWeather(lat: lat, lon: lon, cnt: 24, endpoint: "forecast/hourly")
+            async let dailyFetch: DailyForecastModel? = networkDataManager.fetchWeather(lat: lat, lon: lon, cnt: 10, endpoint: "forecast/daily")
             
             let (currentData, hourlyData, dailyData) = try await (currentFetch, hourlyFetch, dailyFetch)
             
@@ -45,11 +56,11 @@ class DetailsViewModel: ObservableObject {
     }
     
     func isFavorite(id: Int) -> Bool {
-        return FavoritesViewModel.shared.isFavorite(id: id)
+        return favoritesViewModel.isFavorite(id: id)
     }
     
     func toggleFavorite(location: SavedFavorite) {
-        FavoritesViewModel.shared.toggleFavorite(location: location)
+        favoritesViewModel.toggleFavorite(location: location)
         self.objectWillChange.send()
     }
     

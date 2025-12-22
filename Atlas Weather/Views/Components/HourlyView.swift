@@ -8,61 +8,121 @@
 import SwiftUI
 
 struct HourlyView: View {
-    var weather: HourlyForecastModel?
-    
-    private var validHours: [(dt: Int, icon: String, temp: Double)]? {
-        guard let list = weather?.list, !list.isEmpty else { return nil }
-        
-        let filteredData = list.compactMap { item -> (Int, String, Double)? in
-            guard let dt = item.dt,
-                  let icon = item.weather?.first?.icon,
-                  let temp = item.main?.temp else {
-                return nil
-            }
-            return (dt, icon, temp)
-        }
-        
-        return filteredData.isEmpty ? nil : filteredData
-    }
+    let weather: HourlyForecastModel?
+    let current: CurrentWeatherModel?
     
     var body: some View {
-        if let hours = validHours {
+        if let timezone = weather?.city?.timezone {
             
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 15) {
-                    ForEach(hours, id: \.dt) { hour in
-                        VStack(spacing: 8) {
-                            VStack(spacing: 0) {
-                                
-                                if let timezone = weather?.city?.timezone {
-                                    Text(hour.dt.toFormattedDate("HH", offset: timezone))
-                                        .font(.system(size: 15))
-                                    + Text(hour.dt.toFormattedDate("a", offset: timezone))
-                                        .font(.system(size: 12))
-                                } else {
-                                    Text("-")
-                                        .font(.system(size: 17))
-                                }
-                            }
+                HStack(spacing: 5) {
+                    
+                    if let current = current, let temp = current.main?.temp {
+                        VStack(spacing: 4) {
                             
-                            Image(systemName: WeatherIconMapper.toSFSymbol(hour.icon))
+                            Text("Now")
+                                .font(.system(size: 15))
+                            
+                            Image(systemName: WeatherIconMapper.toSFSymbol(current.weather?.first?.icon))
+                                .symbolRenderingMode(.multicolor)
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 28, height: 28)
-                                .padding(.vertical, 10)
+                                .frame(width: 25, height: 25)
+                                .padding(.vertical, 15)
                             
-                            Text("\(Int(hour.temp.rounded()))°")
-                                .font(.system(size: 17))
+                            Text("\(Int(temp.rounded()))°")
+                                .font(.system(size: 15))
                         }
                         .frame(minWidth: 50)
+                        
+                    } else {
+                        VStack(spacing: 8) {
+                            ColorManager.placeholderCapsule(width: 40, height: 15)
+                            ColorManager.placeholderCapsule(width: 30, height: 30)
+                            ColorManager.placeholderCapsule(width: 30, height: 15)
+                        }
+                        .frame(width: 49, height: 100)
+                    }
+                    
+                    ForEach(combinedTimeline) { item in
+                        VStack(spacing: 4) {
+                            
+                            
+                            switch item {
+                            case .weather(let hour):
+                                
+                                if let dt = hour.dt {
+                                    Text(dt.toFormattedDate("HH", offset: timezone))
+                                        .font(.system(size: 15))
+                                } else {
+                                    ColorManager.placeholderCapsule(width: 40, height: 15)
+                                }
+                                
+                                if let icon = hour.weather?.first?.icon {
+                                    Image(systemName: WeatherIconMapper.toSFSymbol(icon))
+                                        .symbolRenderingMode(.multicolor)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 25, height: 25)
+                                        .padding(.vertical, 15)
+                                } else {
+                                    ColorManager.placeholderCapsule(width: 30, height: 30)
+                                        .padding(.vertical, 15)
+                                }
+                                
+                                if let temp = hour.main?.temp {
+                                    Text("\(Int(temp.rounded()))°")
+                                        .font(.system(size: 15))
+                                } else {
+                                    ColorManager.placeholderCapsule(width: 30, height: 15)
+                                }
+                                
+                                
+                                
+                            case .sunrise(let time):
+                                
+                                VStack(spacing: 4) {
+                                    Text(time.toFormattedDate(offset: timezone))
+                                        .font(.system(size: 15))
+                                    Image(systemName: "sunrise.fill")
+                                        .symbolRenderingMode(.multicolor)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 25, height: 25)
+                                        .padding(.vertical, 15)
+                                    Text("Sunrise")
+                                        .font(.system(size: 15))
+                                }
+                                .padding(.horizontal)
+                                
+                            case .sunset(let time):
+                                
+                                VStack(spacing: 4) {
+                                    Text(time.toFormattedDate(offset: timezone))
+                                        .font(.system(size: 15))
+                                    Image(systemName: "sunset.fill")
+                                        .symbolRenderingMode(.multicolor)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 25, height: 25)
+                                        .padding(.vertical, 15)
+                                    Text("Sunset")
+                                        .font(.system(size: 15))
+                                }
+                                .padding(.horizontal)
+                                
+                            }
+                        }
+                        .frame(minWidth: 50)
+                        
                     }
                 }
                 .padding()
                 .background {
-                    RoundedRectangle(cornerRadius: 16, style: .circular)
-                        .foregroundStyle(ColorManager.backgroundColor)
+                    ColorManager.backgroundColor
                 }
             }
+            .foregroundStyle(.white)
             
         } else {
             placeholderView
@@ -74,24 +134,31 @@ struct HourlyView: View {
             HStack(spacing: 15) {
                 ForEach(0..<6, id: \.self) { _ in
                     VStack(spacing: 8) {
-                        Capsule().fill(.gray.opacity(0.1)).frame(width: 40, height: 15)
-                        Circle().fill(.gray.opacity(0.1)).frame(width: 30, height: 30)
-                        Capsule().fill(.gray.opacity(0.1)).frame(width: 30, height: 20)
+                        ColorManager.placeholderCapsule(width: 40, height: 15)
+                        ColorManager.placeholderCapsule(width: 30, height: 30)
+                        ColorManager.placeholderCapsule(width: 30, height: 15)
                     }
-                    .frame(width: 50, height: 100)
+                    .frame(width: 49, height: 100)
                 }
             }
             .padding()
             .background {
-                RoundedRectangle(cornerRadius: 16, style: .circular)
-                    .foregroundStyle(ColorManager.backgroundColor)
+                ColorManager.backgroundColor
             }
         }
-        .disabled(true)
     }
 }
 
 #Preview {
-    HourlyView(weather: HourlyForecastModel.mockData())
-    HourlyView(weather: nil)
+    VStack {
+        HourlyView(weather: HourlyForecastModel.mockData(), current: CurrentWeatherModel.MockData())
+        HourlyView(weather: nil, current: nil)
+    }
+    .frame(height: 950)
+    .background {
+        SkyGradients.dayGradient
+    }
 }
+
+
+

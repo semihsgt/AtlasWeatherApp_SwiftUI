@@ -7,12 +7,21 @@
 
 import Foundation
 
-nonisolated struct DailyForecastModel: Decodable {
+nonisolated struct DailyForecastModel: Decodable, Identifiable {
+    var id = UUID()
     let city: CityDaily?
     let cod: String?
     let message: Double?
     let cnt: Int?
     let list: [ListDaily]?
+    
+    enum CodingKeys: CodingKey {
+        case city
+        case cod
+        case message
+        case cnt
+        case list
+    }
     
     static func MockData() -> DailyForecastModel {
         let list1 = ListDaily(dt: 1734256800, sunrise: 1734241200, sunset: 1734273600, temp: TempDaily(day: 8, min: 3, max: 10, night: 4, eve: 6, morn: 3), feelsLike: FeelsLikeDaily(day: 6, night: 2, eve: 4, morn: 1), pressure: 1015, humidity: 75, weather: [WeatherDaily(id: 804, main: "Clouds", description: "overcast clouds", icon: "04d")], speed: 4.2, deg: 220, gust: 7.5, clouds: 90, rain: nil, snow: nil, pop: 0.2)
@@ -59,7 +68,8 @@ extension DailyForecastModel {
         let lon, lat: Double?
     }
 
-    struct ListDaily: Decodable {
+    struct ListDaily: Decodable, Identifiable {
+        var id = UUID()
         let dt, sunrise, sunset: Int?
         let temp: TempDaily?
         let feelsLike: FeelsLikeDaily?
@@ -71,6 +81,24 @@ extension DailyForecastModel {
         let clouds: Int?
         let rain, snow: Double?
         let pop: Double?
+        
+        enum CodingKeys: CodingKey {
+            case dt
+            case sunrise
+            case sunset
+            case temp
+            case feelsLike
+            case pressure
+            case humidity
+            case weather
+            case speed
+            case deg
+            case gust
+            case clouds
+            case rain
+            case snow
+            case pop
+        }
     }
 
     struct FeelsLikeDaily: Decodable {

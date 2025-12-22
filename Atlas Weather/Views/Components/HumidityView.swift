@@ -1,54 +1,47 @@
 //
-//  ExploreCardView
+//  HumidityView.swift
 //  Atlas Weather
 //
-//  Created by Semih Söğüt on 22.12.2025.
+//  Created by Semih Söğüt on 21.12.2025.
 //
 
 import SwiftUI
 
-struct ExploreCardView: View {
-    let country: CountryModel
+struct HumidityView: View {
+    let humidity: Int?
     
     var body: some View {
+        
         Group {
             VStack(alignment: .leading, spacing: 0) {
                 
                 VStack(alignment: .leading, spacing: 5) {
                     HStack {
-                        Image(systemName: "globe.europe.africa.fill")
+                        Image(systemName: "humidity")
                             .font(.system(size: 15))
-                        Text("EXPLORE")
+                        Text("HUMIDITY")
                             .font(.system(size: 15))
                     }
                     .foregroundStyle(.white)
                     .opacity(0.5)
-                    
                     Divider()
                         .background(Color.white)
                         .opacity(0.5)
-                    
-                    HStack {
-                        
-                        Text("\(country.name) - \(country.id) \(country.flag)")
-                        Text(country.currencies.symbol)
-                        Spacer()
-                        Text(country.region)
-                    }
                 }
                 
                 Spacer()
                 
-                Text("\(country.summary.prefix(250))...")
-                    .font(.system(size: 15))
-                
-                Spacer()
+                if let humidity = humidity {
+                    Text("%\(String(humidity))")
+                        .font(.system(size: 35))
+                } else {
+                    ColorManager.placeholderRectangle(width: 100, height: 20)
+                }
                 
             }
-            .foregroundStyle(.white)
             .padding()
+            .foregroundStyle(.white)
         }
-        .frame(minHeight: 400)
         .background {
             ColorManager.backgroundColor
         }
@@ -60,8 +53,8 @@ struct ExploreCardView: View {
         SkyGradients.dayGradient
             .ignoresSafeArea()
         VStack {
-            ExploreCardView(country: CountryModel.mockData())
-                .frame(width: 360, height: 0)
+            HumidityView(humidity: 12)
+            HumidityView(humidity: nil)
         }
     }
 }

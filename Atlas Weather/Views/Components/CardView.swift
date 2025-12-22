@@ -59,10 +59,8 @@ struct CardView: View {
                     Text(name)
                         .font(.system(size: 25, weight: .bold))
                     
-                    Text(dt.toFormattedDate("HH", offset: timezone))
+                    Text(dt.toFormattedDate(offset: timezone))
                         .font(.system(size: 15, weight: .medium))
-                    + Text(" \(dt.toFormattedDate("a", offset: timezone))")
-                        .font(.system(size: 12, weight: .medium))
                 }
                 Spacer()
                 Text("\(Int(temp))°")
@@ -77,7 +75,7 @@ struct CardView: View {
                     .font(.system(size: 15, weight: .medium))
             }
         }
-        .frame(width: 345, height: 90)
+        .frame(width: UIScreen.main.bounds.width - 60, height: 90)
         .foregroundStyle(.white)
         .padding()
         .background {
@@ -87,33 +85,23 @@ struct CardView: View {
         .frame(width: UIScreen.main.bounds.width)
     }
     
+    
     private var fallbackView: some View {
         VStack {
             HStack {
                 VStack(alignment: .leading, spacing: 5) {
-                    
-                    RoundedRectangle(cornerRadius: 4)
-                        .fill(Color.white.opacity(0.4))
-                        .frame(width: 100, height: 25)
-                    
-                    RoundedRectangle(cornerRadius: 4)
-                        .fill(Color.white.opacity(0.4))
-                        .frame(width: 60, height: 15)
+                    ColorManager.placeholderRectangle(width: 100, height: 25)
+                    ColorManager.placeholderRectangle(width: 60, height: 15)
                 }
                 Spacer()
-                RoundedRectangle(cornerRadius: 4)
-                    .fill(Color.white.opacity(0.4))
-                    .frame(width: 60, height: 50)
+                ColorManager.placeholderRectangle(width: 60, height: 50)
             }
             Spacer()
-            
-            RoundedRectangle(cornerRadius: 4)
-                .fill(Color.white.opacity(0.4))
-                .frame(height: 20)
+            ColorManager.placeholderRectangle(width: .infinity, height: 20)
         }
-        .frame(width: 345, height: 90)
+        .frame(width: UIScreen.main.bounds.width - 60, height: 90)
         .padding()
-        .background(Color.gray.opacity(0.3))
+        .background(Color.black.opacity(0.1))
         .cornerRadius(16)
         .frame(width: UIScreen.main.bounds.width)
     }

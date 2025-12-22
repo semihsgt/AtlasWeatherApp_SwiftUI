@@ -15,13 +15,14 @@ class SearchViewModel: ObservableObject {
     @Published var searchText = ""
     @Published var searchData: [GeocodingModel] = []
     private var searchTask: Task<Void, Never>?
+    var networkDataManager = NetworkDataManager.shared
     
     func getAllCitiesWeather() async {
         do {
             let weatherData = try await withThrowingTaskGroup(of: CurrentWeatherModel?.self) { group in
                 for city in worldCities {
                     group.addTask {
-                        try? await NetworkDataManager.shared.fetchWeather(
+                        try? await self.networkDataManager.fetchWeather(
                             lat: city.latitude,
                             lon: city.longitude,
                             endpoint: "weather"
@@ -53,14 +54,14 @@ class SearchViewModel: ObservableObject {
         searchTask = Task {
             try? await Task.sleep(for: .milliseconds(500))
             guard !Task.isCancelled else { 
-                searchData = []  // Cancel sonrası state'i temizle
+                searchData = []
                 return 
             }
             searchStatus = .loading
             do {
-                let result = try await NetworkDataManager.shared.fetchGeocoding(q: searchText)
-                guard !Task.isCancelled else { 
-                    searchData = []  // İptal sonrası temizle
+                let result = try await networkDataManager.fetchGeocoding(q: searchText)
+                guard !Task.isCancelled else {
+                    searchData = []
                     return 
                 }
                 searchData = result
@@ -68,7 +69,7 @@ class SearchViewModel: ObservableObject {
             } catch {
                 print(error)
                 searchStatus = .error(error)
-                searchData = []  // Hata sonrası da temizle
+                searchData = []
             }
         }
     }
