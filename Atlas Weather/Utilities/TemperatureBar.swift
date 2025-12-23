@@ -112,7 +112,7 @@ struct TemperatureBar: View {
     .frame(width: 410, height: 910)
     .background {
         SkyGradients.dayGradient
-        ColorManager.backgroundColor
+        ColorManager.backgroundColor()
     }
     
 }

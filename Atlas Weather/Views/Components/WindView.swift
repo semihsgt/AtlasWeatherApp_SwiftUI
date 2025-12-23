@@ -84,7 +84,7 @@ struct WindView: View {
             .foregroundStyle(.white)
         }
         .background {
-            ColorManager.backgroundColor
+            ColorManager.backgroundColor()
         }
     }
 }

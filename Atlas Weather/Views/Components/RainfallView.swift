@@ -48,7 +48,7 @@ struct RainfallView: View {
             .foregroundStyle(.white)
         }
         .background {
-            ColorManager.backgroundColor
+            ColorManager.backgroundColor()
         }
     }
 }

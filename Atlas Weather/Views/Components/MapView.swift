@@ -57,7 +57,7 @@ struct MapView: View {
         }
         .frame(minHeight: 400)
         .background {
-            ColorManager.backgroundColor
+            ColorManager.backgroundColor()
         }
     }
 }

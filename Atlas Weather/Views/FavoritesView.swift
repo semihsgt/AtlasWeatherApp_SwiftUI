@@ -23,7 +23,7 @@ struct FavoritesView: View {
                         ForEach(viewModel.favoritesWeatherData) { city in
                             if #available(iOS 18.0, *) {
                                 NavigationLink {
-                                    DetailsView(navigationPath: $navigationPath, lat: city.coord?.lat, lon: city.coord?.lon)
+                                    DetailsView(path: $navigationPath, lat: city.coord?.lat, lon: city.coord?.lon)
                                         .navigationTransition(.zoom(sourceID: city.id, in: namespace))
                                 } label: {
                                     CardView(weather: city)
@@ -31,7 +31,7 @@ struct FavoritesView: View {
                                 .matchedTransitionSource(id: city.id, in: namespace)
                             } else {
                                 NavigationLink {
-                                    DetailsView(navigationPath: $navigationPath, lat: city.coord?.lat, lon: city.coord?.lon)
+                                    DetailsView(path: $navigationPath, lat: city.coord?.lat, lon: city.coord?.lon)
                                 } label: {
                                     CardView(weather: city)
                                 }

@@ -43,7 +43,7 @@ struct HumidityView: View {
             .foregroundStyle(.white)
         }
         .background {
-            ColorManager.backgroundColor
+            ColorManager.backgroundColor()
         }
     }
 }

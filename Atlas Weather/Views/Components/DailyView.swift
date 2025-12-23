@@ -21,19 +21,22 @@ struct DailyView: View {
             let globalMin = days.compactMap { $0.temp?.min }.min() ?? 0
             let globalMax = days.compactMap { $0.temp?.max }.max() ?? 0
             
-            VStack(alignment: .leading) {
-                HStack {
-                    Image(systemName: "calendar")
-                        .font(.system(size: 15))
-                    Text("10-DAY FORECAST")
-                        .font(.system(size: 15))
-                }
-                .foregroundStyle(.white)
-                .opacity(0.5)
+            VStack(alignment: .leading, spacing: 0) {
                 
-                Divider()
-                    .background(Color.white)
+                VStack(alignment: .leading, spacing: 5) {
+                    HStack {
+                        Image(systemName: "calendar")
+                            .font(.system(size: 15))
+                        Text("10-DAY FORECAST")
+                            .font(.system(size: 15))
+                    }
+                    .foregroundStyle(.white)
                     .opacity(0.5)
+                    
+                    Divider()
+                        .background(Color.white)
+                        .opacity(0.5)
+                }
                 
                 ForEach(Array(days.enumerated()), id: \.element.id) { idx, day in
                     HStack {
@@ -98,13 +101,13 @@ struct DailyView: View {
                     if idx != days.count - 1 {
                         Divider()
                             .background(Color.white)
-                            .opacity(0.5)
+                            .opacity(0.25)
                     }
                 }
             }
-            .padding()
+            .padding([.horizontal, .top])
             .background {
-                ColorManager.backgroundColor
+                ColorManager.backgroundColor()
             }
             
         } else {
@@ -145,18 +148,18 @@ struct DailyView: View {
         }
         .padding()
         .background {
-            ColorManager.backgroundColor
+            ColorManager.backgroundColor()
         }
     }
 }
 
 #Preview {
-    VStack {
-        DailyView(weather: DailyForecastModel.MockData(),current: CurrentWeatherModel.MockData())
-        DailyView(weather: nil, current: nil)
-    }
-    .frame(height: 950)
-    .background {
+    ZStack {
         SkyGradients.dayGradient
+            .ignoresSafeArea()
+        VStack {
+            DailyView(weather: DailyForecastModel.MockData(),current: CurrentWeatherModel.MockData())
+            DailyView(weather: nil, current: nil)
+        }
     }
 }

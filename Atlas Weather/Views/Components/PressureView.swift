@@ -82,7 +82,7 @@ struct PressureView: View {
         }
         .padding()
         .foregroundStyle(.white)
-        .background(ColorManager.backgroundColor)
+        .background(ColorManager.backgroundColor())
     }
 }
 

@@ -15,11 +15,56 @@ class DetailsViewModel: ObservableObject {
     var current: CurrentWeatherModel?
     var hourly: HourlyForecastModel?
     var daily: DailyForecastModel?
+    private var countries: [CountryModel]?
+    var country: CountryModel?
+    var isCountryAvaliable: Bool?
     @Published private(set) var status: LoadingState = .idle
     var lat: Double?
     var lon: Double?
-    var networkDataManager = NetworkDataManager.shared
-    var favoritesViewModel = FavoritesViewModel.shared
+    private var networkDataManager = NetworkDataManager.shared
+    private var favoritesViewModel = FavoritesViewModel.shared
+    private var localDataManager = LocalDataManager.shared
+    
+    func getAllWeathers() async {
+        self.current = nil
+        self.hourly = nil
+        self.daily = nil
+        self.countries = nil
+        self.country = nil
+        
+        status = .loading
+        do {
+            async let currentFetch: CurrentWeatherModel? = networkDataManager.fetchWeather(lat: lat, lon: lon, endpoint: "weather")
+            async let hourlyFetch: HourlyForecastModel? = networkDataManager.fetchWeather(lat: lat, lon: lon, cnt: 24, endpoint: "forecast/hourly")
+            async let dailyFetch: DailyForecastModel? = networkDataManager.fetchWeather(lat: lat, lon: lon, cnt: 10, endpoint: "forecast/daily")
+            async let countriesFetch: [CountryModel]? = localDataManager.loadCountries()
+            
+            let (currentData, hourlyData, dailyData, countriesData) = try await (currentFetch, hourlyFetch, dailyFetch, countriesFetch)
+            
+            self.current = currentData
+            self.hourly = hourlyData
+            self.daily = dailyData
+            self.countries = countriesData
+            
+            isCountryAvaliable = getCountry()
+            
+            status = .success
+        } catch {
+            print("Error detail: \(error.localizedDescription)")
+            status = .error(error)
+        }
+    }
+    
+    private func getCountry() -> Bool? {
+        return countries?.contains { country in
+            if country.id == current?.sys?.country {
+                self.country = country
+                return true
+            } else {
+                return false
+            }
+        }
+    }
     
     init(lat: Double?, lon: Double?) {
         self.lat = lat
@@ -29,30 +74,6 @@ class DetailsViewModel: ObservableObject {
     func updateLocation(lat: Double?, lon: Double?) {
         self.lat = lat
         self.lon = lon
-    }
-    
-    func getAllWeathers() async {
-        self.current = nil
-        self.hourly = nil
-        self.daily = nil
-        
-        status = .loading
-        do {
-            async let currentFetch: CurrentWeatherModel? = networkDataManager.fetchWeather(lat: lat, lon: lon, endpoint: "weather")
-            async let hourlyFetch: HourlyForecastModel? = networkDataManager.fetchWeather(lat: lat, lon: lon, cnt: 24, endpoint: "forecast/hourly")
-            async let dailyFetch: DailyForecastModel? = networkDataManager.fetchWeather(lat: lat, lon: lon, cnt: 10, endpoint: "forecast/daily")
-            
-            let (currentData, hourlyData, dailyData) = try await (currentFetch, hourlyFetch, dailyFetch)
-            
-            self.current = currentData
-            self.hourly = hourlyData
-            self.daily = dailyData
-            
-            status = .success
-        } catch {
-            print("Error detail: \(error.localizedDescription)")
-            status = .error(error)
-        }
     }
     
     func isFavorite(id: Int) -> Bool {

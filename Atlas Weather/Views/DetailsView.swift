@@ -10,24 +10,25 @@ internal import CoreLocation
 
 struct DetailsView: View {
     
-    init(navigationPath: Binding<NavigationPath> = .constant(NavigationPath()), lat: Double?, lon: Double?, isMyLocPage: Bool = false) {
-        self._navigationPath = navigationPath
+    init(path: Binding<NavigationPath> = .constant(NavigationPath()), lat: Double?, lon: Double?, isMyLocPage: Bool = false) {
+        self._path = path
         self.lat = lat
         self.lon = lon
         _viewModel = StateObject(wrappedValue: DetailsViewModel(lat: lat, lon: lon))
         self.isMyLocPage = isMyLocPage
     }
     
-    @Binding var navigationPath: NavigationPath
+    @Binding var path: NavigationPath
     @StateObject private var viewModel: DetailsViewModel
     let lat: Double?
     let lon: Double?
     let isMyLocPage: Bool
     @ObservedObject var userLocationManager = UserLocationManager.shared
+    @State private var isSheetShown = false
     
     
     var body: some View {
-        NavigationStack(path: $navigationPath) {
+        NavigationStack(path: $path) {
             switch viewModel.status {
             case .idle:
                 EmptyView()
@@ -54,8 +55,18 @@ struct DetailsView: View {
                     
                     VStack {
                         
+                        if let country = viewModel.country {
+                            Button {
+                                isSheetShown = true
+                            } label: {
+                                ExploreCardView(country: country)
+                                    .sheet(isPresented: $isSheetShown) {
+                                        ExploreView(country: country)
+                                    }
+                            }
+                        }
+                        
                         HourlyView(weather: hourly, current: current)
-                            .cornerRadius(15)
                         
                         DailyView(weather: daily, current: current)
                         

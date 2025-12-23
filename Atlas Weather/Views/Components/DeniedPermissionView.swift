@@ -38,7 +38,7 @@ struct DeniedPermissionView: View {
                     .bold()
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(ColorManager.backgroundColor)
+                    .background(ColorManager.backgroundColor())
                     .foregroundStyle(.white)
                     .cornerRadius(12)
             }

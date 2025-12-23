@@ -10,8 +10,8 @@ import SwiftUI
 
 struct ColorManager {
     
-    static var backgroundColor: some View {
-        return Color.black.opacity(0.1)
+    static func backgroundColor(opacity: Double = 0.1) -> some View {
+        Color.black.opacity(opacity)
             .clipShape(RoundedRectangle(cornerRadius: 16))
     }
     

@@ -22,7 +22,7 @@ struct SearchView: View {
                         ForEach(viewModel.cities) { city in
                             if #available(iOS 18.0, *) {
                                 NavigationLink {
-                                    DetailsView(navigationPath: $navigationPath, lat: city.coord?.lat, lon: city.coord?.lon)
+                                    DetailsView(path: $navigationPath, lat: city.coord?.lat, lon: city.coord?.lon)
                                         .navigationTransition(.zoom(sourceID: city.id, in: namespace))
                                 } label: {
                                     CardView(weather: city)
@@ -30,7 +30,7 @@ struct SearchView: View {
                                 .matchedTransitionSource(id: city.id, in: namespace)
                             } else {
                                 NavigationLink {
-                                    DetailsView(navigationPath: $navigationPath, lat: city.coord?.lat, lon: city.coord?.lon)
+                                    DetailsView(path: $navigationPath, lat: city.coord?.lat, lon: city.coord?.lon)
                                 } label: {
                                     CardView(weather: city)
                                 }
@@ -52,7 +52,7 @@ struct SearchView: View {
                         List(results) { result in
                             if #available (iOS 18.0, *) {
                                 NavigationLink {
-                                    DetailsView(navigationPath: $navigationPath, lat: result.lat ?? 0, lon: result.lon ?? 0)
+                                    DetailsView(path: $navigationPath, lat: result.lat ?? 0, lon: result.lon ?? 0)
                                         .navigationTransition(.zoom(sourceID: result.id , in: namespace))
                                 } label: {
                                     Text("\(result.name ?? ""), \(result.country ?? "") \(result.state ?? "")")
@@ -60,7 +60,7 @@ struct SearchView: View {
                                 .matchedTransitionSource(id: result.id, in: namespace)
                             } else {
                                 NavigationLink {
-                                    DetailsView(navigationPath: $navigationPath, lat: result.lat ?? 0, lon: result.lon ?? 0)
+                                    DetailsView(path: $navigationPath, lat: result.lat ?? 0, lon: result.lon ?? 0)
                                 } label: {
                                     Text("\(result.name ?? ""), \(result.country ?? "") \(result.state ?? "")")
                                 }

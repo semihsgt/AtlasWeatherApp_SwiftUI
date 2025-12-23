@@ -14,7 +14,7 @@ struct MyLocationView: View {
     @State var navigationPath = NavigationPath()
     var body: some View {
         NavigationStack(path: $navigationPath) {
-            DetailsView(navigationPath: $navigationPath, lat: lat, lon: lon, isMyLocPage: true)
+            DetailsView(path: $navigationPath, lat: lat, lon: lon, isMyLocPage: true)
         }
     }
 }
