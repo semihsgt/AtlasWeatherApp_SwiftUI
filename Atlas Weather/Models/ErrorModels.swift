@@ -1,5 +1,5 @@
 //
-//  Errors.swift
+//  ErrorModels.swift
 //  Atlas Weather
 //
 //  Created by Semih Söğüt on 10.12.2025.
@@ -10,23 +10,6 @@ import Foundation
 struct ErrorResponseModel: Decodable {
     let cod: Int?
     let message: String?
-}
-
-enum LocalJsonDataErrors: Error, LocalizedError {
-    case fileNotFound
-    case decodingFailed(underlyingError: Error)
-    case localFileReadError(underlyingError: Error)
-    
-    var errorDescription: String? {
-        switch self {
-        case .fileNotFound:
-            return "Country JSON file not found in app bundle."
-        case .decodingFailed(underlyingError: let error):
-            return "Failed to decode country data: \(error.localizedDescription)"
-        case .localFileReadError(underlyingError: let error):
-            return "Failed to read country data file: \(error.localizedDescription)"
-        }
-    }
 }
 
 enum NetworkErrors: Error, LocalizedError {

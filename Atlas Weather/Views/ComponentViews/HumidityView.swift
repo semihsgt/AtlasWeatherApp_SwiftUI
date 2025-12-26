@@ -1,5 +1,5 @@
 //
-//  FeelsLikeView.swift
+//  HumidityView.swift
 //  Atlas Weather
 //
 //  Created by Semih Söğüt on 21.12.2025.
@@ -7,17 +7,19 @@
 
 import SwiftUI
 
-struct FeelsLikeView: View {
-    let feelsLike: Double?
-    let temp: Double?
+struct HumidityView: View {
+    let humidity: Int?
+    let currentTemp: Double?
     
-    private var percentage: Double {
-        guard let feelsLike = feelsLike,
-              let temp = temp,
-              temp != 0 else { return 100 }
-        return (feelsLike / temp) * 100
+    var dewPoint: Double? {
+        guard let humidity, let currentTemp else { return nil }
+        let a = 17.27
+        let b = 237.7
+        let alpha = ((a * currentTemp) / (b + currentTemp)) + log(Double(humidity) / 100.0)
+        let dewPoint = (b * alpha) / (a - alpha)
+        
+        return dewPoint
     }
-    
     
     var body: some View {
         
@@ -26,9 +28,9 @@ struct FeelsLikeView: View {
                 
                 VStack(alignment: .leading, spacing: 5) {
                     HStack {
-                        Image(systemName: "thermometer.medium")
+                        Image(systemName: "humidity")
                             .font(.system(size: 15))
-                        Text("FEELS LIKE")
+                        Text("HUMIDITY")
                             .font(.system(size: 15))
                     }
                     .foregroundStyle(.white)
@@ -40,12 +42,20 @@ struct FeelsLikeView: View {
                 
                 Spacer()
                 
-                if let _ = feelsLike, let _ = temp {
-                    
-                    Text("%\(String(Int(percentage)))")
+                if let humidity = humidity, let dewPoint = dewPoint {
+                    Text("%\(String(humidity))")
                         .font(.system(size: 35))
+                    
+                    Spacer()
+                    
+                    Text("The dew point is \(String(format: "%.1f", dewPoint))°C right now.")
+                        .font(.system(size: 14))
+                        .multilineTextAlignment(.leading)
+                    
                 } else {
                     ColorManager.placeholderRectangle(width: 100, height: 20)
+                    Spacer()
+                    ColorManager.placeholderRectangle(width: 60, height: 20)
                 }
                 
             }
@@ -63,8 +73,8 @@ struct FeelsLikeView: View {
         SkyGradients.dayGradient
             .ignoresSafeArea()
         VStack {
-            FeelsLikeView(feelsLike: -1.5, temp: 1)
-            FeelsLikeView(feelsLike: 5, temp: nil)
+            HumidityView(humidity: 12, currentTemp: 12.0)
+            HumidityView(humidity: nil, currentTemp: nil)
         }
     }
 }

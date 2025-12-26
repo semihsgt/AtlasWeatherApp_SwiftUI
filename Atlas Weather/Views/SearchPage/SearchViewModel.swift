@@ -9,7 +9,7 @@ import Foundation
 internal import Combine
 
 @MainActor
-class SearchViewModel: ObservableObject {
+final class SearchViewModel: ObservableObject {
     @Published private(set) var searchStatus: LoadingState = .idle
     @Published var cities: [CurrentWeatherModel] = []
     @Published var searchText = ""
@@ -39,7 +39,7 @@ class SearchViewModel: ObservableObject {
             }
             self.cities = weatherData.sorted(by: { ($0.name ?? "") < ($1.name ?? "") })
         } catch {
-            print(error)
+            debugPrint(error.localizedDescription)
         }
     }
     
@@ -67,7 +67,7 @@ class SearchViewModel: ObservableObject {
                 searchData = result
                 searchStatus = .success
             } catch {
-                print(error)
+                debugPrint(error.localizedDescription)
                 searchStatus = .error(error)
                 searchData = []
             }

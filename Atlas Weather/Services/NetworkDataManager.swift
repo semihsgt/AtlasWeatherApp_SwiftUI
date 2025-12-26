@@ -11,7 +11,7 @@
 
 import Foundation
 
-class NetworkDataManager {
+final class NetworkDataManager {
     
     private init() {
     }

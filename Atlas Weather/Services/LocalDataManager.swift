@@ -7,26 +7,26 @@
 
 import Foundation
 
-class LocalDataManager {
+final class LocalDataManager {
     
     private init() {
     }
     
     static let shared = LocalDataManager()
     
-    func loadCountries() async throws -> [CountryModel] {
+    func loadCountries() async -> [CountryModel] {
         
         guard let url = Bundle.main.url(forResource: "Countries", withExtension: "json") else {
-            throw LocalJsonDataErrors.fileNotFound
+            debugPrint("File Not Found")
+            return []
         }
         
         do {
             let data = try Data(contentsOf: url)
             return try JSONDecoder().decode([CountryModel].self, from: data)
-        } catch let decodingError as DecodingError {
-            throw LocalJsonDataErrors.decodingFailed(underlyingError: decodingError)
         } catch {
-            throw LocalJsonDataErrors.localFileReadError(underlyingError: error)
+            debugPrint(error.localizedDescription)
+            return []
         }
     }
 }

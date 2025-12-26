@@ -11,17 +11,21 @@ import FChucker
 @main
 struct Atlas_WeatherApp: App {
     
-//    init() {
-//        // Start network monitoring
-//#if DEBUG
-//        FChucker.start()
-//#endif
-//    }
+    @StateObject var userLocationManager = UserLocationManager.shared
+    
+    //    init() {
+    //        // Start network monitoring
+    //#if DEBUG
+    //        FChucker.start()
+    //#endif
+    //    }
+    
     
     var body: some Scene {
         WindowGroup {
             ContentView()
-//                .networkToasts()
+                .environmentObject(userLocationManager)
+            //                .networkToasts()
         }
     }
 }

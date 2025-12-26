@@ -23,8 +23,9 @@ struct DetailsView: View {
     let lat: Double?
     let lon: Double?
     let isMyLocPage: Bool
-    @ObservedObject var userLocationManager = UserLocationManager.shared
+    @EnvironmentObject var userLocationManager: UserLocationManager
     @State private var isSheetShown = false
+    @State private var opacity = 0.0
     
     
     var body: some View {
@@ -33,7 +34,7 @@ struct DetailsView: View {
             case .idle:
                 EmptyView()
             case .loading:
-                ProgressView()
+                Color.clear
             case .success:
                 
                 let (current, hourly, daily) = (viewModel.current, viewModel.hourly, viewModel.daily)
@@ -67,29 +68,38 @@ struct DetailsView: View {
                         }
                         
                         HourlyView(weather: hourly, current: current)
-                        
+                            .aspectRatio(2.1, contentMode: .fill)
                         DailyView(weather: daily, current: current)
+                            .aspectRatio(2.1, contentMode: .fill)
                         
-                        HStack{
+                        
+                        HStack {
                             SunTrackView(sunrise: current?.sys?.sunrise, sunset: current?.sys?.sunset, timezone: current?.timezone, dt: current?.dt)
                             
                             FeelsLikeView(feelsLike: current?.main?.feelsLike, temp: current?.main?.temp)
                         }
+                        .aspectRatio(2.0, contentMode: .fill)
                         
                         HStack {
-                            HumidityView(humidity: current?.main?.humidity)
+                            HumidityView(humidity: current?.main?.humidity, currentTemp: current?.main?.temp)
+                            
                             VisibilityView(visibility: current?.visibility)
                         }
+                        .aspectRatio(2.0, contentMode: .fill)
                         
                         HStack {
                             RainfallView(rainfall: current?.rain?.last1H, rainfallTomorrow: daily?.list?[1].rain)
+                            
                             PressureView(pressure: current?.main?.pressure)
                         }
+                        .aspectRatio(2.0, contentMode: .fill)
                         
                         HStack {
                             SnowfallView(snowfall: current?.snow?.last1H, snowfallTomorrow: daily?.list?[1].snow)
+                            
                             WindView(speed: current?.wind?.speed, deg: current?.wind?.deg, gust: current?.wind?.gust)
                         }
+                        .aspectRatio(2.0, contentMode: .fill)
                         
                         MapView(lat: current?.coord?.lat, lon: current?.coord?.lon, locationDot: isMyLocPage ? true : false)
                         
@@ -111,6 +121,12 @@ struct DetailsView: View {
                     viewModel.getSkyGradient(for: period)
                         .frame(width: UIScreen.main.bounds.width)
                         .ignoresSafeArea(edges: .all)
+                }
+                .opacity(opacity)
+                .onAppear {
+                    withAnimation(.easeIn(duration: 0.37)) {
+                        opacity = 1.0
+                    }
                 }
                 
             case .error(let error):

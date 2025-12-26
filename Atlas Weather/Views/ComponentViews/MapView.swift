@@ -22,7 +22,7 @@ struct MapView: View {
         let center = CLLocationCoordinate2D(latitude: lat ?? 0, longitude: lon ?? 0)
         self._region = State(initialValue: MKCoordinateRegion(
             center: center,
-            span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
+            span: MKCoordinateSpan(latitudeDelta: 1.5, longitudeDelta: 1.5)
         ))
     }
     
@@ -51,11 +51,10 @@ struct MapView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 12))
                     .padding(.top, 5)
                 
-                
             }
             .padding()
         }
-        .frame(minHeight: 400)
+        .frame(height: 300)
         .background {
             ColorManager.backgroundColor()
         }

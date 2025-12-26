@@ -1,5 +1,5 @@
 //
-//  RainfallView.swift
+//  SnowfallView.swift
 //  Atlas Weather
 //
 //  Created by Semih Söğüt on 21.12.2025.
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct RainfallView: View {
-    let rainfall: Double?
-    let rainfallTomorrow: Double?
+struct SnowfallView: View {
+    let snowfall: Double?
+    let snowfallTomorrow: Double?
     
     var body: some View {
         Group {
@@ -17,9 +17,9 @@ struct RainfallView: View {
                 
                 VStack(alignment: .leading, spacing: 5) {
                     HStack {
-                        Image(systemName: "drop.fill")
+                        Image(systemName: "snowflake")
                             .font(.system(size: 15))
-                        Text("RAINFALL")
+                        Text("SNOWFALL")
                             .font(.system(size: 15))
                     }
                     .foregroundStyle(.white)
@@ -29,9 +29,10 @@ struct RainfallView: View {
                         .opacity(0.5)
                 }
                 
+                
                 Spacer()
                 
-                Text("\(String(Int(rainfall ?? 0))) mm")
+                Text("\(String(Int(snowfall ?? 0))) mm")
                     .font(.system(size: 35))
                 
                 Text("in last 1h")
@@ -39,9 +40,8 @@ struct RainfallView: View {
                 
                 Spacer()
                 
-                Text("\(String(Int(rainfallTomorrow ?? 0))) mm expected tomorrow.")
-                    .font(.system(size: 17))
-                
+                Text("\(String(Int(snowfallTomorrow ?? 0))) mm expected tomorrow.")
+                    .font(.system(size: 14))
                 
             }
             .padding()
@@ -57,9 +57,10 @@ struct RainfallView: View {
     ZStack {
         SkyGradients.dayGradient
             .ignoresSafeArea()
-        VStack {
-            RainfallView(rainfall: 12, rainfallTomorrow: 32)
-            RainfallView(rainfall: nil, rainfallTomorrow: nil)
+        HStack {
+            SnowfallView(snowfall: 12, snowfallTomorrow: 32)
+            SnowfallView(snowfall: nil, snowfallTomorrow: nil)
         }
+        .frame(height: 160)
     }
 }

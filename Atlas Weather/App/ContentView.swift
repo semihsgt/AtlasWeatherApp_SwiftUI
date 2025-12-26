@@ -10,14 +10,43 @@ internal import CoreLocation
 
 struct ContentView: View {
     @State private var selection: TabKey = .location
-    @ObservedObject var userLocationManager = UserLocationManager.shared
+    @State private var isSplashFinished = false
+    @EnvironmentObject var userLocationManager: UserLocationManager
     
     var body: some View {
-        if userLocationManager.authorizationStatus == .notDetermined {
-            LocationRequestView()
-        } else if userLocationManager.authorizationStatus == .authorizedWhenInUse && userLocationManager.userlocation == nil {
-            ProgressView()
-        } else if #available(iOS 18.0, *) {
+        ZStack {
+            Group {
+                if userLocationManager.authorizationStatus == .notDetermined {
+                    LocationRequestView()
+                } else if userLocationManager.authorizationStatus == .authorizedWhenInUse && userLocationManager.userlocation == nil {
+                    Color.clear
+                } else {
+                    AppTabView(selection: $selection)
+                }
+                
+                if !isSplashFinished {
+                    SplashView()
+                        .transition(.opacity)
+                        .zIndex(1)
+                }
+            }
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                withAnimation(.easeOut(duration: 0.5)) {
+                    isSplashFinished = true
+                }
+            }
+        }
+    }
+}
+
+struct AppTabView: View {
+    @EnvironmentObject var userLocationManager: UserLocationManager
+    @Binding fileprivate var selection: TabKey
+    
+    var body: some View {
+        if #available(iOS 18.0, *) {
             TabView(selection: $selection) {
                 Tab("My Location", systemImage: "location", value: TabKey.location) {
                     MyLocationView(
@@ -37,7 +66,8 @@ struct ContentView: View {
                 MyLocationView(
                     lat: (userLocationManager.authorizationStatus == .denied) ? nil : userLocationManager.userlocation?.coordinate.latitude,
                     lon: (userLocationManager.authorizationStatus == .denied) ? nil : userLocationManager.userlocation?.coordinate.longitude
-                )                .tabItem {
+                )
+                .tabItem {
                     Label("My Location", systemImage: "location")
                 }
                 .tag(TabKey.location)
@@ -58,7 +88,7 @@ struct ContentView: View {
     }
 }
 
-private enum TabKey: Hashable {
+fileprivate enum TabKey: Hashable {
     case location, favorites, search
 }
 

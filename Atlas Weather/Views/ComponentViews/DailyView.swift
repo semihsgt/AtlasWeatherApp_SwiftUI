@@ -106,6 +106,7 @@ struct DailyView: View {
                 }
             }
             .padding([.horizontal, .top])
+            .padding(.bottom, 5)
             .background {
                 ColorManager.backgroundColor()
             }

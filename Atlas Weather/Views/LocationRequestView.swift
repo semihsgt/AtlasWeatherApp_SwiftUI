@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LocationRequestView: View {
-    var userLocationManager = UserLocationManager.shared
+    @EnvironmentObject var userLocationManager: UserLocationManager
     
     var body: some View {
         VStack {

@@ -8,14 +8,14 @@
 internal import CoreLocation
 internal import Combine
 
-class UserLocationManager: NSObject, ObservableObject {
+final class UserLocationManager: NSObject, ObservableObject {
     
     private let manager = CLLocationManager()
     @Published var userlocation: CLLocation?
     @Published var authorizationStatus: CLAuthorizationStatus = .notDetermined
     static let shared = UserLocationManager()
         
-    override init() {
+    private override init() {
         super.init()
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
@@ -27,7 +27,6 @@ class UserLocationManager: NSObject, ObservableObject {
     }
 }
 
-
 extension UserLocationManager: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -35,15 +34,15 @@ extension UserLocationManager: CLLocationManagerDelegate {
         self.authorizationStatus = status
         switch status {
         case .notDetermined:
-            print("DEBUG: Not Determined")
+            debugPrint("DEBUG: Not Determined")
         case .restricted:
-            print("DEBUG: Restricted")
+            debugPrint("DEBUG: Restricted")
         case .denied:
-            print("DEBUG: Denied")
+            debugPrint("DEBUG: Denied")
         case .authorizedAlways:
-            print("DEBUG: Auth always")
+            debugPrint("DEBUG: Auth always")
         case .authorizedWhenInUse:
-            print("DEBUG: Auth when in use")
+            debugPrint("DEBUG: Auth when in use")
         @unknown default:
             break
         }
@@ -53,6 +52,4 @@ extension UserLocationManager: CLLocationManagerDelegate {
         guard let location = locations.last else { return }
         self.userlocation = location
     }
-    
-    
 }

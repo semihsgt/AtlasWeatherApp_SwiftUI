@@ -1,5 +1,5 @@
 //
-//  VisibilityView.swift
+//  RainfallView.swift
 //  Atlas Weather
 //
 //  Created by Semih Söğüt on 21.12.2025.
@@ -7,19 +7,19 @@
 
 import SwiftUI
 
-struct VisibilityView: View {
-    let visibility: Int?
+struct RainfallView: View {
+    let rainfall: Double?
+    let rainfallTomorrow: Double?
     
     var body: some View {
-        
         Group {
             VStack(alignment: .leading, spacing: 0) {
                 
                 VStack(alignment: .leading, spacing: 5) {
                     HStack {
-                        Image(systemName: "eye.fill")
+                        Image(systemName: "drop.fill")
                             .font(.system(size: 15))
-                        Text("VISIBILITY")
+                        Text("RAINFALL")
                             .font(.system(size: 15))
                     }
                     .foregroundStyle(.white)
@@ -31,17 +31,17 @@ struct VisibilityView: View {
                 
                 Spacer()
                 
-                if let visibility = visibility {
-                    if visibility/1000 == 10 {
-                        Text("Max")
-                            .font(.system(size: 35))
-                    } else {
-                        Text("\(String(visibility/1000)) km")
-                            .font(.system(size: 35))
-                    }
-                } else {
-                    ColorManager.placeholderRectangle(width: 100, height: 20)
-                }
+                Text("\(String(Int(rainfall ?? 0))) mm")
+                    .font(.system(size: 35))
+                
+                Text("in last 1h")
+                    .font(.system(size: 25))
+                
+                Spacer()
+                
+                Text("\(String(Int(rainfallTomorrow ?? 0))) mm expected tomorrow.")
+                    .font(.system(size: 14))
+                
                 
             }
             .padding()
@@ -58,8 +58,8 @@ struct VisibilityView: View {
         SkyGradients.dayGradient
             .ignoresSafeArea()
         VStack {
-            VisibilityView(visibility: 12)
-            VisibilityView(visibility: nil)
+            RainfallView(rainfall: 12, rainfallTomorrow: 32)
+            RainfallView(rainfall: nil, rainfallTomorrow: nil)
         }
     }
 }

@@ -20,7 +20,6 @@ struct PressureView: View {
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             
-            
             VStack(alignment: .leading, spacing: 5) {
                 HStack {
                     Image(systemName: "gauge.with.needle")
@@ -35,9 +34,9 @@ struct PressureView: View {
                     .opacity(0.5)
             }
             
+            Spacer()
             
             if let pressure = pressure {
-                
                 ZStack {
                     Circle()
                         .trim(from: 0.15, to: 0.85)
@@ -65,18 +64,19 @@ struct PressureView: View {
                             .opacity(0.8)
                     }
                 }
-                .offset(y: 25)
+                .offset(y: 15)
                 .padding(.horizontal, 10)
                                 
             } else {
-                Spacer()
                 VStack(alignment: .leading) {
                     Spacer()
                     ColorManager.placeholderRectangle(width: 140, height: 40)
                     Spacer()
                     ColorManager.placeholderRectangle(width: 70, height: 30)
+                    Spacer()
                 }
             }
+            
             Spacer()
             
         }
@@ -89,10 +89,10 @@ struct PressureView: View {
 #Preview {
     ZStack {
         SkyGradients.dayGradient
+            .ignoresSafeArea()
         HStack {
             PressureView(pressure: 1045)
             PressureView(pressure: nil)
         }
-        .frame(height: 160)
     }
 }

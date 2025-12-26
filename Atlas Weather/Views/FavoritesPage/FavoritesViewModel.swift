@@ -10,7 +10,7 @@ import SwiftUI
 internal import Combine
 
 @MainActor
-class FavoritesViewModel: ObservableObject {
+final class FavoritesViewModel: ObservableObject {
     @Published var savedLocations: [SavedFavorite] = []
     @Published var favoritesWeatherData: [CurrentWeatherModel] = []
     static let shared = FavoritesViewModel()
@@ -36,7 +36,7 @@ class FavoritesViewModel: ObservableObject {
                     do {
                         return try await self.networkDataManager.fetchWeather(id: city.id, endpoint: "weather")
                     } catch {
-                        print("Error: \(error.localizedDescription), City ID: \(city.id)")
+                        debugPrint("Error: \(error.localizedDescription), City ID: \(city.id)")
                         return nil
                     }
                 }
@@ -75,7 +75,7 @@ class FavoritesViewModel: ObservableObject {
         do {
             return try await networkDataManager.fetchWeather(id: id, endpoint: "weather")
         } catch {
-            print("Error: Unable to fetch single data ID ID: \(id)")
+            debugPrint("Error: Unable to fetch single data ID ID: \(id)")
             return nil
         }
     }

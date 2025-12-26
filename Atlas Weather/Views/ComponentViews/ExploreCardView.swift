@@ -17,7 +17,11 @@ struct ExploreCardView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     HStack {
                         Image(systemName: "globe.europe.africa.fill")
+                            .font(.system(size: 15))
                         Text("EXPLORE")
+                            .font(.system(size: 15))
+                        Image(systemName: "chevron.forward")
+                            .font(.system(size: 15))
                     }
                     .foregroundStyle(.white)
                     .opacity(0.5)

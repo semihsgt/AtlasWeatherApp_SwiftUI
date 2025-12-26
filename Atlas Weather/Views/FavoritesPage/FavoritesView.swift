@@ -16,8 +16,11 @@ struct FavoritesView: View {
         NavigationStack(path: $navigationPath) {
             VStack {
                 if viewModel.favoritesWeatherData.isEmpty {
-                    Text("No Favorite Location Added")
-                        .offset(y: -30)
+                    Text("No Favorite Location Added Or Not Connected To The Internet.")
+                        .padding(.horizontal, 15)
+                        .font(.headline)
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.secondary)
                 } else {
                     ScrollView {
                         ForEach(viewModel.favoritesWeatherData) { city in

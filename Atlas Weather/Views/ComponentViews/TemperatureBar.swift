@@ -109,6 +109,7 @@ struct TemperatureBar: View {
         TemperatureBar(dayMin: nil, dayMax: nil, globalMin: nil, globalMax: nil, currentTemp: nil)
             .frame(width: 300)
     }
+    .foregroundStyle(.white)
     .frame(width: 410, height: 910)
     .background {
         SkyGradients.dayGradient

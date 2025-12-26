@@ -14,30 +14,32 @@ enum LoadingState {
     case error(Error)
 }
 
-enum WeatherIconMapper {
-    static func toSFSymbol(_ iconCode: String?) -> String {
-        switch iconCode {
-        case "01d": return "sun.max.fill"
-        case "01n": return "moon.stars.fill"
-        case "02d": return "cloud.sun.fill"
-        case "02n": return "cloud.moon.fill"
-        case "03d", "03n": return "cloud.fill"
-        case "04d", "04n": return "smoke.fill"
-        case "09d", "09n": return "cloud.drizzle.fill"
-        case "10d": return "cloud.sun.rain.fill"
-        case "10n": return "cloud.moon.rain.fill"
-        case "11d": return "cloud.sun.bolt.fill"
-        case "11n": return "cloud.moon.bolt.fill"
-        case "13d", "13n": return "snowflake"
-        case "50d", "50n": return "cloud.fog.fill"
-        default: return "minus"
-        }
-    }
-}
-
 enum DayPeriod {
     case night
     case sunrise
     case day
     case sunset
+}
+
+extension DayPeriod {
+    static func determine(sunrise: Int?, sunset: Int?, currentTime: Int?) -> DayPeriod {
+        let duration = 2700
+        
+        guard let sunrise, let sunset, let currentTime else {
+            return .day
+        }
+        
+        let sunriseEnd = sunrise + duration
+        let sunsetStart = sunset - duration
+        
+        if currentTime >= sunrise && currentTime < sunriseEnd {
+            return .sunrise
+        } else if currentTime >= sunsetStart && currentTime < sunset {
+            return .sunset
+        } else if currentTime >= sunriseEnd && currentTime < sunsetStart {
+            return .day
+        } else {
+            return .night
+        }
+    }
 }

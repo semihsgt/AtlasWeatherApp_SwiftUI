@@ -75,14 +75,14 @@ struct CardView: View {
                     .font(.system(size: 15, weight: .medium))
             }
         }
-        .frame(width: UIScreen.main.bounds.width - 60, height: 90)
+        .frame(height: 90)
         .foregroundStyle(.white)
         .padding()
         .background {
             RoundedRectangle(cornerRadius: 16, style: .circular)
                 .foregroundStyle(skyGradient)
         }
-        .frame(width: UIScreen.main.bounds.width)
+        .padding(.horizontal)
     }
     
     
@@ -99,11 +99,11 @@ struct CardView: View {
             Spacer()
             ColorManager.placeholderRectangle(width: .infinity, height: 20)
         }
-        .frame(width: UIScreen.main.bounds.width - 60, height: 90)
+        .frame(height: 90)
         .padding()
         .background(Color.black.opacity(0.1))
         .cornerRadius(16)
-        .frame(width: UIScreen.main.bounds.width)
+        .padding(.horizontal)
     }
 }
 
