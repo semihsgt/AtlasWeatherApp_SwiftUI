@@ -2,6 +2,15 @@
 
 A weather app built with SwiftUI that provides real-time weather data and country information.
 
+## Screenshots
+
+<p align="center">
+  <img src="Screenshots/1.png" width="200" />
+  <img src="Screenshots/2.png" width="200" />
+  <img src="Screenshots/3.png" width="200" />
+  <img src="Screenshots/4.png" width="200" />
+</p>
+
 ## Features
 - Current weather conditions
 - Hourly & daily forecasts
