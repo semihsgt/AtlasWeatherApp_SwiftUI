@@ -14,8 +14,9 @@ A weather app built with SwiftUI that provides real-time weather data and countr
 ## Features
 - Current weather conditions
 - Hourly & daily forecasts
-- City search with geocoding
-- View country details through its capital city
+- City search
+- View country details
+- Add locations to favorites
 
 ## Tech Stack
 - SwiftUI
@@ -24,8 +25,8 @@ A weather app built with SwiftUI that provides real-time weather data and countr
 
 
 ## Requirements
-- iOS 18.6+
-- Xcode 26.2+
+- Minimum Deployment Target: iOS 16.0+
+- Swift 5+
 - OpenWeatherMap API Key
 
 ## Setup
