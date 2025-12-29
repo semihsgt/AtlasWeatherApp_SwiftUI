@@ -9,10 +9,6 @@ import SwiftUI
 import MapKit
 
 struct MapView: View {
-    let lat: Double?
-    let lon: Double?
-    let locationDot: Bool
-    @State private var region: MKCoordinateRegion
     
     init(lat: Double?, lon: Double?, locationDot: Bool) {
         self.lat = lat
@@ -25,6 +21,11 @@ struct MapView: View {
             span: MKCoordinateSpan(latitudeDelta: 1.5, longitudeDelta: 1.5)
         ))
     }
+    
+    let lat: Double?
+    let lon: Double?
+    let locationDot: Bool
+    @State private var region: MKCoordinateRegion
     
     var body: some View {
         Group {

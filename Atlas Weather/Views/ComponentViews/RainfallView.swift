@@ -42,7 +42,6 @@ struct RainfallView: View {
                 Text("\(String(Int(rainfallTomorrow ?? 0))) mm expected tomorrow.")
                     .font(.system(size: 14))
                 
-                
             }
             .padding()
             .foregroundStyle(.white)

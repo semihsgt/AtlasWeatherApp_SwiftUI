@@ -17,10 +17,11 @@ struct FeelsLikeView: View {
         
         let diffVal = Int((abs(feelsLike - temp)).rounded())
         
-        if diffVal == 0 { return "Feels similar to the actual temperature." }
-        
-        if feelsLike > temp { return "Feels \(diffVal)° warmer." }
-        else { return "Feels \(diffVal)° colder." }
+        if diffVal == 0 {
+            return "Feels similar to the actual temperature."
+        } else if feelsLike > temp {
+            return "Feels \(diffVal)° warmer."
+        } else { return "Feels \(diffVal)° colder." }
         
     }
     

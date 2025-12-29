@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SplashView: View {
+    
     var body: some View {
         ZStack {
             LinearGradient(colors: [.blue, .cyan], startPoint: .topLeading, endPoint: .bottomTrailing)

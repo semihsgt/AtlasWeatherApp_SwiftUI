@@ -10,12 +10,15 @@ internal import Combine
 
 @MainActor
 final class SearchViewModel: ObservableObject {
+    
     @Published private(set) var searchStatus: LoadingState = .idle
     @Published var cities: [CurrentWeatherModel] = []
     @Published var searchText = ""
     @Published var searchData: [GeocodingModel] = []
+    
     private var searchTask: Task<Void, Never>?
-    var networkDataManager = NetworkDataManager.shared
+    private var networkDataManager = NetworkDataManager.shared
+    
     
     func getAllCitiesWeather() async {
         do {
@@ -43,8 +46,10 @@ final class SearchViewModel: ObservableObject {
         }
     }
     
+    
     func searchCity() {
         searchTask?.cancel()
+        
         guard !searchText.trimmingCharacters(in: .whitespaces).isEmpty else {
             searchStatus = .idle
             searchData = []
@@ -73,6 +78,7 @@ final class SearchViewModel: ObservableObject {
             }
         }
     }
+    
     
     let worldCities: [(latitude: Double, longitude: Double)] = [
         (41.0082, 28.9784),   // Istanbul, Turkey (UTC+3)

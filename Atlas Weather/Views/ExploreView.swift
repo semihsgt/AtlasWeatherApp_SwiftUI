@@ -166,6 +166,8 @@ struct ExploreView: View {
                     .foregroundStyle(.white)
                 }
             }
+            .navigationTitle("\(country.name)")
+            .toolbar(.hidden, for: .navigationBar)
         }
         .opacity(opacity)
         .onAppear {

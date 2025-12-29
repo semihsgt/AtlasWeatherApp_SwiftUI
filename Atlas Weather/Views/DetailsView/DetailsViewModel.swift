@@ -12,22 +12,29 @@ internal import Combine
 @MainActor
 final class DetailsViewModel: ObservableObject {
     
+    init(lat: Double?, lon: Double?) {
+        self.lat = lat
+        self.lon = lon
+    }
+    
+    var lat: Double?
+    var lon: Double?
+    
     var current: CurrentWeatherModel?
     var hourly: HourlyForecastModel?
     var daily: DailyForecastModel?
+    
     private var countries: [CountryModel]?
     var country: CountryModel?
     var isCountryAvaliable: Bool?
+    
     @Published private(set) var status: LoadingState = .idle
-    var lat: Double?
-    var lon: Double?
     private var networkDataManager = NetworkDataManager.shared
     private var favoritesViewModel = FavoritesViewModel.shared
     private var localDataManager = LocalDataManager.shared
     private var lastCache : WeatherCache?
     
     func getAllWeathers() async {
-        
         
         if let cache = lastCache, let currentLat = lat, let currentLon = lon {
             let isLocationSame = abs(cache.lat - currentLat) < 0.01 && abs(cache.lon - currentLon) < 0.01
@@ -90,6 +97,7 @@ final class DetailsViewModel: ObservableObject {
         }
     }
     
+    
     private func getCountry() -> Bool? {
         return countries?.contains { country in
             if country.id == current?.sys?.country {
@@ -101,24 +109,23 @@ final class DetailsViewModel: ObservableObject {
         }
     }
     
-    init(lat: Double?, lon: Double?) {
-        self.lat = lat
-        self.lon = lon
-    }
     
     func updateLocation(lat: Double?, lon: Double?) {
         self.lat = lat
         self.lon = lon
     }
     
+    
     func isFavorite(id: Int) -> Bool {
         return favoritesViewModel.isFavorite(id: id)
     }
+    
     
     func toggleFavorite(location: SavedFavorite) {
         favoritesViewModel.toggleFavorite(location: location)
         self.objectWillChange.send()
     }
+    
     
     func getSkyGradient(for period: DayPeriod) -> LinearGradient {
         switch period {
@@ -128,4 +135,5 @@ final class DetailsViewModel: ObservableObject {
         case .sunset: return SkyGradients.sunsetGradient
         }
     }
+    
 }

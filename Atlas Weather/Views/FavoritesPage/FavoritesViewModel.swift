@@ -11,16 +11,19 @@ internal import Combine
 
 @MainActor
 final class FavoritesViewModel: ObservableObject {
-    @Published var savedLocations: [SavedFavorite] = []
-    @Published var favoritesWeatherData: [CurrentWeatherModel] = []
-    static let shared = FavoritesViewModel()
-    private let saveKey = "favorites"
-    var networkDataManager = NetworkDataManager.shared
     
     private init() {
         loadFavorites()
         Task { await getFavoritesWeather() }
     }
+    
+    static let shared = FavoritesViewModel()
+    private let saveKey = "favorites"
+    var networkDataManager = NetworkDataManager.shared
+    
+    @Published var savedLocations: [SavedFavorite] = []
+    @Published var favoritesWeatherData: [CurrentWeatherModel] = []
+    
     
     private func loadFavorites() {
         if let data = UserDefaults.standard.data(forKey: saveKey),
@@ -28,6 +31,7 @@ final class FavoritesViewModel: ObservableObject {
             savedLocations = decoded
         }
     }
+    
     
     func getFavoritesWeather() async {
         let weatherData = await withTaskGroup(of: CurrentWeatherModel?.self) { group in
@@ -53,6 +57,7 @@ final class FavoritesViewModel: ObservableObject {
         self.favoritesWeatherData = weatherData.sorted(by: { ($0.name ?? "") < ($1.name ?? "") })
     }
     
+    
     func toggleFavorite(location: SavedFavorite) {
         if isFavorite(id: location.id) {
             savedLocations.removeAll { $0.id == location.id }
@@ -71,6 +76,7 @@ final class FavoritesViewModel: ObservableObject {
         }
     }
     
+    
     private func fetchSingleWeather(id: Int) async -> CurrentWeatherModel? {
         do {
             return try await networkDataManager.fetchWeather(id: id, endpoint: "weather")
@@ -79,6 +85,7 @@ final class FavoritesViewModel: ObservableObject {
             return nil
         }
     }
+    
     
     func isFavorite(id: Int) -> Bool {
         return savedLocations.contains { $0.id == id }

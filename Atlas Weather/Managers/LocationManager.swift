@@ -10,17 +10,18 @@ internal import Combine
 
 final class UserLocationManager: NSObject, ObservableObject {
     
-    private let manager = CLLocationManager()
-    @Published var userlocation: CLLocation?
-    @Published var authorizationStatus: CLAuthorizationStatus = .notDetermined
-    static let shared = UserLocationManager()
-        
     private override init() {
         super.init()
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.startUpdatingLocation()
     }
+    
+    static let shared = UserLocationManager()
+    private let manager = CLLocationManager()
+    
+    @Published var userlocation: CLLocation?
+    @Published var authorizationStatus: CLAuthorizationStatus = .notDetermined
     
     func requestLocation() {
         manager.requestWhenInUseAuthorization()
@@ -30,8 +31,8 @@ final class UserLocationManager: NSObject, ObservableObject {
 extension UserLocationManager: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        
         self.authorizationStatus = status
+        
         switch status {
         case .notDetermined:
             debugPrint("DEBUG: Not Determined")

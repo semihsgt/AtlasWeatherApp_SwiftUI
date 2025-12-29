@@ -29,7 +29,6 @@ struct SnowfallView: View {
                         .opacity(0.5)
                 }
                 
-                
                 Spacer()
                 
                 Text("\(String(Int(snowfall ?? 0))) mm")

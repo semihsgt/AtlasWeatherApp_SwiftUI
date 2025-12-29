@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct FavoritesView: View {
+    
     @State private var navigationPath = NavigationPath()
     @ObservedObject private var viewModel = FavoritesViewModel.shared
     @Namespace private var namespace

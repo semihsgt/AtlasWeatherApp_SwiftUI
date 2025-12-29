@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
+    
     @State private var navigationPath = NavigationPath()
     @StateObject private var viewModel = SearchViewModel()
     @Namespace private var namespace
@@ -17,7 +18,6 @@ struct SearchView: View {
             Group {
                 switch viewModel.searchStatus {
                 case .idle:
-                    
                     ScrollView {
                         ForEach(viewModel.cities) { city in
                             if #available(iOS 18.0, *) {
@@ -41,6 +41,7 @@ struct SearchView: View {
                     
                 case .loading:
                     ProgressView()
+                    
                 case .success:
                     let results = viewModel.searchData
                     
@@ -67,6 +68,7 @@ struct SearchView: View {
                             }
                         }
                     }
+                    
                 case .error(let error):
                     ErrorView(description: error.localizedDescription)
                 }

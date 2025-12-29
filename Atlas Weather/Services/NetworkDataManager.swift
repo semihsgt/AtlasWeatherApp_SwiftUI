@@ -16,19 +16,21 @@ final class NetworkDataManager {
     private init() {
     }
     
+    static let shared = NetworkDataManager()
+    
     private let decoder: JSONDecoder = {
         let d = JSONDecoder()
         d.keyDecodingStrategy = .convertFromSnakeCase
         return d
     }()
     
-    static let shared = NetworkDataManager()
-    
     private func performRequest<T: Decodable>(url: URL) async throws -> T {
         let (data, response) = try await URLSession.shared.data(from: url)
+        
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkErrors.requestFailed
         }
+        
         switch httpResponse.statusCode {
         case 200...299:
             do {

@@ -18,25 +18,26 @@ struct DetailsView: View {
         self.isMyLocPage = isMyLocPage
     }
     
-    @Binding var path: NavigationPath
-    @StateObject private var viewModel: DetailsViewModel
     let lat: Double?
     let lon: Double?
     let isMyLocPage: Bool
+    
+    @Binding var path: NavigationPath
+    @StateObject private var viewModel: DetailsViewModel
     @EnvironmentObject var userLocationManager: UserLocationManager
     @State private var isSheetShown = false
     @State private var opacity = 0.0
-    
     
     var body: some View {
         NavigationStack(path: $path) {
             switch viewModel.status {
             case .idle:
                 EmptyView()
+                
             case .loading:
                 Color.clear
-            case .success:
                 
+            case .success:
                 let (current, hourly, daily) = (viewModel.current, viewModel.hourly, viewModel.daily)
                 
                 let period = DayPeriod.determine(sunrise: current?.sys?.sunrise, sunset: current?.sys?.sunset, currentTime: current?.dt)

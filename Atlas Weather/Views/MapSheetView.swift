@@ -22,18 +22,17 @@ struct MapSheetView: View {
     
     let lat: Double?
     let lon: Double?
-    @State private var opacitiy: Double = 0
     
+    @State private var opacity: Double = 0
     @State var region: MKCoordinateRegion
     
     var body: some View {
-        
         Map(coordinateRegion: $region)
             .ignoresSafeArea()
-            .opacity(opacitiy)
+            .opacity(opacity)
             .onAppear {
                 withAnimation(.easeIn(duration: 0.37)) {
-                    self.opacitiy = 1.0
+                    self.opacity = 1.0
                 }
             }
     }

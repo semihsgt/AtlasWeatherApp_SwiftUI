@@ -9,7 +9,6 @@ import SwiftUI
 
 struct DeniedPermissionView: View {
     
-    
     var body: some View {
         VStack(spacing: 20) {
             Image(systemName: "location.slash.circle.fill")

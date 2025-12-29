@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct TemperatureBar: View {
-    
     let dayMin: Double?
     let dayMax: Double?
     let globalMin: Double?
