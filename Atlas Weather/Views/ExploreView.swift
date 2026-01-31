@@ -21,6 +21,13 @@ struct ExploreView: View {
     let country: CountryModel
     @State private var region: MKCoordinateRegion
     @State private var opacity = 0.0
+    private var independent: String {
+        if (Locale.current.language.languageCode?.identifier == "tr") {
+            if (country.independent) {return "Evet"} else {return "Hayır"}
+        } else {
+            if (country.independent) {return "Yes"} else {return "No"}
+        }
+    }
     
     var formattedPopulation: String {
         let num = Double(country.population)
@@ -43,7 +50,8 @@ struct ExploreView: View {
                         .scaleEffect(2.2)
                         .brightness(-0.3)
                 } placeholder: {
-                    Color.black
+                    Color.gray
+                        .ignoresSafeArea()
                 }
                 
                 
@@ -64,12 +72,10 @@ struct ExploreView: View {
                                 VStack(alignment: .leading, spacing: 5) {
                                     HStack {
                                         Image(systemName: "map.fill")
-                                            .font(.system(size: 15))
-                                        Text("CAPITAL LOCATION")
-                                            .font(.system(size: 15))
+                                        Text("title_capitalLocation")
                                         Image(systemName: "chevron.forward")
-                                            .font(.system(size: 15))
                                     }
+                                    .font(.system(size: 13))
                                     .foregroundStyle(.white)
                                     .opacity(0.5)
                                     
@@ -96,10 +102,9 @@ struct ExploreView: View {
                             VStack(alignment: .leading, spacing: 5) {
                                 HStack {
                                     Image(systemName: "star.fill")
-                                        .font(.system(size: 15))
-                                    Text("ABOUT THE COUNTRY")
-                                        .font(.system(size: 15))
+                                    Text("title_aboutTheCountry")
                                 }
+                                .font(.system(size: 13))
                                 .foregroundStyle(.white)
                                 .opacity(0.5)
                                 
@@ -123,10 +128,9 @@ struct ExploreView: View {
                             VStack(alignment: .leading, spacing: 5) {
                                 HStack {
                                     Image(systemName: "list.bullet")
-                                        .font(.system(size: 15))
-                                    Text("OTHER DETAILS")
-                                        .font(.system(size: 15))
+                                    Text("title_otherDetails")
                                 }
+                                .font(.system(size: 13))
                                 .foregroundStyle(.white)
                                 .opacity(0.5)
                                 
@@ -138,17 +142,17 @@ struct ExploreView: View {
                             
                             HStack {
                                 VStack(alignment: .leading, spacing: 10) {
-                                    Text("• Region: \(country.subregion)")
-                                    Text("• Capitals: \(country.capital.joined(separator: ", "))")
-                                    Text("• Population: \(formattedPopulation)")
-                                    Text("• Languages: \(country.languages.joined(separator: ", "))")
-                                    Text("• Currency: \(country.currencies.currencyCode) \(country.currencies.symbol) (\(country.currencies.name))")
-                                    Text("• Demonym: \(country.demonym)")
-                                    Text("• Driving Side: \(country.drivingSide.capitalized)")
-                                    Text("• Start Of Week: \(country.startOfWeek.capitalized)")
-                                    Text("• Independent: \(String(country.independent).capitalized)")
-                                    Text("• Country Id: \(country.id)")
-                                    Text("• Time Zones: \(country.timezones.joined(separator: ", "))")
+                                    Text("• \("otherDetails_region".localized): \(country.subregion)")
+                                    Text("• \("otherDetails_capitals".localized): \(country.capital.joined(separator: ", "))")
+                                    Text("• \("otherDetails_population".localized): \(formattedPopulation)")
+                                    Text("• \("otherDetails_languages".localized): \(country.languages.joined(separator: ", "))")
+                                    Text("• \("otherDetails_currency".localized): \(country.currencies.currencyCode) \(country.currencies.symbol) (\(country.currencies.name))")
+                                    Text("• \("otherDetails_demonym".localized): \(country.demonym)")
+                                    Text("• \("otherDetails_driving_side".localized): \(country.drivingSide.capitalized)")
+                                    Text("• \("otherDetails_start_of_week".localized): \(country.startOfWeek.capitalized)")
+                                    Text("• \("otherDetails_independent".localized): \(independent.capitalized)")
+                                    Text("• \("otherDetails_id".localized): \(country.id)")
+                                    Text("• \("otherDetails_timezones".localized): \(country.timezones.joined(separator: ", "))")
                                 }
                                 .multilineTextAlignment(.leading)
                                 .padding([.horizontal, .bottom])

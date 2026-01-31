@@ -20,15 +20,15 @@ struct VisibilityView: View {
         
         switch km {
         case 10...:
-            return "It's perfectly clear right now."
+            return "visibility_perfect".localized
         case 5..<10:
-            return "Visibility is good."
+            return "visibility_good".localized
         case 2..<5:
-            return "Haze is affecting visibility."
+            return "visibility_haze".localized
         case ..<2:
-            return "Fog is affecting visibility."
+            return "visibility_fog".localized
         default:
-            return "Conditions vary."
+            return "visibility_varies".localized
         }
     }
     
@@ -39,10 +39,9 @@ struct VisibilityView: View {
             VStack(alignment: .leading, spacing: 5) {
                 HStack {
                     Image(systemName: "eye.fill")
-                        .font(.system(size: 15))
-                    Text("VISIBILITY")
-                        .font(.system(size: 15))
+                    Text("title_visibility")
                 }
+                .font(.system(size: 13))
                 .foregroundStyle(.white)
                 .opacity(0.5)
                 Divider()

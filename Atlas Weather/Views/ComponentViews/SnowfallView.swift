@@ -18,10 +18,9 @@ struct SnowfallView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     HStack {
                         Image(systemName: "snowflake")
-                            .font(.system(size: 15))
-                        Text("SNOWFALL")
-                            .font(.system(size: 15))
+                        Text("title_snowfall")
                     }
+                    .font(.system(size: 13))
                     .foregroundStyle(.white)
                     .opacity(0.5)
                     Divider()
@@ -31,15 +30,24 @@ struct SnowfallView: View {
                 
                 Spacer()
                 
-                Text("\(String(Int(snowfall ?? 0))) mm")
-                    .font(.system(size: 35))
-                
-                Text("in last 1h")
-                    .font(.system(size: 25))
+                if (Locale.current.language.languageCode?.identifier == "tr") {
+                    Text("snowfall_lastHour")
+                        .font(.system(size: 15))
+                    
+                    Text("\(String(Int(snowfall ?? 0))) mm")
+                        .font(.system(size: 35))
+                    
+                } else {
+                    Text("\(String(Int(snowfall ?? 0))) mm")
+                        .font(.system(size: 35))
+                    
+                    Text("snowfall_lastHour")
+                        .font(.system(size: 25))
+                }
                 
                 Spacer()
                 
-                Text("\(String(Int(snowfallTomorrow ?? 0))) mm expected tomorrow.")
+                Text("snowfall_description".localized(with: Int(snowfallTomorrow ?? 0)))
                     .font(.system(size: 14))
                 
             }
@@ -60,6 +68,6 @@ struct SnowfallView: View {
             SnowfallView(snowfall: 12, snowfallTomorrow: 32)
             SnowfallView(snowfall: nil, snowfallTomorrow: nil)
         }
-        .frame(height: 160)
+        .frame(height: 190)
     }
 }

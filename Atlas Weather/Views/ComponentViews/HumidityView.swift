@@ -29,10 +29,9 @@ struct HumidityView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     HStack {
                         Image(systemName: "humidity")
-                            .font(.system(size: 15))
-                        Text("HUMIDITY")
-                            .font(.system(size: 15))
+                        Text("title_humidity")
                     }
+                    .font(.system(size: 13))
                     .foregroundStyle(.white)
                     .opacity(0.5)
                     Divider()
@@ -48,7 +47,7 @@ struct HumidityView: View {
                     
                     Spacer()
                     
-                    Text("The dew point is \(String(format: "%.1f", dewPoint))°C right now.")
+                    Text(String(format: NSLocalizedString("humidity_description", comment: ""), dewPoint))
                         .font(.system(size: 14))
                         .multilineTextAlignment(.leading)
                     

@@ -46,11 +46,11 @@ struct DetailsView: View {
                     if userLocationManager.authorizationStatus == .denied && isMyLocPage == true {
                         DeniedPermissionView()
                     } else if isMyLocPage == true {
-                        HeroWeather(current: current)
-                            .padding(.top, 50)
+                        HeroWeather(current: current, isLocPage: true)
+                            .padding(.top, 30)
                             .padding(.bottom, 50)
                     } else {
-                        HeroWeather(current: current)
+                        HeroWeather(current: current, isLocPage: false)
                             .padding(.bottom, 50)
                     }
                     
@@ -158,7 +158,8 @@ struct DetailsView: View {
 }
 
 #Preview {
-    DetailsView(lat: 37.7749, lon: -122.194)
+    DetailsView(lat: 37.7749, lon: -122.194, isMyLocPage: true)
+        .environmentObject(UserLocationManager.shared)
     //    DetailsView(lat: nil, lon: nil)
 }
 

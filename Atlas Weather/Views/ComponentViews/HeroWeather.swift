@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HeroWeather: View {
     let current: CurrentWeatherModel?
+    var isLocPage: Bool
     
     var body: some View {
         if let current = current,
@@ -22,6 +23,16 @@ struct HeroWeather: View {
            let description = firstWeather.description {
             
             VStack {
+                
+                if(isLocPage) {
+                    HStack {
+                        Image(systemName: "location.fill")
+                        Text("title_heroLocation")
+                            
+                    }
+                    .foregroundStyle(.secondary)
+                }
+                
                 Text(name)
                     .font(.system(size: 37, weight: .regular))
                 
@@ -37,7 +48,7 @@ struct HeroWeather: View {
                     .font(.system(size: 24, weight: .regular))
                     .foregroundStyle(.secondary)
                 
-                Text("H:\(Int(tempMax.rounded()))°  L:\(Int(tempMin.rounded()))°")
+                Text("\("tempMax".localized):\(Int(tempMax.rounded()))°  \("tempMin".localized):\(Int(tempMin.rounded()))°")
                     .font(.system(size: 21, weight: .medium))
             }
             .foregroundStyle(.white)
@@ -59,8 +70,8 @@ struct HeroWeather: View {
 
 #Preview {
     VStack {
-        HeroWeather(current: CurrentWeatherModel.MockData())
-        HeroWeather(current: nil)
+        HeroWeather(current: CurrentWeatherModel.MockData(), isLocPage: true)
+        HeroWeather(current: nil, isLocPage: true)
     }
     .background {
         SkyGradients.dayGradient

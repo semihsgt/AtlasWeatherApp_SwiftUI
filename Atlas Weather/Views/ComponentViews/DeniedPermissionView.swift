@@ -17,10 +17,10 @@ struct DeniedPermissionView: View {
                 .frame(width: 80, height: 80)
                 .foregroundStyle(.red)
             
-            Text("Location Permit Required")
+            Text("title_locationPermission")
                 .font(.title2).bold()
             
-            Text("In order to automatically see the weather of your location, you need to give location permission from Settings.")
+            Text("locationPermission_description")
                 .multilineTextAlignment(.center)
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
@@ -33,7 +33,7 @@ struct DeniedPermissionView: View {
                     }
                 }
             } label: {
-                Text("Go to Settings")
+                Text("button_goToSettings")
                     .bold()
                     .frame(maxWidth: .infinity)
                     .padding()

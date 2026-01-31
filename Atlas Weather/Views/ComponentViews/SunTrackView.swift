@@ -24,10 +24,9 @@ struct SunTrackView: View {
             VStack(alignment: .leading, spacing: 5) {
                 HStack {
                     Image(systemName: isSunriseMode ? "sunrise.fill" : "sunset.fill")
-                        .font(.system(size: 15))
-                    Text(isSunriseMode ? "SUNRISE" : "SUNSET")
-                        .font(.system(size: 15))
+                    Text(isSunriseMode ? "title_sunrise" : "title_sunset")
                 }
+                .font(.system(size: 13))
                 .foregroundStyle(.white)
                 .opacity(0.5)
                 Divider()
@@ -49,14 +48,14 @@ struct SunTrackView: View {
                 Spacer()
                 
                 if isSunriseMode {
-                    Text("Sunset will be at \(sunset.toFormattedDate(offset: timezone)).")
+                    Text("sunset_will_be_at".localized(with: sunset.toFormattedDate(offset: timezone)))
                         .font(.system(size: 14))
                         .multilineTextAlignment(.leading)
                 } else {
-                    Text("Sunrise will be at \(sunrise.toFormattedDate(offset: timezone)).")
+                    Text("sunrise_will_be_at".localized(with: sunrise.toFormattedDate(offset: timezone)))
                         .font(.system(size: 14))
                         .multilineTextAlignment(.leading)
-                    // Since our API plan doesn't provide next-day data, we display the current day's sunrise as a placeholder for tomorrow's when the current time (dt) exceeds sunset.
+                    // Since our API plan doesn't provide next-day sunrise/sunset data, I'll display the current day's sunrise as a placeholder for tomorrow's when the current time (dt) exceeds sunset.
                 }
                 
             } else {

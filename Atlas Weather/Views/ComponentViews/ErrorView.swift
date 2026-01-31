@@ -9,18 +9,27 @@ import SwiftUI
 
 struct ErrorView: View {
     let description: String
+    var languageManager = LanguageManager.shared
     
     var body: some View {
         VStack {
             Image(systemName: "exclamationmark.triangle")
                 .font(.largeTitle)
                 .foregroundColor(.orange)
-            Text("Something went wrong")
+            Text("title_error")
                 .font(.headline)
-            Text(description)
-                .font(.caption)
-                .multilineTextAlignment(.center)
-                .foregroundColor(.secondary)
+            
+            if (languageManager.currentLanguage == "tr") {
+                Text("error_description")
+                    .font(.caption)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.secondary)
+            } else {
+                Text(description)
+                    .font(.caption)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.secondary)
+            }
         }
     }
 }

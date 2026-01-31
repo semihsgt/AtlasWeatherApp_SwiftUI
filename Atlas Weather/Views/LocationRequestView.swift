@@ -12,6 +12,7 @@ struct LocationRequestView: View {
     
     var body: some View {
         VStack {
+            Spacer()
             
             Image(systemName: "location.circle.fill")
                 .resizable()
@@ -21,20 +22,22 @@ struct LocationRequestView: View {
                 .padding()
             
             VStack(spacing: 5) {
-                Text("Allow Your Location")
+                Text("title_requestLocation")
                     .font(.system(size: 28, weight: .semibold))
                 
-                Text("We need your location to show you the weather of your location.")
+                Text("requestLocation_description")
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
                     .frame(width: 300, height: 50)
                     .padding(.horizontal)
             }
             
+            Spacer()
+            
             Button {
                 userLocationManager.requestLocation()
             } label: {
-                Text("Allow Location")
+                Text("button_allowLocation")
                     .padding()
                     .font(.headline)
                     .foregroundStyle(.white)
@@ -45,6 +48,8 @@ struct LocationRequestView: View {
                 
             }
             .padding(.vertical)
+            
+            Spacer()
         }
     }
 }

@@ -71,7 +71,7 @@ struct CardView: View {
                 Text(description.capitalized)
                     .font(.system(size: 16, weight: .medium))
                 Spacer()
-                Text("H:\(Int(tempMax.rounded()))°  L:\(Int(tempMin.rounded()))°")
+                Text("\("tempMax".localized):\(Int(tempMax.rounded()))°  \("tempMin".localized):\(Int(tempMin.rounded()))°")
                     .font(.system(size: 15, weight: .medium))
             }
         }
@@ -79,7 +79,7 @@ struct CardView: View {
         .foregroundStyle(.white)
         .padding()
         .background {
-            RoundedRectangle(cornerRadius: 16, style: .circular)
+            RoundedRectangle(cornerRadius: 20, style: .circular)
                 .foregroundStyle(skyGradient)
         }
         .padding(.horizontal)
@@ -102,7 +102,7 @@ struct CardView: View {
         .frame(height: 90)
         .padding()
         .background(Color.black.opacity(0.1))
-        .cornerRadius(16)
+        .cornerRadius(20)
         .padding(.horizontal)
     }
 }

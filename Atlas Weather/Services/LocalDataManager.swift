@@ -13,12 +13,23 @@ final class LocalDataManager {
     }
     
     static let shared = LocalDataManager()
+    var languageManager = LanguageManager.shared
     
     func loadCountries() async -> [CountryModel] {
+        let url: URL
         
-        guard let url = Bundle.main.url(forResource: "Countries", withExtension: "json") else {
-            debugPrint("File Not Found")
-            return []
+        if languageManager.currentLanguage == "tr" {
+            guard let trURL = Bundle.main.url(forResource: "Countries_TR", withExtension: "json") else {
+                debugPrint("File Not Found")
+                return []
+            }
+            url = trURL
+        } else {
+            guard let enURL = Bundle.main.url(forResource: "Countries_EN", withExtension: "json") else {
+                debugPrint("File Not Found")
+                return []
+            }
+            url = enURL
         }
         
         do {

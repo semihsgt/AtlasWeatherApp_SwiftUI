@@ -21,10 +21,13 @@ struct SplashView: View {
                     .frame(width: 150, height: 150)
                     .shadow(radius: 10)
                 
-                Text("ATLAS WEATHER")
+                Text("title_splash")
+                    .frame(width: 250, height: 150)
+                    .multilineTextAlignment(.center)
                     .font(.system(size: 28, weight: .bold, design: .rounded))
                     .foregroundColor(.white)
                     .tracking(5)
+                    .shadow(radius: 10)
             }
         }
     }

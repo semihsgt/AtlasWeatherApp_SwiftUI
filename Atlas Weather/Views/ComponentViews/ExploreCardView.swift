@@ -16,12 +16,10 @@ struct ExploreCardView: View {
             VStack(alignment: .leading, spacing: 5) {
                 HStack {
                     Image(systemName: "globe.europe.africa.fill")
-                        .font(.system(size: 15))
-                    Text("EXPLORE")
-                        .font(.system(size: 15))
+                    Text("title_explore")
                     Image(systemName: "chevron.forward")
-                        .font(.system(size: 15))
                 }
+                .font(.system(size: 13))
                 .foregroundStyle(.white)
                 .opacity(0.5)
                 
@@ -39,7 +37,8 @@ struct ExploreCardView: View {
             }
             
             
-            Text("\(country.summary.prefix(240))...")
+            Text("\(country.summary)")
+                .lineLimit(5)
                 .multilineTextAlignment(.leading)
                 .font(.system(size: 12.5))
                 .padding(.top, 10)

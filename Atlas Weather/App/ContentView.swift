@@ -48,13 +48,13 @@ struct AppTabView: View {
     var body: some View {
         if #available(iOS 18.0, *) {
             TabView(selection: $selection) {
-                Tab("My Location", systemImage: "location", value: TabKey.location) {
+                Tab("tab_myLocation", systemImage: "location", value: TabKey.location) {
                     MyLocationView(
                         lat: (userLocationManager.authorizationStatus == .denied) ? nil : userLocationManager.userlocation?.coordinate.latitude,
                         lon: (userLocationManager.authorizationStatus == .denied) ? nil : userLocationManager.userlocation?.coordinate.longitude
                     )
                 }
-                Tab("Favorites", systemImage: "star", value: TabKey.favorites) {
+                Tab("tab_favorites", systemImage: "star", value: TabKey.favorites) {
                     FavoritesView()
                 }
                 Tab(value: TabKey.search, role: .search) {
@@ -68,19 +68,19 @@ struct AppTabView: View {
                     lon: (userLocationManager.authorizationStatus == .denied) ? nil : userLocationManager.userlocation?.coordinate.longitude
                 )
                 .tabItem {
-                    Label("My Location", systemImage: "location")
+                    Label("tab_myLocation", systemImage: "location")
                 }
                 .tag(TabKey.location)
                 
                 FavoritesView()
                     .tabItem {
-                        Label("Favorites", systemImage: "star")
+                        Label("tab_favorites", systemImage: "star")
                     }
                     .tag(TabKey.favorites)
                 
                 SearchView()
                     .tabItem {
-                        Label("Search", systemImage: "magnifyingglass")
+                        Label("tab_search", systemImage: "magnifyingglass")
                     }
                     .tag(TabKey.search)
             }

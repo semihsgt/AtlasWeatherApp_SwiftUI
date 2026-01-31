@@ -18,10 +18,9 @@ struct RainfallView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     HStack {
                         Image(systemName: "drop.fill")
-                            .font(.system(size: 15))
-                        Text("RAINFALL")
-                            .font(.system(size: 15))
+                        Text("title_rainfall")
                     }
+                    .font(.system(size: 13))
                     .foregroundStyle(.white)
                     .opacity(0.5)
                     Divider()
@@ -31,15 +30,22 @@ struct RainfallView: View {
                 
                 Spacer()
                 
-                Text("\(String(Int(rainfall ?? 0))) mm")
-                    .font(.system(size: 35))
-                
-                Text("in last 1h")
-                    .font(.system(size: 25))
+                if (Locale.current.language.languageCode?.identifier == "tr") {
+                    Text("rainfall_lastHour")
+                        .font(.system(size: 15))
+                    Text("\(String(Int(rainfall ?? 0))) mm")
+                        .font(.system(size: 35))
+                } else {
+                    Text("\(String(Int(rainfall ?? 0))) mm")
+                        .font(.system(size: 35))
+                    
+                    Text("rainfall_lastHour")
+                        .font(.system(size: 25))
+                }
                 
                 Spacer()
                 
-                Text("\(String(Int(rainfallTomorrow ?? 0))) mm expected tomorrow.")
+                Text("rainfall_description".localized(with: Int(rainfallTomorrow ?? 0)))
                     .font(.system(size: 14))
                 
             }

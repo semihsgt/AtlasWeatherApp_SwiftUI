@@ -23,10 +23,9 @@ struct PressureView: View {
             VStack(alignment: .leading, spacing: 5) {
                 HStack {
                     Image(systemName: "gauge.with.needle")
-                        .font(.system(size: 15))
-                    Text("PRESSURE")
-                        .font(.system(size: 15))
+                    Text("title_pressure")
                 }
+                .font(.system(size: 13))
                 .foregroundStyle(.white)
                 .opacity(0.5)
                 Divider()

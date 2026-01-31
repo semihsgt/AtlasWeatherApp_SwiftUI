@@ -19,10 +19,9 @@ struct HourlyView: View {
                     
                     HStack {
                         Image(systemName: "clock")
-                            .font(.system(size: 15))
-                        Text("HOURLY FORECAST")
-                            .font(.system(size: 15))
+                        Text("title_hourlyForecast")
                     }
+                    .font(.system(size: 13))
                     .foregroundStyle(.white)
                     .opacity(0.5)
                     Divider()
@@ -141,7 +140,7 @@ struct HourlyView: View {
                     HStack {
                         Image(systemName: "thermometer.medium")
                             .font(.system(size: 15))
-                        Text("FEELS LIKE")
+                        Text("title_feelsLike")
                             .font(.system(size: 15))
                     }
                     .foregroundStyle(.white)

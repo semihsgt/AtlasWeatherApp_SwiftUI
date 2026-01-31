@@ -17,7 +17,7 @@ struct FavoritesView: View {
         NavigationStack(path: $navigationPath) {
             VStack {
                 if viewModel.favoritesWeatherData.isEmpty {
-                    Text("No Favorite Location Added Or Not Connected To The Internet.")
+                    Text("title_noFavorites")
                         .padding(.horizontal, 15)
                         .font(.headline)
                         .multilineTextAlignment(.center)
@@ -45,7 +45,7 @@ struct FavoritesView: View {
                     }
                 }
             }
-            .navigationTitle(Text("Favorites"))
+            .navigationTitle("title_favorites")
         }
     }
 }

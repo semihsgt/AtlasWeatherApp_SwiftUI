@@ -34,10 +34,9 @@ struct MapView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     HStack {
                         Image(systemName: "mappin.and.ellipse")
-                            .font(.system(size: 15))
-                        Text("MAP")
-                            .font(.system(size: 15))
+                        Text("title_map")
                     }
+                    .font(.system(size: 13))
                     .foregroundStyle(.white)
                     .opacity(0.5)
                     Divider()

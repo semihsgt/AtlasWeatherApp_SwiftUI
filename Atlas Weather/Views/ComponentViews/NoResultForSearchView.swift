@@ -16,12 +16,12 @@ struct NoResultForSearchView: View {
                 .font(.system(size: 50))
                 .foregroundColor(.secondary)
             
-            Text("No Results")
+            Text("title_noResult")
                 .font(.title2)
                 .fontWeight(.bold)
                 .foregroundColor(.primary)
             
-            Text("No result for '\(searchText)'")
+            Text("noResult_description".localized(with: searchText))
                 .font(.subheadline)
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)

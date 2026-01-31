@@ -1,0 +1,122 @@
+/*
+  Localizable.strings
+  Atlas Weather
+
+  Created by Semih Söğüt on 22.01.2026.
+ 
+*/
+
+// ContentView
+"tab_myLocation" = "Konumum";
+"tab_favorites" = "Favoriler";
+"tab_search" = "Ara";
+
+// LocationRequestView
+"title_requestLocation" = "Konumuna İzin Ver";
+"requestLocation_description" = "Bulunduğun yerin hava durumunu gösterebilmemiz için konumuna ihtiyacımız var.";
+"button_allowLocation" = "Konuma İzin Ver";
+
+// ExploreView
+"title_capitalLocation" = "BAŞKENT KONUMU";
+"title_aboutTheCountry" = "ÜLKE HAKKINDA";
+"title_otherDetails" = "DİĞER DETAYLAR";
+"otherDetails_region" = "Bölge";
+"otherDetails_capitals" = "Başkentler";
+"otherDetails_population" = "Nüfus";
+"otherDetails_languages" = "Diller";
+"otherDetails_currency" = "Para Birimi";
+"otherDetails_demonym" = "Halk Adı";
+"otherDetails_driving_side" = "Trafik Yönü";
+"otherDetails_start_of_week" = "Hafta Başlangıcı";
+"otherDetails_independent" = "Bağımsızlık";
+"otherDetails_id" = "Ülke Kodu";
+"otherDetails_timezones" = "Saat Dilimleri";
+
+// SplashView
+"title_splash" = "ATLAS HAVA DURUMU";
+
+// FavoritesPage
+"title_noFavorites" = "Favori Konum Eklenmedi veya İnternet Bağlantısı Yok";
+"title_favorites" = "Favoriler";
+
+// SearchView
+"title_search" = "Arayın";
+"prompt_search" = "Şehir veya havaalanı arayın";
+
+// HeroWeather
+"title_heroLocation" = "Mevcut Konum";
+"tempMax" = "Y";
+"tempMin" = "D";
+
+//ExploreCardView
+"title_explore" = "KEŞFET";
+
+// HourlyView
+"title_hourlyForecast" = "SAATLİK TAHMİN";
+"Now" = "Şimdi";
+"Sunrise" = "Gün Doğumu";
+"Sunset" = "Gün Batımı";
+"title_feelsLike" = "HİSSEDİLEN";
+
+// DailyView
+"Today" = "Bugün";
+"title_10dayForecast" = "10 GÜNLÜK TAHMİN";
+
+// SunTrackView
+"title_sunrise" = "GÜN DOĞUMU";
+"title_sunset" = "GÜN BATIMI";
+"sunset_will_be_at" = "Gün Batımı saati: %@";
+"sunrise_will_be_at" = "Gün Doğumu saati: %@";
+
+// FeelsLikeView
+"feels_like_similar" = "Gerçek sıcaklığa yakın.";
+"feels_like_warmer" = "%d° daha sıcak hissettiriyor.";
+"feels_like_colder" = "%d° daha soğuk hissettiriyor.";
+"title_feelsLike" = "HİSSEDİLEN";
+
+// HumidityView
+"title_humidity" = "NEM";
+"humidity_description" = "Çiy noktası şu anda %.1f°C.";
+
+// VisibilityView
+"title_visibility" = "GÖRÜŞ MESAFESİ";
+"visibility_perfect" = "Hava şu anda tamamen açık.";
+"visibility_good" = "Görüş mesafesi iyi.";
+"visibility_haze" = "Pus görüşü etkiliyor.";
+"visibility_fog" = "Sis görüşü etkiliyor.";
+"visibility_varies" = "Koşullar değişkenlik gösteriyor.";
+
+// RainFallView
+"title_rainfall" = "YAĞIŞ MİKTARI";
+"rainfall_lastHour" = "Son bir saat içinde";
+"rainfall_description" = "Yarın %d mm yağış bekleniyor.";
+
+// PressureView
+"title_pressure" = "BASINÇ";
+
+// SnowFallView
+"title_snowfall" = "KAR YAĞIŞI";
+"snowfall_lastHour" = "Son bir saat içinde";
+"snowfall_description" = "Yarın %d mm kar bekleniyor.";
+
+// WindView
+"title_wind" = "RÜZGAR";
+"wind_speed" = "Hız";
+"wind_direction" = "Yön";
+"wind_gust" = "Hamle";
+
+// MapView
+"title_map" = "HARİTA";
+
+// NoResultForSearchView
+"title_noResult" = "Sonuç Yok";
+"noResult_description" = "'%@' için sonuç bulunamadı";
+
+// DeniedPermissionView
+"title_locationPermission" = "Konum İzni Gerekli";
+"locationPermission_description" = "Bulunduğunuz yerin hava durumunu otomatik olarak görmek için Ayarlar'dan konum izni vermeniz gerekir.";
+"button_goToSettings" = "Ayarlar'a Git";
+
+// ErrorView
+"title_error" = "Bir şeyler ters gitti";
+"error_description" = "İnternet bağlantısı yok gibi görünüyor.";

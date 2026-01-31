@@ -56,14 +56,14 @@ struct SearchView: View {
                                     DetailsView(path: $navigationPath, lat: result.lat ?? 0, lon: result.lon ?? 0)
                                         .navigationTransition(.zoom(sourceID: result.id , in: namespace))
                                 } label: {
-                                    Text("\(result.name ?? ""), \(result.country ?? "") \(result.state ?? "")")
+                                    Text("\(result.name ?? ""), \(result.state ?? "") \(result.country ?? "")")
                                 }
                                 .matchedTransitionSource(id: result.id, in: namespace)
                             } else {
                                 NavigationLink {
                                     DetailsView(path: $navigationPath, lat: result.lat ?? 0, lon: result.lon ?? 0)
                                 } label: {
-                                    Text("\(result.name ?? ""), \(result.country ?? "") \(result.state ?? "")")
+                                    Text("\(result.name ?? ""), \(result.state ?? "") \(result.country ?? "")")
                                 }
                             }
                         }
@@ -73,9 +73,9 @@ struct SearchView: View {
                     ErrorView(description: error.localizedDescription)
                 }
             }
-            .navigationTitle(Text("Search"))
+            .navigationTitle("title_search")
         }
-        .searchable(text: $viewModel.searchText, prompt: "Search for a city or airport")
+        .searchable(text: $viewModel.searchText, prompt: "prompt_search")
         .onChange(of: viewModel.searchText) { _ in
             viewModel.searchCity()
         }

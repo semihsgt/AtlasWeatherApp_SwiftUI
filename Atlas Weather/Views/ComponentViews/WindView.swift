@@ -19,10 +19,9 @@ struct WindView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     HStack {
                         Image(systemName: "wind")
-                            .font(.system(size: 15))
-                        Text("WIND")
-                            .font(.system(size: 15))
+                        Text("title_wind")
                     }
+                    .font(.system(size: 13))
                     .foregroundStyle(.white)
                     .opacity(0.5)
                     Divider()
@@ -34,7 +33,7 @@ struct WindView: View {
                 
                 VStack(spacing: 10) {
                     HStack {
-                        Text("Speed")
+                        Text("wind_speed")
                         Spacer()
                         if let speed = speed {
                             Text("\(String(format: "%.1f", speed)) m/s")
@@ -48,7 +47,7 @@ struct WindView: View {
                         .opacity(0.25)
                     
                     HStack {
-                        Text("Direction")
+                        Text("wind_direction")
                         Spacer()
                         if let deg = deg {
                             HStack(spacing: 4) {
@@ -67,7 +66,7 @@ struct WindView: View {
                         .opacity(0.25)
                     
                     HStack {
-                        Text("Gust")
+                        Text("wind_gust")
                         Spacer()
                         if let gust = gust {
                             Text("\(String(format: "%.1f", gust)) m/s")

@@ -10,6 +10,8 @@
 // https://pro.openweathermap.org/geo/1.0/direct
 
 import Foundation
+import UIKit
+import SwiftUI
 
 final class NetworkDataManager {
     
@@ -17,6 +19,7 @@ final class NetworkDataManager {
     }
     
     static let shared = NetworkDataManager()
+    var languageManager = LanguageManager.shared
     
     private let decoder: JSONDecoder = {
         let d = JSONDecoder()
@@ -69,6 +72,7 @@ final class NetworkDataManager {
         var queryItems = [
             URLQueryItem(name: "appid", value: Secrets.apiKey),
             URLQueryItem(name: "units", value: units),
+            URLQueryItem(name: "lang", value: languageManager.currentLanguage)
         ]
         if let id = id {
             queryItems.append(URLQueryItem(name: "id", value: String(id)))

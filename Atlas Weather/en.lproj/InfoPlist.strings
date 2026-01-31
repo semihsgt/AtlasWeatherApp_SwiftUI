@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  Atlas Weather
+
+  Created by Semih Söğüt on 23.01.2026.
+  
+*/
+
+"CFBundleDisplayName" = "Atlas Weather";

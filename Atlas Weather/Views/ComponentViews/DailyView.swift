@@ -26,10 +26,9 @@ struct DailyView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     HStack {
                         Image(systemName: "calendar")
-                            .font(.system(size: 15))
                         Text("10-DAY FORECAST")
-                            .font(.system(size: 15))
                     }
+                    .font(.system(size: 13))
                     .foregroundStyle(.white)
                     .opacity(0.5)
                     
@@ -41,7 +40,7 @@ struct DailyView: View {
                 ForEach(Array(days.enumerated()), id: \.element.id) { idx, day in
                     HStack {
                         if let dt = day.dt, let timezone = weather.city?.timezone {
-                            Text(idx == 0 ? "Today" : String((dt.toFormattedDate("EEEE", offset: timezone)).prefix(3)))
+                            Text(idx == 0 ? "Today".localized : String((dt.toFormattedDate("EEEE", offset: timezone)).prefix(3)))
                                 .frame(width: 50, alignment: .leading)
                                 .font(.system(size: 15))
                                 .foregroundStyle(.white)
@@ -121,7 +120,7 @@ struct DailyView: View {
             HStack {
                 Image(systemName: "calendar")
                     .font(.system(size: 15))
-                Text("10-DAY FORECAST")
+                Text("title_10dayForecast")
                     .font(.system(size: 15))
             }
             .foregroundStyle(.white)

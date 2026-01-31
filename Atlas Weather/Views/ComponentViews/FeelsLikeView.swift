@@ -18,10 +18,12 @@ struct FeelsLikeView: View {
         let diffVal = Int((abs(feelsLike - temp)).rounded())
         
         if diffVal == 0 {
-            return "Feels similar to the actual temperature."
+            return NSLocalizedString("feels_like_similar", comment: "")
         } else if feelsLike > temp {
-            return "Feels \(diffVal)° warmer."
-        } else { return "Feels \(diffVal)° colder." }
+            return String(format: NSLocalizedString("feels_like_warmer", comment: ""), diffVal)
+        } else {
+            return String(format: NSLocalizedString("feels_like_colder", comment: ""), diffVal)
+        }
         
     }
     
@@ -32,10 +34,9 @@ struct FeelsLikeView: View {
             VStack(alignment: .leading, spacing: 5) {
                 HStack {
                     Image(systemName: "thermometer.medium")
-                        .font(.system(size: 15))
-                    Text("FEELS LIKE")
-                        .font(.system(size: 15))
+                    Text("title_feelsLike")
                 }
+                .font(.system(size: 13))
                 .foregroundStyle(.white)
                 .opacity(0.5)
                 Divider()

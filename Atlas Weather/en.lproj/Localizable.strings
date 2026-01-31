@@ -1,0 +1,122 @@
+/* 
+  Localizable.strings
+  Atlas Weather
+
+  Created by Semih Söğüt on 22.01.2026.
+  
+*/
+
+// ContentView
+"tab_myLocation" = "My Location";
+"tab_favorites" = "Favorites";
+"tab_search" = "Search";
+
+// LocationRequestView
+"title_requestLocation" = "Allow Your Location";
+"requestLocation_description" = "We need your location to show you the weather of your location.";
+"button_allowLocation" = "Allow Location";
+
+// ExploreView
+"title_capitalLocation" = "CAPITAL LOCATION";
+"title_aboutTheCountry" = "ABOUT THE COUNTRY";
+"title_otherDetails" = "OTHER DETAILS";
+"otherDetails_region" = "Region";
+"otherDetails_capitals" = "Capitals";
+"otherDetails_population" = "Population";
+"otherDetails_languages" = "Languages";
+"otherDetails_currency" = "Currency";
+"otherDetails_demonym" = "Demonym";
+"otherDetails_driving_side" = "Driving Side";
+"otherDetails_start_of_week" = "Start Of Week";
+"otherDetails_independent" = "Independent";
+"otherDetails_id" = "Country Id";
+"otherDetails_timezones" = "Time Zones";
+
+// SplashView
+"title_splash" = "ATLAS WEATHER";
+
+// FavoritesPage
+"title_noFavorites" = "No Favorite Location Added Or Not Connected To The Internet";
+"title_favorites" = "Favorites";
+
+// SearchView
+"title_search" = "Search";
+"prompt_search" = "Search for a city or airport";
+
+// HeroWeather
+"title_heroLocation" = "Current Location";
+"tempMax" = "H";
+"tempMin" = "L";
+
+//ExploreCardView
+"title_explore" = "EXPLORE";
+
+// HourlyView
+"title_hourlyForecast" = "HOURLY FORECAST";
+"Now" = "Now";
+"Sunrise" = "Sunrise";
+"Sunset" = "Sunset";
+"title_feelsLike" = "FEELS LIKE";
+
+// DailyView
+"Today" = "Today";
+"title_10dayForecast" = "10-DAY FORECAST";
+
+// SunTrackView
+"title_sunrise" = "SUNRISE";
+"title_sunset" = "SUNSET";
+"sunset_will_be_at" = "Sunset will be at %@";
+"sunrise_will_be_at" = "Sunrise will be at %@";
+
+// FeelsLikeView
+"feels_like_similar" = "Feels similar to the actual temperature.";
+"feels_like_warmer" = "Feels %d° warmer.";
+"feels_like_colder" = "Feels %d° colder.";
+"title_feelsLike" = "FEELS LIKE";
+
+// HumidityView
+"title_humidity" = "HUMIDITY";
+"humidity_description" = "The dew point is %.1f°C right now.";
+
+// VisibilityView
+"title_visibility" = "VISIBILITY";
+"visibility_perfect" = "It's perfectly clear right now.";
+"visibility_good" = "Visibility is good.";
+"visibility_haze" = "Haze is affecting visibility.";
+"visibility_fog" = "Fog is affecting visibility.";
+"visibility_varies" = "Conditions vary.";
+
+// RainFallView
+"title_rainfall" = "RAINFALL";
+"rainfall_last_hour" = "in last 1h";
+"rainfall_description" = "%d mm expected tomorrow.";
+
+// PressureView
+"title_pressure" = "PRESSURE";
+
+// SnowFallView
+"title_snowfall" = "SNOWFALL";
+"snowfall_last_hour" = "in last 1h";
+"snowfall_description" = "%d mm expected tomorrow.";
+
+// WindView
+"title_wind" = "WIND";
+"wind_speed" = "Speed";
+"wind_direction" = "Direction";
+"wind_gust" = "Gust";
+
+// MapView
+"title_map" = "MAP";
+
+// NoResultForSearchView
+"title_noResult" = "No Results";
+"noResult_description" = "No result for '%@'";
+
+// DeniedPermissionView
+"title_locationPermission" = "Location Permit Required";
+"locationPermission_description" = "In order to automatically see the weather of your location, you need to give location permission from Settings.";
+"button_goToSettings" = "Go to Settings";
+
+// ErrorView
+"title_error" = "Something went wrong";
+"error_description" = "The internet connection appears to be offline.";
