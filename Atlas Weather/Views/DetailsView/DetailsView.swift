@@ -25,8 +25,10 @@ struct DetailsView: View {
     @Binding var path: NavigationPath
     @StateObject private var viewModel: DetailsViewModel
     @EnvironmentObject var userLocationManager: UserLocationManager
-    @State private var isSheetShown = false
+    @State private var isSheetOn = false
+    @State private var isSettingsSheetOn = false
     @State private var opacity = 0.0
+    @AppStorage("selected_unit") private var selectedUnit: Unit = .metric
     
     var body: some View {
         NavigationStack(path: $path) {
@@ -59,10 +61,10 @@ struct DetailsView: View {
                         
                         if let country = viewModel.country {
                             Button {
-                                isSheetShown = true
+                                isSheetOn = true
                             } label: {
                                 ExploreCardView(country: country)
-                                    .sheet(isPresented: $isSheetShown) {
+                                    .sheet(isPresented: $isSheetOn) {
                                         ExploreView(country: country)
                                     }
                             }
@@ -70,34 +72,30 @@ struct DetailsView: View {
                         
                         HourlyView(weather: hourly, current: current)
                             .aspectRatio(2.1, contentMode: .fill)
+                        
                         DailyView(weather: daily, current: current)
                             .aspectRatio(2.1, contentMode: .fill)
                         
-                        
                         HStack {
                             SunTrackView(sunrise: current?.sys?.sunrise, sunset: current?.sys?.sunset, timezone: current?.timezone, dt: current?.dt)
-                            
                             FeelsLikeView(feelsLike: current?.main?.feelsLike, temp: current?.main?.temp)
                         }
                         .aspectRatio(2.0, contentMode: .fill)
                         
                         HStack {
                             HumidityView(humidity: current?.main?.humidity, currentTemp: current?.main?.temp)
-                            
                             VisibilityView(visibility: current?.visibility)
                         }
                         .aspectRatio(2.0, contentMode: .fill)
                         
                         HStack {
                             RainfallView(rainfall: current?.rain?.last1H, rainfallTomorrow: daily?.list?[1].rain)
-                            
                             PressureView(pressure: current?.main?.pressure)
                         }
                         .aspectRatio(2.0, contentMode: .fill)
                         
                         HStack {
                             SnowfallView(snowfall: current?.snow?.last1H, snowfallTomorrow: daily?.list?[1].snow)
-                            
                             WindView(speed: current?.wind?.speed, deg: current?.wind?.deg, gust: current?.wind?.gust)
                         }
                         .aspectRatio(2.0, contentMode: .fill)

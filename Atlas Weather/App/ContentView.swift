@@ -57,6 +57,9 @@ struct AppTabView: View {
                 Tab("tab_favorites", systemImage: "star", value: TabKey.favorites) {
                     FavoritesView()
                 }
+                Tab("tab_settings", systemImage: "gear", value: TabKey.settings) {
+                    SettingsView()
+                }
                 Tab(value: TabKey.search, role: .search) {
                     SearchView()
                 }
@@ -78,6 +81,12 @@ struct AppTabView: View {
                     }
                     .tag(TabKey.favorites)
                 
+                SettingsView()
+                    .tabItem {
+                        Label("tab_settings", systemImage: "gear")
+                    }
+                    .tag(TabKey.settings)
+                
                 SearchView()
                     .tabItem {
                         Label("tab_search", systemImage: "magnifyingglass")
@@ -89,9 +98,11 @@ struct AppTabView: View {
 }
 
 fileprivate enum TabKey: Hashable {
-    case location, favorites, search
+    case location, favorites, settings, search
 }
 
 #Preview {
-    ContentView()
+    let userLocationManager = UserLocationManager.shared
+    return ContentView()
+        .environmentObject(userLocationManager)
 }

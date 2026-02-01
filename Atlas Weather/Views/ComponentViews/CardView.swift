@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CardView: View {
     let weather: CurrentWeatherModel?
+    @AppStorage("selected_timeFormat") private var selectedtimeFormat: TimeFormat = .twentyFourHour
     
     var body: some View {
         
@@ -59,9 +60,15 @@ struct CardView: View {
                     Text(name)
                         .font(.system(size: 25, weight: .bold))
                     
-                    Text(dt.toFormattedDate(offset: timezone))
-                        .font(.system(size: 15, weight: .medium))
+                    if (selectedtimeFormat.rawValue == "12h") {
+                        Text(dt.toFormattedDate("h:mm a", offset: timezone))
+                            .font(.system(size: 15, weight: .medium))
+                    } else {
+                        Text(dt.toFormattedDate("H:mm", offset: timezone))
+                            .font(.system(size: 15, weight: .medium))
+                    }
                 }
+                
                 Spacer()
                 Text("\(Int(temp))°")
                     .font(.system(size: 53, weight: .light))

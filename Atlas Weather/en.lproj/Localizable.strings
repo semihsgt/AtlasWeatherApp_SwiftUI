@@ -10,6 +10,7 @@
 "tab_myLocation" = "My Location";
 "tab_favorites" = "Favorites";
 "tab_search" = "Search";
+"tab_settings" = "Settings";
 
 // LocationRequestView
 "title_requestLocation" = "Allow Your Location";
@@ -88,7 +89,7 @@
 
 // RainFallView
 "title_rainfall" = "RAINFALL";
-"rainfall_last_hour" = "in last 1h";
+"rainfall_lastHour" = "in last 1h";
 "rainfall_description" = "%d mm expected tomorrow.";
 
 // PressureView
@@ -96,7 +97,7 @@
 
 // SnowFallView
 "title_snowfall" = "SNOWFALL";
-"snowfall_last_hour" = "in last 1h";
+"snowfall_lastHour" = "in last 1h";
 "snowfall_description" = "%d mm expected tomorrow.";
 
 // WindView
@@ -120,3 +121,21 @@
 // ErrorView
 "title_error" = "Something went wrong";
 "error_description" = "The internet connection appears to be offline.";
+
+// SettingsView
+"title_settings" = "Settings";
+
+"title_unitSystem" = "Unit System";
+"description_unitSystem" = "Choose a unit system for weather data: \n• Standard: Kelvin and m/sec \n• Metric: Celsius and m/sec \n• Imperial: Fahrenheit and mph \n ";
+"unit_standard" = "Standard";
+"unit_metric" = "Metric";
+"unit_imperial" = "Imperial";
+
+"title_timeFormat" = "Time Format";
+"description_timeFormat" = "Choose between 12-hour (AM/PM) and 24-hour clock formats for hourly forecasts and daily details. \n ";
+
+"time_format_12" = "12-Hour";
+"time_format_24" = "24-Hour";
+
+"title_appSettings" = "App Permissions and Language";
+"appSettings_button" = "Go to Settings";

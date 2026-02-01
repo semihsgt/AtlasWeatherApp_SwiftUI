@@ -12,6 +12,7 @@ struct SearchView: View {
     @State private var navigationPath = NavigationPath()
     @StateObject private var viewModel = SearchViewModel()
     @Namespace private var namespace
+    @AppStorage("selected_unit") private var selectedUnit: Unit = .metric
     
     var body: some View {
         NavigationStack(path: $navigationPath) {
@@ -79,10 +80,8 @@ struct SearchView: View {
         .onChange(of: viewModel.searchText) { _ in
             viewModel.searchCity()
         }
-        .task {
-            if viewModel.cities.isEmpty {
-                await viewModel.getAllCitiesWeather()
-            }
+        .task(id: selectedUnit) {
+            await viewModel.getAllCitiesWeather()
         }
     }
 }

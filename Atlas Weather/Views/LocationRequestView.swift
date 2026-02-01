@@ -28,7 +28,7 @@ struct LocationRequestView: View {
                 Text("requestLocation_description")
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
-                    .frame(width: 300, height: 50)
+                    .frame(width: 370)
                     .padding(.horizontal)
             }
             
@@ -41,15 +41,15 @@ struct LocationRequestView: View {
                     .padding()
                     .font(.headline)
                     .foregroundStyle(.white)
-                    .frame(width: UIScreen.main.bounds.width)
+                    .frame(maxWidth: .infinity)
                     .padding(.horizontal, -32)
                     .background(SkyGradients.dayGradient)
                     .clipShape(Capsule())
                 
             }
-            .padding(.vertical)
+            .padding(.horizontal, 20)
+            .padding(.bottom, 10)
             
-            Spacer()
         }
     }
 }

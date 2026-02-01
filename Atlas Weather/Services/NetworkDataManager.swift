@@ -63,7 +63,9 @@ final class NetworkDataManager {
         return url
     }
     
-    func fetchWeather<T: Decodable>(lat: Double? = nil, lon: Double? = nil, id: Int? = nil, units: String = "metric", cnt: Int? = nil, endpoint: String) async throws -> T? {
+    func fetchWeather<T: Decodable>(lat: Double? = nil, lon: Double? = nil, id: Int? = nil, cnt: Int? = nil, endpoint: String) async throws -> T? {
+        
+        let selectedUnit = UserDefaults.standard.string(forKey: "selected_unit") ?? "metric"
         
         guard (lat != nil && lon != nil) || id != nil else {
             return nil
@@ -71,7 +73,7 @@ final class NetworkDataManager {
         
         var queryItems = [
             URLQueryItem(name: "appid", value: Secrets.apiKey),
-            URLQueryItem(name: "units", value: units),
+            URLQueryItem(name: "units", value: selectedUnit),
             URLQueryItem(name: "lang", value: languageManager.currentLanguage)
         ]
         if let id = id {

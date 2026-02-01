@@ -12,6 +12,7 @@ struct FavoritesView: View {
     @State private var navigationPath = NavigationPath()
     @ObservedObject private var viewModel = FavoritesViewModel.shared
     @Namespace private var namespace
+    @AppStorage("selected_unit") private var selectedUnit: Unit = .metric
     
     var body: some View {
         NavigationStack(path: $navigationPath) {
@@ -46,6 +47,9 @@ struct FavoritesView: View {
                 }
             }
             .navigationTitle("title_favorites")
+        }
+        .task(id: selectedUnit) {
+            await viewModel.getFavoritesWeather()
         }
     }
 }

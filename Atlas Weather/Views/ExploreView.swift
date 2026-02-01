@@ -58,13 +58,6 @@ struct ExploreView: View {
                 ScrollView {
                     VStack {
                         
-                        Text("\(country.name.capitalized) \(country.flag)")
-                            .font(.largeTitle)
-                            .padding(.vertical, 25)
-                            .padding(.horizontal)
-                            .padding(.top)
-                        
-                        
                         NavigationLink {
                             MapSheetView(lat: country.capitalLocation.latitude, lon: country.capitalLocation.longitude)
                         } label: {
@@ -170,9 +163,9 @@ struct ExploreView: View {
                     .foregroundStyle(.white)
                 }
             }
-            .navigationTitle("\(country.name)")
-            .toolbar(.hidden, for: .navigationBar)
+            .navigationTitle("\(country.name.capitalized) \(country.flag)")
         }
+        .preferredColorScheme(.dark)
         .opacity(opacity)
         .onAppear {
             withAnimation(.easeIn(duration: 0.37)) {

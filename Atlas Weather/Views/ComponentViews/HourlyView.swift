@@ -10,6 +10,7 @@ import SwiftUI
 struct HourlyView: View {
     let weather: HourlyForecastModel?
     let current: CurrentWeatherModel?
+    @AppStorage("selected_timeFormat") private var selectedtimeFormat: TimeFormat = .twentyFourHour
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -67,8 +68,13 @@ struct HourlyView: View {
                                 case .weather(let hour):
                                     
                                     if let dt = hour.dt {
-                                        Text(dt.toFormattedDate("HH", offset: timezone))
-                                            .font(.system(size: 15))
+                                        if (selectedtimeFormat.rawValue == "12h") {
+                                            Text(dt.toFormattedDate("h", offset: timezone))
+                                                .font(.system(size: 15))
+                                        } else {
+                                            Text(dt.toFormattedDate("H", offset: timezone))
+                                                .font(.system(size: 15))
+                                        }
                                     } else {
                                         ColorManager.placeholderCapsule(width: 40, height: 15)
                                     }
@@ -97,8 +103,13 @@ struct HourlyView: View {
                                 case .sunrise(let time):
                                     
                                     VStack(spacing: 4) {
-                                        Text(time.toFormattedDate(offset: timezone))
-                                            .font(.system(size: 15))
+                                        if (selectedtimeFormat.rawValue == "12h") {
+                                            Text(time.toFormattedDate("h:mm", offset: timezone))
+                                                .font(.system(size: 15))
+                                        } else {
+                                            Text(time.toFormattedDate("H:mm", offset: timezone))
+                                                .font(.system(size: 15))
+                                        }
                                         Image(systemName: "sunrise.fill")
                                             .symbolRenderingMode(.multicolor)
                                             .resizable()
@@ -113,8 +124,14 @@ struct HourlyView: View {
                                 case .sunset(let time):
                                     
                                     VStack(spacing: 4) {
-                                        Text(time.toFormattedDate(offset: timezone))
-                                            .font(.system(size: 15))
+                                        if (selectedtimeFormat.rawValue == "12h") {
+                                            Text(time.toFormattedDate("h:mm", offset: timezone))
+                                                .font(.system(size: 15))
+                                        } else {
+                                            Text(time.toFormattedDate("H:mm", offset: timezone))
+                                                .font(.system(size: 15))
+                                        }
+                                        
                                         Image(systemName: "sunset.fill")
                                             .symbolRenderingMode(.multicolor)
                                             .resizable()
@@ -138,11 +155,10 @@ struct HourlyView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     
                     HStack {
-                        Image(systemName: "thermometer.medium")
-                            .font(.system(size: 15))
-                        Text("title_feelsLike")
-                            .font(.system(size: 15))
+                        Image(systemName: "clock")
+                        Text("title_hourlyForecast")
                     }
+                    .font(.system(size: 13))
                     .foregroundStyle(.white)
                     .opacity(0.5)
                     Divider()

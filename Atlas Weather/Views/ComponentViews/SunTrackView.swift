@@ -12,6 +12,7 @@ struct SunTrackView: View {
     let sunset: Int?
     let timezone: Int?
     let dt: Int?
+    @AppStorage("selected_timeFormat") private var selectedTimeFormat: TimeFormat = .twentyFourHour
     
     var isSunriseMode: Bool {
         guard let dt, let sunrise, let sunset else { return false }
@@ -42,19 +43,37 @@ struct SunTrackView: View {
                 
                 let displayTime = isSunriseMode ? sunrise : sunset
                 
-                Text(displayTime.toFormattedDate(offset: timezone))
-                    .font(.system(size: 35))
+                if (selectedTimeFormat.rawValue == "12h") {
+                    Text(displayTime.toFormattedDate("h:mm a", offset: timezone))
+                        .font(.system(size: 35))
+                } else {
+                    Text(displayTime.toFormattedDate(offset: timezone))
+                        .font(.system(size: 35))
+                }
+                
                 
                 Spacer()
                 
                 if isSunriseMode {
-                    Text("sunset_will_be_at".localized(with: sunset.toFormattedDate(offset: timezone)))
-                        .font(.system(size: 14))
-                        .multilineTextAlignment(.leading)
+                    if (selectedTimeFormat.rawValue == "12h") {
+                        Text("sunset_will_be_at".localized(with: sunset.toFormattedDate("h:mm a", offset: timezone)))
+                            .font(.system(size: 14))
+                            .multilineTextAlignment(.leading)
+                    } else {
+                        Text("sunset_will_be_at".localized(with: sunset.toFormattedDate(offset: timezone)))
+                            .font(.system(size: 14))
+                            .multilineTextAlignment(.leading)
+                    }
                 } else {
-                    Text("sunrise_will_be_at".localized(with: sunrise.toFormattedDate(offset: timezone)))
-                        .font(.system(size: 14))
-                        .multilineTextAlignment(.leading)
+                    if (selectedTimeFormat.rawValue == "12h") {
+                        Text("sunrise_will_be_at".localized(with: sunrise.toFormattedDate("h:mm a", offset: timezone)))
+                            .font(.system(size: 14))
+                            .multilineTextAlignment(.leading)
+                    } else {
+                        Text("sunrise_will_be_at".localized(with: sunrise.toFormattedDate(offset: timezone)))
+                            .font(.system(size: 14))
+                            .multilineTextAlignment(.leading)
+                    }
                     // Since our API plan doesn't provide next-day sunrise/sunset data, I'll display the current day's sunrise as a placeholder for tomorrow's when the current time (dt) exceeds sunset.
                 }
                 

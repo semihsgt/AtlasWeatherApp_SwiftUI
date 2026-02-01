@@ -10,11 +10,12 @@
 "tab_myLocation" = "Konumum";
 "tab_favorites" = "Favoriler";
 "tab_search" = "Ara";
+"tab_settings" = "Ayarlar";
 
 // LocationRequestView
 "title_requestLocation" = "Konumuna İzin Ver";
 "requestLocation_description" = "Bulunduğun yerin hava durumunu gösterebilmemiz için konumuna ihtiyacımız var.";
-"button_allowLocation" = "Konuma İzin Ver";
+"button_allowLocation" = "Konum İzni Ver";
 
 // ExploreView
 "title_capitalLocation" = "BAŞKENT KONUMU";
@@ -120,3 +121,21 @@
 // ErrorView
 "title_error" = "Bir şeyler ters gitti";
 "error_description" = "İnternet bağlantısı yok gibi görünüyor.";
+
+// SettingsView
+"title_settings" = "Ayarlar";
+
+"title_unitSystem" = "Birim Sistemi";
+"description_unitSystem" = "Hava durumu verileri için bir sistem seçin: \n• Standart: Kelvin ve m/sn \n• Metrik: Celsius ve m/sn \n• İngiliz: Fahrenheit ve mil/saat \n ";
+"unit_standard" = "Standart";
+"unit_metric" = "Metrik";
+"unit_imperial" = "İngiliz";
+
+"title_timeFormat" = "Saat Biçimi";
+"description_timeFormat" = "Saatlik tahminler ve günlük detaylar için 12 saatlik (ÖÖ/ÖS) veya 24 saatlik biçimi seçin. \n ";
+
+"time_format_12" = "12 Saat";
+"time_format_24" = "24 Saat";
+
+"title_appSettings" = "Uygulama İzinleri ve Dil";
+"appSettings_button" = "Ayarlara Git";

@@ -33,6 +33,8 @@ final class DetailsViewModel: ObservableObject {
     private var favoritesViewModel = FavoritesViewModel.shared
     private var localDataManager = LocalDataManager.shared
     private var lastCache : WeatherCache?
+    @AppStorage("selected_unit") private var selectedUnit: Unit = .metric
+    private var lastFetchedUnit: Unit?
     
     func getAllWeathers() async {
         
@@ -40,8 +42,8 @@ final class DetailsViewModel: ObservableObject {
             let isLocationSame = abs(cache.lat - currentLat) < 0.01 && abs(cache.lon - currentLon) < 0.01
             let timeDiff = Date().timeIntervalSince(cache.timestamp)
             
-            if isLocationSame && timeDiff < 600 {
-                debugPrint("CACHE IS IN USE: DID NOT CALL THE API. (Call age: \(Int(timeDiff)) sec)")
+            if isLocationSame && timeDiff < 600 && lastFetchedUnit == selectedUnit {
+                debugPrint("CACHE IS IN USE: DID NOT CALL THE API (Call age: \(Int(timeDiff)) sec)")
                 
                 self.current = cache.current
                 self.hourly = cache.hourly
@@ -76,6 +78,8 @@ final class DetailsViewModel: ObservableObject {
             self.isCountryAvaliable = getCountry()
             
             if let safeLat = lat, let safeLon = lon {
+                
+                self.lastFetchedUnit = selectedUnit
                 self.lastCache = WeatherCache(
                     current: currentData,
                     hourly: hourlyData,
@@ -96,7 +100,6 @@ final class DetailsViewModel: ObservableObject {
             status = .error(error)
         }
     }
-    
     
     private func getCountry() -> Bool? {
         return countries?.contains { country in

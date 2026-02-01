@@ -24,7 +24,6 @@ final class FavoritesViewModel: ObservableObject {
     @Published var savedLocations: [SavedFavorite] = []
     @Published var favoritesWeatherData: [CurrentWeatherModel] = []
     
-    
     private func loadFavorites() {
         if let data = UserDefaults.standard.data(forKey: saveKey),
            let decoded = try? JSONDecoder().decode([SavedFavorite].self, from: data) {

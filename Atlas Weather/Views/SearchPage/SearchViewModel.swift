@@ -7,6 +7,7 @@
 
 import Foundation
 internal import Combine
+import SwiftUI
 
 @MainActor
 final class SearchViewModel: ObservableObject {
@@ -18,7 +19,6 @@ final class SearchViewModel: ObservableObject {
     
     private var searchTask: Task<Void, Never>?
     private var networkDataManager = NetworkDataManager.shared
-    
     
     func getAllCitiesWeather() async {
         do {

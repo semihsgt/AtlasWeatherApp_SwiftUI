@@ -11,6 +11,7 @@ struct WindView: View {
     let speed: Double?
     let deg: Int?
     let gust: Double?
+    @AppStorage("selected_unit") private var selectedUnit: Unit = .metric
     
     var body: some View {
         Group {
@@ -36,7 +37,11 @@ struct WindView: View {
                         Text("wind_speed")
                         Spacer()
                         if let speed = speed {
-                            Text("\(String(format: "%.1f", speed)) m/s")
+                            if (selectedUnit == .imperial) {
+                                Text("\(String(format: "%.1f", speed)) mph")
+                            } else {
+                                Text("\(String(format: "%.1f", speed)) m/s")
+                            }
                         } else {
                             Text("--")
                         }
@@ -69,7 +74,11 @@ struct WindView: View {
                         Text("wind_gust")
                         Spacer()
                         if let gust = gust {
-                            Text("\(String(format: "%.1f", gust)) m/s")
+                            if (selectedUnit == .imperial) {
+                                Text("\(String(format: "%.1f", gust)) mph")
+                            } else {
+                                Text("\(String(format: "%.1f", gust)) m/s")
+                            }
                         } else {
                             Text("--")
                         }

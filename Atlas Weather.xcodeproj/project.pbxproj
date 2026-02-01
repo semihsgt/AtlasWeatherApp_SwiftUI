@@ -59,6 +59,7 @@
 		37882F092EEF342100434793 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37882F082EEF33FF00434793 /* Secrets.swift */; };
 		37882F0B2EEF359F00434793 /* Secrets_example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37882F0A2EEF359200434793 /* Secrets_example.swift */; };
 		3790A51F2EF8351400A91F62 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3790A51E2EF8351400A91F62 /* ErrorView.swift */; };
+		37B41D6F2F2F882900A20A6A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B41D6E2F2F882900A20A6A /* SettingsView.swift */; };
 		37C95FD02EFAECA700356D3F /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C95FCF2EFAECA700356D3F /* ExploreView.swift */; };
 		37FC81152EEDA9350078BAC5 /* HourlyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FC81142EEDA9350078BAC5 /* HourlyView.swift */; };
 		37FC811C2EEDDC110078BAC5 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FC811B2EEDDC110078BAC5 /* ColorManager.swift */; };
@@ -121,6 +122,7 @@
 		37882F082EEF33FF00434793 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		37882F0A2EEF359200434793 /* Secrets_example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets_example.swift; sourceTree = "<group>"; };
 		3790A51E2EF8351400A91F62 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		37B41D6E2F2F882900A20A6A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		37C363962EE8522D0088D0D0 /* Atlas Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Atlas Weather.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		37C95FCF2EFAECA700356D3F /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
 		37FC81142EEDA9350078BAC5 /* HourlyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyView.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 		374650EB2EEB6400004474D3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				37B41D6D2F2F881000A20A6A /* SettingsPage */,
 				377CEFD62EFC179E00AD47A0 /* MyLocationPage */,
 				377CEFC82EFC128E00AD47A0 /* FavoritesPage */,
 				377CEFC32EFC128A00AD47A0 /* SearchPage */,
@@ -296,6 +299,14 @@
 				377CEFD52EFC179E00AD47A0 /* MyLocationView.swift */,
 			);
 			path = MyLocationPage;
+			sourceTree = "<group>";
+		};
+		37B41D6D2F2F881000A20A6A /* SettingsPage */ = {
+			isa = PBXGroup;
+			children = (
+				37B41D6E2F2F882900A20A6A /* SettingsView.swift */,
+			);
+			path = SettingsPage;
 			sourceTree = "<group>";
 		};
 		37C3638D2EE8522D0088D0D0 = {
@@ -411,6 +422,7 @@
 				374651562EEC90A4004474D3 /* HourlyForecastModel.swift in Sources */,
 				372D88EE2EF870BE00172683 /* SunTrackView.swift in Sources */,
 				3725EE192EF6DE2A00B903B7 /* LocationManager.swift in Sources */,
+				37B41D6F2F2F882900A20A6A /* SettingsView.swift in Sources */,
 				375EC5632EFDA709005182E9 /* MapSheetView.swift in Sources */,
 				37FC81152EEDA9350078BAC5 /* HourlyView.swift in Sources */,
 				374650EF2EEB6400004474D3 /* CountryModel.swift in Sources */,
