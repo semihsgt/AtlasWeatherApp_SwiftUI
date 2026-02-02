@@ -26,7 +26,8 @@ final class DetailsViewModel: ObservableObject {
     
     private var countries: [CountryModel]?
     var country: CountryModel?
-    var isCountryAvaliable: Bool?
+    var countriesUnsplash: [CountryUnsplashModel]?
+    var countryUnsplash: CountryUnsplashModel?
     
     @Published private(set) var status: LoadingState = .idle
     private var networkDataManager = NetworkDataManager.shared
@@ -35,6 +36,8 @@ final class DetailsViewModel: ObservableObject {
     private var lastCache : WeatherCache?
     @AppStorage("selected_unit") private var selectedUnit: Unit = .metric
     private var lastFetchedUnit: Unit?
+    
+    
     
     func getAllWeathers() async {
         
@@ -49,7 +52,6 @@ final class DetailsViewModel: ObservableObject {
                 self.hourly = cache.hourly
                 self.daily = cache.daily
                 self.country = cache.country
-                self.isCountryAvaliable = cache.isCountryAvailable
                 
                 self.status = .success
                 return
@@ -61,21 +63,24 @@ final class DetailsViewModel: ObservableObject {
         self.daily = nil
         self.countries = nil
         self.country = nil
-        
+        self.countriesUnsplash = nil
         status = .loading
+        
         do {
             async let currentFetch: CurrentWeatherModel? = networkDataManager.fetchWeather(lat: lat, lon: lon, endpoint: "weather")
             async let hourlyFetch: HourlyForecastModel? = networkDataManager.fetchWeather(lat: lat, lon: lon, cnt: 24, endpoint: "forecast/hourly")
             async let dailyFetch: DailyForecastModel? = networkDataManager.fetchWeather(lat: lat, lon: lon, cnt: 10, endpoint: "forecast/daily")
             async let countriesFetch: [CountryModel]? = localDataManager.loadCountries()
+            async let countriesUnsplashFetch: [CountryUnsplashModel]? = localDataManager.loadCountriesForUnsplashSearch()
             
-            let (currentData, hourlyData, dailyData, countriesData) = try await (currentFetch, hourlyFetch, dailyFetch, countriesFetch)
+            let (currentData, hourlyData, dailyData, countriesData, countriesUnsplash) = try await (currentFetch, hourlyFetch, dailyFetch, countriesFetch, countriesUnsplashFetch)
             
             self.current = currentData
             self.hourly = hourlyData
             self.daily = dailyData
             self.countries = countriesData
-            self.isCountryAvaliable = getCountry()
+            self.countriesUnsplash = countriesUnsplash
+            getCountry()
             
             if let safeLat = lat, let safeLon = lon {
                 
@@ -85,7 +90,6 @@ final class DetailsViewModel: ObservableObject {
                     hourly: hourlyData,
                     daily: dailyData,
                     country: self.country,
-                    isCountryAvailable: self.isCountryAvaliable,
                     timestamp: Date(),
                     lat: safeLat,
                     lon: safeLon
@@ -101,15 +105,9 @@ final class DetailsViewModel: ObservableObject {
         }
     }
     
-    private func getCountry() -> Bool? {
-        return countries?.contains { country in
-            if country.id == current?.sys?.country {
-                self.country = country
-                return true
-            } else {
-                return false
-            }
-        }
+    private func getCountry() {
+        self.country = countries?.first(where: { $0.id == current?.sys?.country })
+        self.countryUnsplash = countriesUnsplash?.first(where: { $0.id == current?.sys?.country })
     }
     
     

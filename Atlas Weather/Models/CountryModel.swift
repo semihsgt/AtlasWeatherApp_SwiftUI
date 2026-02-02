@@ -69,3 +69,9 @@ extension CountryModel {
         let longitude: Double
     }
 }
+
+
+struct CountryUnsplashModel: Decodable, Identifiable {
+    let id: String?
+    let name: String?
+}

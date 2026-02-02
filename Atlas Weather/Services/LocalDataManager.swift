@@ -15,7 +15,8 @@ final class LocalDataManager {
     static let shared = LocalDataManager()
     var languageManager = LanguageManager.shared
     
-    func loadCountries() async -> [CountryModel] {
+    
+    func loadCountries() async -> [CountryModel]? {
         let url: URL
         
         if languageManager.currentLanguage == "tr" {
@@ -40,4 +41,27 @@ final class LocalDataManager {
             return []
         }
     }
+    
+    
+    func loadCountriesForUnsplashSearch() async -> [CountryUnsplashModel]? {
+        let url: URL
+        
+        guard let enURL = Bundle.main.url(forResource: "Countries_EN", withExtension: "json") else {
+            debugPrint("File Not Found")
+            return []
+        }
+        url = enURL
+        
+        do {
+            let data = try Data(contentsOf: url)
+            return try JSONDecoder().decode([CountryUnsplashModel].self, from: data)
+        } catch {
+            debugPrint(error.localizedDescription)
+            return []
+        }
+    }
+    
+    
 }
+
+

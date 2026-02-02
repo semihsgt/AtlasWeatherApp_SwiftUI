@@ -60,6 +60,8 @@
 		37882F0B2EEF359F00434793 /* Secrets_example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37882F0A2EEF359200434793 /* Secrets_example.swift */; };
 		3790A51F2EF8351400A91F62 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3790A51E2EF8351400A91F62 /* ErrorView.swift */; };
 		37B41D6F2F2F882900A20A6A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B41D6E2F2F882900A20A6A /* SettingsView.swift */; };
+		37B41D732F3000E100A20A6A /* UnsplashModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B41D722F3000E100A20A6A /* UnsplashModel.swift */; };
+		37B41D762F30024500A20A6A /* ExploreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B41D752F30024500A20A6A /* ExploreViewModel.swift */; };
 		37C95FD02EFAECA700356D3F /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C95FCF2EFAECA700356D3F /* ExploreView.swift */; };
 		37FC81152EEDA9350078BAC5 /* HourlyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FC81142EEDA9350078BAC5 /* HourlyView.swift */; };
 		37FC811C2EEDDC110078BAC5 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FC811B2EEDDC110078BAC5 /* ColorManager.swift */; };
@@ -123,6 +125,8 @@
 		37882F0A2EEF359200434793 /* Secrets_example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets_example.swift; sourceTree = "<group>"; };
 		3790A51E2EF8351400A91F62 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		37B41D6E2F2F882900A20A6A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		37B41D722F3000E100A20A6A /* UnsplashModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashModel.swift; sourceTree = "<group>"; };
+		37B41D752F30024500A20A6A /* ExploreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewModel.swift; sourceTree = "<group>"; };
 		37C363962EE8522D0088D0D0 /* Atlas Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Atlas Weather.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		37C95FCF2EFAECA700356D3F /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
 		37FC81142EEDA9350078BAC5 /* HourlyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyView.swift; sourceTree = "<group>"; };
@@ -173,6 +177,7 @@
 				374650DC2EEB6400004474D3 /* ErrorModels.swift */,
 				3748BB382EED789B003F71F6 /* UtilityModels.swift */,
 				377CEFD82EFC227100AD47A0 /* WeatherCache.swift */,
+				37B41D722F3000E100A20A6A /* UnsplashModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -234,6 +239,7 @@
 		374650EB2EEB6400004474D3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				37B41D742F30022F00A20A6A /* ExplorePage */,
 				37B41D6D2F2F881000A20A6A /* SettingsPage */,
 				377CEFD62EFC179E00AD47A0 /* MyLocationPage */,
 				377CEFC82EFC128E00AD47A0 /* FavoritesPage */,
@@ -241,7 +247,6 @@
 				377CEFCD2EFC129100AD47A0 /* DetailsView */,
 				374650E62EEB6400004474D3 /* ComponentViews */,
 				3725EE1A2EF6EFFF00B903B7 /* LocationRequestView.swift */,
-				37C95FCF2EFAECA700356D3F /* ExploreView.swift */,
 				377CEFBC2EFC104900AD47A0 /* SplashView.swift */,
 				375EC5622EFDA709005182E9 /* MapSheetView.swift */,
 			);
@@ -307,6 +312,15 @@
 				37B41D6E2F2F882900A20A6A /* SettingsView.swift */,
 			);
 			path = SettingsPage;
+			sourceTree = "<group>";
+		};
+		37B41D742F30022F00A20A6A /* ExplorePage */ = {
+			isa = PBXGroup;
+			children = (
+				37C95FCF2EFAECA700356D3F /* ExploreView.swift */,
+				37B41D752F30024500A20A6A /* ExploreViewModel.swift */,
+			);
+			path = ExplorePage;
 			sourceTree = "<group>";
 		};
 		37C3638D2EE8522D0088D0D0 = {
@@ -412,8 +426,10 @@
 				377CEFD12EFC14B500AD47A0 /* WeatherIconMapper.swift in Sources */,
 				377CEFD92EFC227100AD47A0 /* WeatherCache.swift in Sources */,
 				377CEFD72EFC179E00AD47A0 /* MyLocationView.swift in Sources */,
+				37B41D732F3000E100A20A6A /* UnsplashModel.swift in Sources */,
 				37FC811C2EEDDC110078BAC5 /* ColorManager.swift in Sources */,
 				374650ED2EEB6400004474D3 /* Atlas_WeatherApp.swift in Sources */,
+				37B41D762F30024500A20A6A /* ExploreViewModel.swift in Sources */,
 				3748BB392EED789B003F71F6 /* UtilityModels.swift in Sources */,
 				3722B9D02EF9ACFB0085A1D3 /* SnowfallView.swift in Sources */,
 				374650EE2EEB6400004474D3 /* ContentView.swift in Sources */,

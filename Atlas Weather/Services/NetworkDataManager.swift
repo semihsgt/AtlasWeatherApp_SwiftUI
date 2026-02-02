@@ -99,4 +99,25 @@ final class NetworkDataManager {
         let url = try buildUrl(path: "geo", version: "1.0", endpoint: "direct", queryItems: queryItems)
         return try await performRequest(url: url)
     }
+    
+    func getCountryPhotos(countryName: String?) async -> [String] {
+                
+        guard let countryName = countryName,
+              let safeName = countryName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+            return []
+        }
+        
+        guard let url = URL(string: "https://api.unsplash.com/search/photos?page=1&per_page=20&query=\(safeName)&orientation=landscape&client_id=\(Secrets.unsplashApiKey)") else {
+            return []
+        }
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let decodedResponse = try JSONDecoder().decode(UnsplashModel.self, from: data)
+            return decodedResponse.results.map { $0.urls.regular }
+        } catch {
+            debugPrint("Unsplash API Error: \(error)")
+            return []
+        }
+    }
 }

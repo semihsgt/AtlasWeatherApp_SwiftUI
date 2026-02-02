@@ -10,17 +10,21 @@ import MapKit
 
 struct ExploreView: View {
     
-    init(country: CountryModel) {
+    init(country: CountryModel, countryUnsplash: CountryUnsplashModel) {
         self.country = country
+        self.countryUnsplash = countryUnsplash
         self.region = MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: country.capitalLocation.latitude, longitude: country.capitalLocation.longitude),
             span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1),
         )
     }
     
+    let countryUnsplash: CountryUnsplashModel
     let country: CountryModel
     @State private var region: MKCoordinateRegion
     @State private var opacity = 0.0
+    @StateObject private var viewModel = ExploreViewModel()
+    
     private var independent: String {
         if (Locale.current.language.languageCode?.identifier == "tr") {
             if (country.independent) {return "Evet"} else {return "Hayır"}
@@ -57,6 +61,73 @@ struct ExploreView: View {
                 
                 ScrollView {
                     VStack {
+                        
+                        if (!viewModel.urls.isEmpty) {
+                            TabView {
+                                ForEach(viewModel.urls, id: \.self) { urlString in
+                                    AsyncImage(url: URL(string: urlString)) { phase in
+                                        switch phase {
+                                            
+                                        case .empty:
+                                            
+                                            ZStack {
+                                                Color.gray.opacity(0.1)
+                                                ProgressView()
+                                            }
+                                            
+                                        case .success(let image):
+                                            
+                                            image
+                                                .resizable()
+                                                .scaledToFill()
+                                                .overlay(content: {
+                                                    LinearGradient(
+                                                        colors: [.black.opacity(0.4), .clear],
+                                                        startPoint: .bottom,
+                                                        endPoint: .center
+                                                    )
+                                                })
+                                            
+                                        case .failure(let error):
+                                            
+                                            ZStack {
+                                                Color.gray.opacity(0.1)
+                                                VStack {
+                                                    Image(systemName: "exclamationmark.triangle")
+                                                        .font(.largeTitle)
+                                                        .foregroundColor(.white)
+                                                    Text("title_error")
+                                                        .font(.headline)
+                                                    Text(error.localizedDescription)
+                                                        .font(.caption)
+                                                        .multilineTextAlignment(.center)
+                                                        .foregroundColor(.secondary)
+                                                }
+                                            }
+                                            
+                                        @unknown default:
+                                            EmptyView()
+                                            
+                                        }
+                                        
+                                    }
+                                }
+                            }
+                            .tabViewStyle(.page)
+                            .frame(height: 250)
+                            .clipShape(RoundedRectangle(cornerRadius: 16))
+                            .padding(.horizontal)
+                            .transition(.opacity)
+                            
+                        } else {
+                            ZStack {
+                                Color.gray.opacity(0.1)
+                                ProgressView()
+                            }
+                            .frame(height: 250)
+                            .clipShape(RoundedRectangle(cornerRadius: 16))
+                            .padding(.horizontal)
+                        }
                         
                         NavigationLink {
                             MapSheetView(lat: country.capitalLocation.latitude, lon: country.capitalLocation.longitude)
@@ -165,6 +236,9 @@ struct ExploreView: View {
             }
             .navigationTitle("\(country.name.capitalized) \(country.flag)")
         }
+        .task{
+            await viewModel.getCountryPhotos(countryName: countryUnsplash.name)
+        }
         .preferredColorScheme(.dark)
         .opacity(opacity)
         .onAppear {
@@ -176,5 +250,6 @@ struct ExploreView: View {
 }
 
 #Preview {
-    ExploreView(country: CountryModel.mockData())
+    let data = CountryUnsplashModel(id: "TR", name: "Turkey")
+    ExploreView(country: CountryModel.mockData(), countryUnsplash: data)
 }

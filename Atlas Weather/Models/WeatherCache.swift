@@ -12,7 +12,6 @@ struct WeatherCache {
     let hourly: HourlyForecastModel?
     let daily: DailyForecastModel?
     let country: CountryModel?
-    let isCountryAvailable: Bool?
     let timestamp: Date
     let lat: Double
     let lon: Double

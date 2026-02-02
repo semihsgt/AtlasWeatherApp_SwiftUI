@@ -59,13 +59,14 @@ struct DetailsView: View {
                     
                     VStack {
                         
-                        if let country = viewModel.country {
+                        if let country = viewModel.country,
+                           let countryUnsplash = viewModel.countryUnsplash {
                             Button {
                                 isSheetOn = true
                             } label: {
                                 ExploreCardView(country: country)
                                     .sheet(isPresented: $isSheetOn) {
-                                        ExploreView(country: country)
+                                        ExploreView(country: country, countryUnsplash: countryUnsplash)
                                     }
                             }
                         }
