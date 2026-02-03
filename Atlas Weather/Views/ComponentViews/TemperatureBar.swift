@@ -13,6 +13,7 @@ struct TemperatureBar: View {
     let globalMin: Double?
     let globalMax: Double?
     let currentTemp: Double?
+    var unit: UnitTemperature = .celsius
     
     var body: some View {
         if let dMin = dayMin, let dMax = dayMax,
@@ -28,8 +29,8 @@ struct TemperatureBar: View {
                 let startPercent = min(max((validDayMin - gMin) / safeRange, 0), 1)
                 let endPercent = min(max((validDayMax - gMin) / safeRange, 0), 1)
                 
-                let startColor = Color.appleWeatherColor(for: validDayMin)
-                let endColor = Color.appleWeatherColor(for: validDayMax)
+                let startColor = Color.appleWeatherColor(for: validDayMin, unit: unit)
+                let endColor = Color.appleWeatherColor(for: validDayMax, unit: unit)
                 
                 ZStack(alignment: .leading) {
                     

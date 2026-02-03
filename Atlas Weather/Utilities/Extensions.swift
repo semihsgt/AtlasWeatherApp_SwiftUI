@@ -35,7 +35,11 @@ extension String {
 }
 
 extension Color {
-    static func appleWeatherColor(for temp: Double) -> Color {
+    static func appleWeatherColor(for temp: Double, unit: UnitTemperature = .celsius) -> Color {
+        
+        let inputMeasurement = Measurement(value: temp, unit: unit)
+        let celsiusTemp = inputMeasurement.converted(to: .celsius).value
+        
         let stops: [(temp: Double, color: Color)] = [
             (-20, .init(red: 0.2, green: 0.0, blue: 0.6)),
             (0,   .init(red: 0.0, green: 0.6, blue: 1.0)),
@@ -46,16 +50,16 @@ extension Color {
             (40,  .init(red: 1.0, green: 0.0, blue: 0.0))
         ]
         
-        if temp <= stops.first!.temp { return stops.first!.color }
-        if temp >= stops.last!.temp { return stops.last!.color }
+        if celsiusTemp <= stops.first!.temp { return stops.first!.color }
+        if celsiusTemp >= stops.last!.temp { return stops.last!.color }
         
         for i in 0..<stops.count - 1 {
             let stop1 = stops[i]
             let stop2 = stops[i+1]
             
-            if temp >= stop1.temp && temp <= stop2.temp {
+            if celsiusTemp >= stop1.temp && celsiusTemp <= stop2.temp {
                 let range = stop2.temp - stop1.temp
-                let progress = (temp - stop1.temp) / range
+                let progress = (celsiusTemp - stop1.temp) / range
                 return mixColors(from: stop1.color, to: stop2.color, percentage: progress)
             }
         }

@@ -10,6 +10,7 @@ import SwiftUI
 struct DailyView: View {
     var weather: DailyForecastModel?
     var current: CurrentWeatherModel?
+    @AppStorage("selected_unit") private var selectedUnit: Unit = .metric
     
     var body: some View {
         
@@ -74,13 +75,33 @@ struct DailyView: View {
                                 .font(.system(size: 15, weight: .medium))
                         }
                         
-                        TemperatureBar(
-                            dayMin: day.temp?.min,
-                            dayMax: day.temp?.max,
-                            globalMin: globalMin,
-                            globalMax: globalMax,
-                            currentTemp: idx == 0 ? current.main?.temp : nil
-                        )
+                        if (selectedUnit == .imperial) {
+                            TemperatureBar(
+                                dayMin: day.temp?.min,
+                                dayMax: day.temp?.max,
+                                globalMin: globalMin,
+                                globalMax: globalMax,
+                                currentTemp: idx == 0 ? current.main?.temp : nil,
+                                unit: .fahrenheit
+                            )
+                        } else if (selectedUnit == .standard) {
+                            TemperatureBar(
+                                dayMin: day.temp?.min,
+                                dayMax: day.temp?.max,
+                                globalMin: globalMin,
+                                globalMax: globalMax,
+                                currentTemp: idx == 0 ? current.main?.temp : nil,
+                                unit: .kelvin
+                            )
+                        } else {
+                            TemperatureBar(
+                                dayMin: day.temp?.min,
+                                dayMax: day.temp?.max,
+                                globalMin: globalMin,
+                                globalMax: globalMax,
+                                currentTemp: idx == 0 ? current.main?.temp : nil
+                            )
+                        }
                         
                         if let tempMin = day.temp?.max {
                             Text("\(Int(tempMin.rounded()))°")
