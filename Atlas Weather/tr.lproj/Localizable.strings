@@ -77,7 +77,7 @@
 
 // HumidityView
 "title_humidity" = "NEM";
-"humidity_description" = "Çiy noktası şu anda %.1f°C.";
+"humidity_description" = "Çiy noktası şu anda %.1f°";
 
 // VisibilityView
 "title_visibility" = "GÖRÜŞ MESAFESİ";

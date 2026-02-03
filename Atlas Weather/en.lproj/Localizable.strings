@@ -77,7 +77,7 @@
 
 // HumidityView
 "title_humidity" = "HUMIDITY";
-"humidity_description" = "The dew point is %.1f°C right now.";
+"humidity_description" = "The dew point is %.1f° right now.";
 
 // VisibilityView
 "title_visibility" = "VISIBILITY";
