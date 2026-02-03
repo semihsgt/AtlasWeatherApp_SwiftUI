@@ -119,7 +119,7 @@ struct HourlyView: View {
                                         Text("Sunrise")
                                             .font(.system(size: 15))
                                     }
-                                    .padding(.horizontal)
+                                    .padding(.horizontal, 8)
                                     
                                 case .sunset(let time):
                                     
@@ -141,7 +141,7 @@ struct HourlyView: View {
                                         Text("Sunset")
                                             .font(.system(size: 15))
                                     }
-                                    .padding(.horizontal)
+                                    .padding(.horizontal, 8)
                                 }
                             }
                             .frame(minWidth: 50)

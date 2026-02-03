@@ -26,7 +26,7 @@ struct DailyView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     HStack {
                         Image(systemName: "calendar")
-                        Text("10-DAY FORECAST")
+                        Text("title_10dayForecast")
                     }
                     .font(.system(size: 13))
                     .foregroundStyle(.white)
@@ -95,7 +95,7 @@ struct DailyView: View {
                         }
                         
                     }
-                    .padding(.vertical, 8)
+                    .padding(.vertical, 10)
                     
                     if idx != days.count - 1 {
                         Divider()
@@ -139,7 +139,7 @@ struct DailyView: View {
                         ColorManager.placeholderCapsule(width: 155, height: 6)
                         ColorManager.placeholderCapsule(width: 30, height: 15)
                     }
-                    .padding(.vertical, 8)
+                    .padding(.vertical, 10)
                     Divider()
                         .background(Color.white)
                         .opacity(0.5)
