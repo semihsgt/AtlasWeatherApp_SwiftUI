@@ -107,6 +107,7 @@ struct DetailsView: View {
                     .padding(.horizontal)
                     .padding(.bottom)
                 }
+                .scrollIndicators(.hidden)
                 .toolbar {
                     if !isMyLocPage {
                         Button {

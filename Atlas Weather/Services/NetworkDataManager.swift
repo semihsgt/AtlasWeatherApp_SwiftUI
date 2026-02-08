@@ -94,7 +94,7 @@ final class NetworkDataManager {
         let queryItems = [
             URLQueryItem(name: "q", value: q),
             URLQueryItem(name: "appid", value: Secrets.apiKey),
-            URLQueryItem(name: "limit", value: "10"),
+            URLQueryItem(name: "limit", value: "5"),
         ]
         let url = try buildUrl(path: "geo", version: "1.0", endpoint: "direct", queryItems: queryItems)
         return try await performRequest(url: url)

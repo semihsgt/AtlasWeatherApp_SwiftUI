@@ -233,6 +233,7 @@ struct ExploreView: View {
                     .presentationDragIndicator(.visible)
                     .foregroundStyle(.white)
                 }
+                .scrollIndicators(.hidden)
             }
             .navigationTitle("\(country.name.capitalized) \(country.flag)")
         }

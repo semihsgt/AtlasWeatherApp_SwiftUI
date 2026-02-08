@@ -39,6 +39,7 @@ struct SearchView: View {
                         }
                         .padding(.bottom)
                     }
+                    .scrollIndicators(.hidden)
                     
                 case .loading:
                     ProgressView()
